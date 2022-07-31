@@ -119,6 +119,36 @@
     line-height: 50px;
 }
 
+#main_body_div_right {
+    padding: 55px 62px;
+    border: solid 2px #E0E0E0;
+    width: 622px;
+    height: 510px;
+}
+
+#main_body_div_right header {
+    font-size: 36px;
+    margin-bottom: 40px;
+}
+
+#registration_form {
+    gap: 20px;
+}
+
+#main_body_div_right input {
+    height: 40px;
+    border: 2px solid #E0E0E0;
+    padding-left: 15px;
+}
+
+#name_input input {
+    width: 237px;
+}
+
+#main_body_div_right button {
+    margin-top: 40px;
+}
+
 
 #footer_div {
     height: 86px;
