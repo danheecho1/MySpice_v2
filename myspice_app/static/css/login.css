@@ -99,6 +99,8 @@
     font-size: 32px;
 }
 
+/* main body */
+
 #main_body_div {
     margin: 0px 201px;
     height: 924px
@@ -123,11 +125,11 @@
     padding: 55px 62px;
     border: solid 2px #E0E0E0;
     width: 622px;
-    height: 510px;
+    height: 385px;
 }
 
 #main_body_div_right header {
-    font-size: 36px;
+    font-size: 24px;
     margin-bottom: 40px;
 }
 
@@ -141,14 +143,11 @@
     padding-left: 15px;
 }
 
-#name_input input {
-    width: 237px;
-}
-
 #main_body_div_right button {
     margin-top: 40px;
 }
 
+/* footer */
 
 #footer_div {
     height: 86px;
