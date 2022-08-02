@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../static/css/dashboard.css">
+    <link rel="stylesheet" href="../static/css/account_settings.css">
 </head>
 <body class="flex just_around">
     <!-- container -->
@@ -66,31 +66,36 @@
                 </div>
                 <button class="btn btn-clear btn-lg">Edit My Profile</button>
             </div>
-            <!-- main body - right side (controllers) -->
-            <div id="dashboard_nav_div">
-                <h1>Were you really on a break, Ross?</h1>
-                <div class="flex" id="dashboard_nav_buttons_div">
-                    <div class="dashboard_nav_button flex flex_down align_items_center just_evenly">
-                        <img src="../static/assets/messages.png" alt="">
-                        <p>Messages</p>
+            <!-- main body - right side -->
+            <div id="form_div">
+                <h1>Account Settings</h1>
+                <form class="flex flex_down">
+                    <div class="flex just_between align_items_center">
+                        <label for="email" class="font_medium">Email</label>
+                        <input type="text">
                     </div>
-                    <div class="dashboard_nav_button flex flex_down align_items_center just_evenly">
-                        <img src="../static/assets/comments.png" alt="">
-                        <p>Manage Comments</p>
+                    <div class="flex just_between align_items_center">
+                        <label for="firstName" class="font_medium">First Name</label>
+                        <input type="text">
                     </div>
-                    <div class="dashboard_nav_button flex flex_down align_items_center just_evenly">
-                        <img src="../static/assets/posts.png" alt="">
-                        <p>Manage Posts</p>
+                    <div class="flex just_between align_items_center">
+                        
+                        <label for="lastName" class="font_medium">Last Name</label>
+                        <input type="text">
                     </div>
-                    <div class="dashboard_nav_button flex flex_down align_items_center just_evenly">
-                        <img src="../static/assets/friends.png" alt="">
-                        <p>My Friends</p>
+                    <div class="flex just_between align_items_center">
+                        <label for="currentPassword" class="font_medium">Current Password</label>
+                        <input type="password">
                     </div>
-                    <div class="dashboard_nav_button flex flex_down align_items_center just_evenly">
-                        <img src="../static/assets/setting.png" alt="">
-                        <p>Account Settings</p>
+                    <div class="flex just_between align_items_center">
+                        <label for="newPassword" class="font_medium">New Password</label>
+                        <input type="password">
                     </div>
-                </div>
+                    <div class="flex just_right" id="buttons_div">
+                        <button class="btn btn-sm btn-clear">Cancel</button>
+                        <button class="btn btn-lg btn-colored">Update</button>
+                    </div>
+                </form>
             </div>
         </div>
         <!-- footer -->

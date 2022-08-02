@@ -47,6 +47,10 @@
     justify-content: space-evenly;
 }
 
+.just_right {
+    justify-content: right;
+}
+
 .align_items_center {
     align-items: center;
 }
@@ -66,6 +70,13 @@
 
 .btn-sm {
     width: 148.5px;
+    height: 45.5px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.btn-lg {
+    width: 182px;
     height: 45.5px;
     font-size: 18px;
     font-weight: 500;
@@ -119,52 +130,74 @@
 
 #main_body_div {
     margin: 0px 201px;
-    height: 924px
 }
 
-#main_body_div_left {
-    width: 600px;
-    gap: 35px;
+#temp_cover_photo_div {
+    height: 330px;
+    background-color: #424242;
 }
 
-#main_body_div_left header {
-    font-size: 48px;
-    line-height: 72px;
+#profile_card_div {
+    width: 350px;
+    box-shadow: 0px 0px 50px 50px rgba(0, 0, 0, 0.03);
+    position: relative;
+    bottom: 165px;
+    padding: 60px 0px;
+    background-color: white;
 }
 
-#main_body_div_left p {
-    font-size: 32px;
-    line-height: 50px;
+#profile_picture {
+    width: 200px;
 }
 
-#main_body_div_right {
-    padding: 55px 62px;
-    border: solid 2px #E0E0E0;
-    width: 622px;
-    height: 510px;
-}
-
-#main_body_div_right header {
+#display_name {
     font-size: 24px;
-    margin-bottom: 40px;
+    margin-top: 20px;
+    margin-bottom: 48px;
 }
 
-#registration_form {
+#favorite_list_div {
+    gap: 30px;
+}
+
+#favorite_list_div div p {
+    color: #777E90;
+}
+
+#sns_links_div {
+    margin: 40px 0px;
+    gap: 40px;
+}
+
+#form_div {
+    width: 1014px;
+}
+
+#form_div h1 {
+    margin-top: 80px;
+    margin-bottom: 55px;
+}
+
+#form_div label {
+    font-size: 20px;
+    color: #777E90
+}
+
+#form_div input {
+    width: 784px;
+    height: 60px;
+    padding-left: 25px;
+    font-size: 20px;
+    border: 2px solid #E0E0E0;
+}
+
+#form_div form {
     gap: 20px;
 }
 
-#main_body_div_right input {
-    height: 40px;
-    border: 2px solid #E0E0E0;
-    padding-left: 15px;
-}
-
-#name_input input {
-    width: 237px;
-}
-
-#main_body_div_right button {
-    margin-top: 40px;
+#buttons_div {
+    margin-top: 30px;
+    gap: 20px;
 }
 
 /* footer */
