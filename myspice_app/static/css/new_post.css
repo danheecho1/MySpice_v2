@@ -184,7 +184,6 @@
 }
 
 #form_div input {
-    width: 784px;
     height: 60px;
     padding-left: 25px;
     font-size: 20px;
@@ -192,8 +191,22 @@
     border: 2px solid #E0E0E0;
 }
 
+#form_div textarea {
+    border: 2px solid #E0E0E0;
+    height: 370px;
+    resize: none;
+    padding-top: 15px;
+    padding-left: 25px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
 #form_div form {
     gap: 20px;
+}
+
+.label_input_div {
+    gap: 15px;
 }
 
 #buttons_div {
