@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../static/css/new_post.css">
+    <link rel="stylesheet" href="../static/css/edit_profile.css">
 </head>
 <body class="flex just_around">
     <!-- container -->
@@ -68,19 +68,51 @@
             </div>
             <!-- main body - right side -->
             <div id="form_div">
-                <h1>New Post</h1>
+                <h1>Edit My Profile</h1>
                 <form class="flex flex_down">
-                    <div class="flex flex_down label_input_div">
-                        <label for="title" class="font_medium">Title</label>
+                    <div class="flex just_around">
+                        <label for="img" id="img_uploader">
+                            <img src="../static/assets/upload_profile.png" alt="">
+                            File Name
+                            <input id="img" type="file" accept="image/*">
+                        </label>
+                    </div>
+
+                    <div class="flex just_between align_items_center">
+                        <label for="email" class="font_medium">Greeting</label>
                         <input type="text">
                     </div>
-                    <div class="flex flex_down label_input_div">
-                        <label for="firstName" class="font_medium">Post</label>
-                        <textarea></textarea>
+                    <div class="flex just_between align_items_center">
+                        <label for="firstName" class="font_medium">Favorite Music</label>
+                        <input type="text">
+                    </div>
+                    <div class="flex just_between align_items_center">
+                        <label for="lastName" class="font_medium">Favorite Movie</label>
+                        <input type="text">
+                    </div>
+                    <div class="flex just_between align_items_center">
+                        <label for="currentPassword" class="font_medium">Favorite Book</label>
+                        <input type="password">
+                    </div>
+                    <div class="flex just_between align_items_center">
+                        <label for="newPassword" class="font_medium">Favorite Hero</label>
+                        <input type="password">
+                    </div>
+                    <div class="flex just_between align_items_center">
+                        <label for="newPassword" class="font_medium">Facebook</label>
+                        <input type="password">
+                    </div>
+                    <div class="flex just_between align_items_center">
+                        <label for="newPassword" class="font_medium">Instagram</label>
+                        <input type="password">
+                    </div>
+                    <div class="flex just_between align_items_center">
+                        <label for="newPassword" class="font_medium">Twitter</label>
+                        <input type="password">
                     </div>
                     <div class="flex just_right" id="buttons_div">
                         <button class="btn btn-sm btn-clear">Cancel</button>
-                        <button class="btn btn-lg btn-colored">Publish</button>
+                        <button class="btn btn-lg btn-colored">Update</button>
                     </div>
                 </form>
             </div>
