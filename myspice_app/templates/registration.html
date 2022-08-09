@@ -17,7 +17,7 @@
         <div class="flex just_between align_items_center" id="nav_bar_div">
             <!-- nav bar - left side links -->
             <div class="flex align_items_center">
-                <img id="logo" src="C:\Users\danhe\Desktop\Projects\MySpice_v2\myspice_app\static\assets\logo.JPG" alt=""><span class="font_medium" id="logo_name">Myspice</span>
+                <img id="logo" src="../static/assets/logo.JPG" alt=""><span class="font_medium" id="logo_name">Myspice</span>
                 <div class="flex" id="nav_links_div">
                     <a href="#">Home</a>
                     <a href="#">Profile</a>
@@ -44,12 +44,12 @@
                 <header class="font_bold">Join myspice.com</header>
                 <div class="flex flex_down" id="registration_form">
                     <div class="flex just_between" id="name_input">
-                        <input type="text" placeholder="First Name">
-                        <input type="text" placeholder="Last Name">
+                        <input type="text" placeholder="First Name" id="registration_first_name" name="registration_first_name">
+                        <input type="text" placeholder="Last Name" id="registration_last_name" name="registration_last_name">
                     </div>
-                    <input type="text" placeholder="Email Address">
-                    <input type="password" placeholder="Password">
-                    <input type="password" placeholder="Confirm Password">
+                    <input type="text" placeholder="Email Address" id="registration_email" name="registration_email">
+                    <input type="password" placeholder="Password" id="registration_password" name="registration_password">
+                    <input type="password" placeholder="Confirm Password" id="registration_password_confirm" name="registration_password_confirm">
                 </div>
                 <button class="btn btn-sm btn-colored">Register</button>
             </div>
