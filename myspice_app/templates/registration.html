@@ -28,8 +28,8 @@
             </div>
             <!-- nav bar - right side buttons -->
             <div>
-                <button class="btn btn-sm btn-clear">Log in</button>
-                <button class="btn btn-sm btn-colored">Register</button>
+                <button class="btn btn-sm btn-clear" onclick="window.location.href='/';">Log in</button>
+                <button class="btn btn-sm btn-colored" onclick="window.location.href='/register';">Register</button>
             </div>
         </div>
         <!-- main body -->
@@ -40,19 +40,21 @@
                 <p>This is Danny's attempt at recreating Myspace's simplicity with a touch of modern design. </p>
             </div>
             <!-- main body - right side -->
-            <div class="flex flex_down" id="main_body_div_right">
-                <header class="font_bold">Join myspice.com</header>
-                <div class="flex flex_down" id="registration_form">
-                    <div class="flex just_between" id="name_input">
-                        <input type="text" placeholder="First Name" id="registration_first_name" name="registration_first_name">
-                        <input type="text" placeholder="Last Name" id="registration_last_name" name="registration_last_name">
+            <form action="/register" method="post">
+                <div class="flex flex_down" id="main_body_div_right">
+                    <header class="font_bold">Join myspice.com</header>
+                    <div class="flex flex_down" id="registration_form">
+                        <div class="flex just_between" id="name_input">
+                            <input type="text" placeholder="First Name" id="registration_first_name" name="registration_first_name">
+                            <input type="text" placeholder="Last Name" id="registration_last_name" name="registration_last_name">
+                        </div>
+                        <input type="text" placeholder="Email Address" id="registration_email" name="registration_email">
+                        <input type="password" placeholder="Password" id="registration_password" name="registration_password">
+                        <input type="password" placeholder="Confirm Password" id="registration_password_confirm" name="registration_password_confirm">
                     </div>
-                    <input type="text" placeholder="Email Address" id="registration_email" name="registration_email">
-                    <input type="password" placeholder="Password" id="registration_password" name="registration_password">
-                    <input type="password" placeholder="Confirm Password" id="registration_password_confirm" name="registration_password_confirm">
+                    <button class="btn btn-sm btn-colored" type="submit">Register</button>
                 </div>
-                <button class="btn btn-sm btn-colored">Register</button>
-            </div>
+            </form>
         </div>
         <!-- footer -->
         <div class="flex just_around align_items_center" id="footer_div">
