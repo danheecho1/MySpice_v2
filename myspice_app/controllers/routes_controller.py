@@ -1,6 +1,9 @@
 from myspice_app import app
-from myspice_app.models.user_model import Users
+from myspice_app.models.user_model import User
 from flask import render_template, redirect, session, request
+from flask_bcrypt import Bcrypt
+
+bcrypt = Bcrypt(app)
 
 @app.route('/')
 def login():
@@ -12,13 +15,19 @@ def register():
 
 @app.route('/register', methods=['POST'])
 def register_post(): 
+    # validates information provided. if not validated, redirect back to registration page. 
+    if not User.validate_registration(request.form): 
+        return redirect('/register')
+    # if validation is successful, we bcrypt the provided password
+    if request.form['registration_password'] != '':
+        encrypted_password = bcrypt.generate_password_hash(request.form['registration_password'])
     new_user = {
         'first_name': request.form['registration_first_name'], 
         'last_name': request.form['registration_last_name'], 
         'email': request.form['registration_email'], 
-        'password': request.form['registration_password']
+        'password': encrypted_password
     }
-    Users.register_user(new_user)
+    User.register_user(new_user)
     return redirect('/dashboard')
 
 @app.route('/dashboard')
