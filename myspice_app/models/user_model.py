@@ -34,34 +34,37 @@ class User:
         is_valid = True
         # checking that a first name is provided
         if len(user['registration_first_name']) < 1: 
-            flash("You must enter your first name")
+            flash("First name is required", 'registration_first_name')
             is_valid = False
         # checking that a last name is provided
         if len(user['registration_last_name']) < 1:
-            flash("You must enter your last name")
+            flash("Last name is required", 'registration_last_name')
             is_valid = False
         # for validating email addresses, we will have three steps: 1) email address is provided, 2) the format is valid, and 3) it is not a duplicate. 
         # 1) checking that an email address is provided
         if len(user['registration_email']) < 1: 
-            flash("You must enter your email address")
+            flash("Email address is required", 'registration_email')
             is_valid = False
         # 2) provided email follows the right format
         elif not email_regex.match(user['registration_email']): 
-            flash("Invalid email address")
+            flash("Invalid email address", 'registration_email')
             is_valid = False
         # 3) provided email is not a duplicate
         else: 
             existing_user = User.get_user_by_email({'email': user['registration_email']})
             if existing_user: 
-                flash("Email already exists")
+                flash("Email already exists", 'registration_email')
                 is_valid = False
         # checking that the password is at least 8 characters
         if len(user['registration_password']) < 8: 
-            flash("Password must be at least 8 characters", 'registration_error')
+            flash("Password must be at least 8 characters", 'registration_password')
+            is_valid = False
+        if len(user['registration_password_confirm']) < 1: 
+            flash("Confirm password is required", 'registration_password_confirm')
             is_valid = False
         # checking that confirm password matches
-        if user['registration_password'] != user['registration_password_confirm']: 
-            flash("password does not match", 'registration_error')
+        elif user['registration_password'] != user['registration_password_confirm']: 
+            flash("password does not match", 'registration_password_confirm')
             is_valid = False
         # this static method returns a boolean value of is_valid 
         return is_valid

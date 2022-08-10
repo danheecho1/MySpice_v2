@@ -1,13 +1,13 @@
 from myspice_app import app
 from myspice_app.models.user_model import User
-from flask import render_template, redirect, session, request
+from flask import render_template, redirect, session, request, flash
 from flask_bcrypt import Bcrypt
 
 bcrypt = Bcrypt(app)
 
 @app.route('/')
-def login():
-    return render_template('login.html')
+def main():
+    return redirect('/login')
 
 @app.route('/register')
 def register(): 
@@ -29,6 +29,40 @@ def register_post():
     }
     User.register_user(new_user)
     return redirect('/dashboard')
+
+@app.route('/login')
+def login(): 
+    return render_template('login.html')
+
+@app.route('/login', methods=['POST'])
+def login_post():
+    # find user with the provided email and define as existing_user
+    existing_user = User.get_user_by_email({"email": request.form['login_email']})
+    # if a user is found, check if provided password matches the hashed password saved in the DB
+    if existing_user: 
+        plain_password = request.form['login_password']
+        hashed_password = existing_user.password
+        # if a user is found, but the passwords don't match, display flash message
+        if not bcrypt.check_password_hash(hashed_password, plain_password): 
+            flash("Password is incorrect", 'login_error')
+            return redirect('/')
+        # if a user is found AND the passwords match, save info in session and redirect to dashboard
+        else: 
+            session['email'] = request.form['login_email']
+            session['id'] = existing_user.id
+            session['first_name'] = existing_user.first_name
+            session['last_name' ] = existing_user.last_name
+            return redirect('/dashboard')
+    # if a user is not found with the email address provided, we have two possible errors: 
+    else:
+        # email address was not provided
+        if request.form['login_email'] == "": 
+            flash("Please enter your email", 'login_error')
+            return redirect('/')
+        # email address was not found in the DB
+        else: 
+            flash("Entered email does not exist", 'login_error')
+            return redirect('/')
 
 @app.route('/dashboard')
 def dashboard(): 
