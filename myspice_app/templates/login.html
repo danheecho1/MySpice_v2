@@ -40,14 +40,16 @@
                 <p>This is Danny's attempt at recreating Myspace's simplicity with a touch of modern design. </p>
             </div>
             <!-- main body - right side -->
-            <div class="flex flex_down" id="main_body_div_right">
-                <header class="font_bold">Sign in to myspice.com</header>
-                <div class="flex flex_down" id="registration_form">
-                    <input type="text" placeholder="Email Address">
-                    <input type="password" placeholder="Password">
+            <form action="/login" method="post">
+                <div class="flex flex_down" id="main_body_div_right">
+                    <header class="font_bold">Sign in to myspice.com</header>
+                    <div class="flex flex_down" id="registration_form">
+                        <input type="text" placeholder="Email Address" name="login_email">
+                        <input type="password" placeholder="Password" name="login_password">
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-colored">Log in</button>
                 </div>
-                <button class="btn btn-sm btn-colored">Log in</button>
-            </div>
+            </form>
         </div>
         <!-- footer -->
         <div class="flex just_around align_items_center" id="footer_div">

@@ -45,12 +45,72 @@
                     <header class="font_bold">Join myspice.com</header>
                     <div class="flex flex_down" id="registration_form">
                         <div class="flex just_between" id="name_input">
-                            <input type="text" placeholder="First Name" id="registration_first_name" name="registration_first_name">
-                            <input type="text" placeholder="Last Name" id="registration_last_name" name="registration_last_name">
+                            <input 
+                                type="text" 
+                                {% with messages = get_flashed_messages(category_filter=['registration_first_name']) %}
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            placeholder="{{message}}
+                                        {% endfor %}
+                                    {% else %}
+                                        placeholder="First Name"
+                                    {% endif %}
+                                {% endwith %}
+                                id="registration_first_name" 
+                                name="registration_first_name">
+                            <input 
+                                type="text" 
+                                {% with messages = get_flashed_messages(category_filter=['registration_last_name']) %}
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            placeholder="{{message}}
+                                        {% endfor %}
+                                    {% else %}
+                                        placeholder="Last Name"
+                                    {% endif %}
+                                {% endwith %}
+                                id="registration_last_name" 
+                                name="registration_last_name">
                         </div>
-                        <input type="text" placeholder="Email Address" id="registration_email" name="registration_email">
-                        <input type="password" placeholder="Password" id="registration_password" name="registration_password">
-                        <input type="password" placeholder="Confirm Password" id="registration_password_confirm" name="registration_password_confirm">
+                        <input 
+                            type="text" 
+                            {% with messages = get_flashed_messages(category_filter=['registration_email']) %}
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        placeholder="{{message}}"
+                                    {% endfor %}
+                                {% else %}
+                                    placeholder="Email Address"
+                                {% endif %}
+                            {% endwith %}
+                            id="registration_email" 
+                            name="registration_email">
+                        <input 
+                            type="password" 
+                            {% with messages = get_flashed_messages(category_filter=['registration_password']) %}
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        placeholder="{{message}}
+                                    {% endfor %}
+                                {% else %}
+                                    placeholder="Password"
+                                {% endif %}
+                            {% endwith %}
+                            id="registration_password" 
+                            name="registration_password">
+                        <input 
+                            type="password" 
+                            {% with messages = get_flashed_messages(category_filter=['registration_password_confirm']) %}
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        placeholder="{{message}}
+                                    {% endfor %}
+                                {% else %}
+                                    placeholder="Confirm Password"
+                                {% endif %}
+                            {% endwith %}
+                            id="registration_password_confirm" 
+                            name="registration_password_confirm">
                     </div>
                     <button class="btn btn-sm btn-colored" type="submit">Register</button>
                 </div>
