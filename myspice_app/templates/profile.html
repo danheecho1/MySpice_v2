@@ -184,53 +184,25 @@
                     </div>
                 </div>
                 <!-- Comments textarea -->
-                <div class="flex flex_down" id="comments_div">
+                <form action="/profile/{{current_user.id}}/comment" method="post" class="flex flex_down" id="comments_div">
                     <h1>Comments</h1>
-                    <textarea placeholder="Say hello!"></textarea>
-                    <button class="btn btn-colored btn-lg align_self_end">Leave a comment</button>
-                </div>
+                    <textarea name="content" placeholder="Say hello!"></textarea>
+                    <button type="submit" class="btn btn-colored btn-lg align_self_end">Leave a comment</button>
+                </form>
                 <!-- Comments display -->
                 <div class="flex flex_down" id="comments_display_div">
-                    <div id="individual_comment_div">
-                        <div class="flex" id="comment_header_div">
-                            <img src="../static/assets/default_profile_picture.png" alt="">
-                            <div class="flex flex_down just_center" id="individual_comment_header_div">
-                                <p>05.18.2022</p>
-                                <h4>Rachel Green</h4>
+                    {% for comment in displayed_comments %}
+                        <div id="individual_comment_div">
+                            <div class="flex" id="comment_header_div">
+                                <img src="../static/assets/default_profile_picture.png" alt="">
+                                <div class="flex flex_down just_center" id="individual_comment_header_div">
+                                    <p>{{comment.created_at}}</p>
+                                    <h4>{{comment.first_name}} {{comment.last_name}}</h4>
+                                </div>
                             </div>
+                            <p id="comment_content">{{comment.content}}</p>
                         </div>
-                        <p id="comment_content">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident eaque, consequuntur asperiores voluptatum, molestias possimus quasi maxime dicta deserunt, laudantium porro est numquam?</p>
-                    </div>
-                    <div id="individual_comment_div">
-                        <div class="flex" id="comment_header_div">
-                            <img src="../static/assets/default_profile_picture.png" alt="">
-                            <div class="flex flex_down just_center" id="individual_comment_header_div">
-                                <p>05.18.2022</p>
-                                <h4>Rachel Green</h4>
-                            </div>
-                        </div>
-                        <p id="comment_content">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident eaque, consequuntur asperiores voluptatum, molestias possimus quasi maxime dicta deserunt, laudantium porro est numquam?</p>
-                    </div>
-                    <div id="individual_comment_div">
-                        <div class="flex" id="comment_header_div">
-                            <img src="../static/assets/default_profile_picture.png" alt="">
-                            <div class="flex flex_down just_center" id="individual_comment_header_div">
-                                <p>05.18.2022</p>
-                                <h4>Rachel Green</h4>
-                            </div>
-                        </div>
-                        <p id="comment_content">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident eaque, consequuntur asperiores voluptatum, molestias possimus quasi maxime dicta deserunt, laudantium porro est numquam?</p>
-                    </div>
-                    <div id="individual_comment_div">
-                        <div class="flex" id="comment_header_div">
-                            <img src="../static/assets/default_profile_picture.png" alt="">
-                            <div class="flex flex_down just_center" id="individual_comment_header_div">
-                                <p>05.18.2022</p>
-                                <h4>Rachel Green</h4>
-                            </div>
-                        </div>
-                        <p id="comment_content">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident eaque, consequuntur asperiores voluptatum, molestias possimus quasi maxime dicta deserunt, laudantium porro est numquam?</p>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

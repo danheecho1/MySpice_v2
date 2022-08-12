@@ -1,6 +1,7 @@
 from myspice_app import app
 from myspice_app.models.user_model import User
 from myspice_app.models.profile_model import Profile
+from myspice_app.models.comment_model import Comment
 from flask import render_template, redirect, session, request, flash
 from flask_bcrypt import Bcrypt
 
@@ -82,7 +83,9 @@ def dashboard():
 def profile(user_id):
     current_user = User.get_user_by_id({'user_id': user_id})
     current_profile = Profile.get_profile_by_id({'user_id': user_id})
-    return render_template('profile.html', current_profile = current_profile, current_user = current_user)
+    displayed_comments = Comment.get_displayed_comments({'user_id': user_id})
+    print(displayed_comments)
+    return render_template('profile.html', current_profile = current_profile, current_user = current_user, displayed_comments = displayed_comments)
 
 @app.route('/profile/edit')
 def edit_profile(): 
@@ -105,7 +108,15 @@ def edit_profile_post():
     User.update_user_profile(data)
     return redirect('/dashboard')
 
-
+@app.route('/profile/<int:user_id>/comment', methods=['POST'])
+def save_comment(user_id):
+    data = { 
+        'content': request.form['content'],
+        'user_id': user_id,
+        'sender_id': session['id']
+    }
+    Comment.save_comment(data)
+    return redirect(f"/profile/{user_id}")
 
 @app.route('/posts')
 def manage_posts(): 
