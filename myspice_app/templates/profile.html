@@ -19,8 +19,8 @@
             <div class="flex align_items_center">
                 <img id="logo" src="../static/assets/logo.JPG" alt=""><span class="font_medium" id="logo_name">Myspice</span>
                 <div class="flex" id="nav_links_div">
-                    <a href="#">Home</a>
-                    <a href="#">Profile</a>
+                    <a href="/dashboard">Home</a>
+                    <a href="/profile/{{session.id}}">Profile</a>
                     <a href="#">Message</a>
                     <a href="#">Search Friends</a>
                     <a href="#">About</a>
@@ -28,7 +28,7 @@
             </div>
             <!-- nav bar - right side buttons -->
             <div>
-                <button class="btn btn-sm btn-clear">Log out</button>
+                <a href="/logout"><button class="btn btn-sm btn-clear">Log out</button></a>
             </div>
         </div>
         <!-- cover photo -> empty div for now -->
@@ -41,24 +41,24 @@
                 <!-- main body - left side (profile card) -->
                 <div class="flex flex_down align_items_center" id="profile_card_div">
                     <img src="../static/assets/default_profile_picture.png" alt="" id="profile_picture">
-                    <h4 id="display_name">Ross Geller</h4>
-                    <div class="flex flex_down font_medium" id="favorite_list_div">
-                        <p id="display_greeting">This section is general.</p>
+                    <h4 id="display_name">{{current_user.first_name}} {{current_user.last_name}}</h4>
+                    <div class="flex flex_down align_items_center font_medium" id="favorite_list_div">
+                        <p id="display_greeting">{{current_profile.greeting}}</p>
                         <div class="flex flex_down align_items_center">
                             <p>Favorite Music: </p>
-                            <p>Funk is the way to go</p>
+                            <p>{{current_profile.favorite_music}}</p>
                         </div>
                         <div class="flex flex_down align_items_center">
                             <p>Favorite Movies: </p>    
-                            <p>Funk is the way to go</p>
+                            <p>{{current_profile.favorite_movies}}</p>
                         </div>
                         <div class="flex flex_down align_items_center">
                             <p>Favorite Books: </p>
-                            <p>Funk is the way to go</p>
+                            <p>{{current_profile.favorite_books}}</p>
                         </div>
                         <div class="flex flex_down align_items_center">
                             <p>Favorite Heroes: </p>
-                            <p>Funk is the way to go</p>
+                            <p>{{current_profile.favorite_heroes}}</p>
                         </div>
                     </div>
                     <!-- SNS links -->
@@ -70,7 +70,11 @@
                 </div>
                 <!-- main body - left side (top friends) -->
                 <div class="flex flex_down align_items_center" id="top_friends_div">
-                    <h2>Ross' Top 3 Friends</h2>
+                    {% if current_user.first_name[-1] == 's' %}
+                        <h2>{{current_user.first_name}}' Top 3 Friends</h2>
+                    {% else %}
+                        <h2>{{current_user.first_name}}'s Top 3 Friends</h2>
+                    {% endif %}
                     <div class="flex flex_down align_items_center individual_top_friend_div">
                         <img src="../static/assets/default_profile_picture.png" alt="">
                         <h3>Joey Tribbiani</h3>
@@ -89,7 +93,7 @@
             <div id="main_body_div_right">
                 <!-- posts -->
                 <div id="manage_post_div">
-                    <h1>Posts by Ross Geller</h1>
+                    <h1>Posts by {{current_user.first_name}}</h1>
                     <div id="display_posts_div">
                         <ul>
                             <li>

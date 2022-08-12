@@ -1,4 +1,3 @@
-import email
 from myspice_app.config.mysqlconnection import connectToMySQL
 from flask import flash
 import re
@@ -20,6 +19,11 @@ class User:
         query = "INSERT INTO users (first_name, last_name, email, password, created_at, updated_at) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s, NOW(), NOW());"
         return connectToMySQL('myspice2_schema').query_db(query, data)
 
+    @classmethod
+    def register_user_part_2(cls, data): 
+        query = "INSERT INTO profiles (greeting, favorite_music, favorite_movies, favorite_books, favorite_heroes, facebook, instagram, twitter, created_at, updated_at, user_id) VALUES ('No greeting yet', 'No favorite music yet', 'No favorite movies yet', 'No favorite books yet', 'No favorite heroes yet', '', '', '', NOW(), NOW(), %(id)s);"
+        return connectToMySQL('myspice2_schema').query_db(query, data)
+
     @classmethod 
     def get_user_by_email(cls, data): 
         query = "SELECT * FROM users WHERE email = %(email)s;"
@@ -27,6 +31,19 @@ class User:
         if result: 
             return cls(result[0])
         return False
+
+    @classmethod
+    def get_user_by_id(cls, data): 
+        query = "SELECT * FROM users LEFT JOIN profiles ON profiles.user_id = users.id WHERE profiles.user_id = %(user_id)s"
+        result = connectToMySQL('myspice2_schema').query_db(query, data)
+        if result: 
+            return cls(result[0])
+        return False
+
+    @classmethod
+    def update_user_profile(cls, data): 
+        query = "UPDATE profiles SET greeting = %(greeting)s, favorite_music = %(favorite_music)s, favorite_movies = %(favorite_movies)s, favorite_books = %(favorite_books)s, favorite_heroes = %(favorite_heroes)s, instagram = %(instagram)s, facebook = %(facebook)s, twitter = %(twitter)s, updated_at = NOW() WHERE user_id = %(user_id)s;"
+        return connectToMySQL('myspice2_schema').query_db(query, data)
 
     @staticmethod
     def validate_registration(user):

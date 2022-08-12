@@ -19,8 +19,8 @@
             <div class="flex align_items_center">
                 <img id="logo" src="../static/assets/logo.JPG" alt=""><span class="font_medium" id="logo_name">Myspice</span>
                 <div class="flex" id="nav_links_div">
-                    <a href="#">Home</a>
-                    <a href="#">Profile</a>
+                    <a href="/dashboard">Home</a>
+                    <a href="/profile/{{session.id}}">Profile</a>
                     <a href="#">Message</a>
                     <a href="#">Search Friends</a>
                     <a href="#">About</a>
@@ -28,7 +28,7 @@
             </div>
             <!-- nav bar - right side buttons -->
             <div>
-                <button class="btn btn-sm btn-clear">Log out</button>
+                <a href="/logout"><button class="btn btn-sm btn-clear">Log out</button></a>
             </div>
         </div>
         <!-- cover photo -> empty div for now -->
@@ -38,24 +38,24 @@
             <!-- main body - left side (profile card) -->
             <div class="flex flex_down align_items_center" id="profile_card_div">
                 <img src="../static/assets/default_profile_picture.png" alt="" id="profile_picture">
-                <h4 id="display_name">Ross Geller</h4>
-                <div class="flex flex_down font_medium" id="favorite_list_div">
-                    <p id="display_greeting">This section is general.</p>
+                <h4 id="display_name">{{session.first_name}} {{session.last_name}}</h4>
+                <div class="flex flex_down align_items_center font_medium" id="favorite_list_div">
+                    <p id="display_greeting">{{profile.greeting}}</p>
                     <div class="flex flex_down align_items_center">
                         <p>Favorite Music: </p>
-                        <p>Funk is the way to go</p>
+                        <p>{{profile.favorite_music}}</p>
                     </div>
                     <div class="flex flex_down align_items_center">
                         <p>Favorite Movies: </p>    
-                        <p>Funk is the way to go</p>
+                        <p>{{profile.favorite_movies}}</p>
                     </div>
                     <div class="flex flex_down align_items_center">
                         <p>Favorite Books: </p>
-                        <p>Funk is the way to go</p>
+                        <p>{{profile.favorite_books}}</p>
                     </div>
                     <div class="flex flex_down align_items_center">
                         <p>Favorite Heroes: </p>
-                        <p>Funk is the way to go</p>
+                        <p>{{profile.favorite_heroes}}</p>
                     </div>
                 </div>
                 <!-- SNS links -->
@@ -64,11 +64,11 @@
                     <img src="../static/assets/facebook.png" alt="">
                     <img src="../static/assets/twitter.png" alt="">
                 </div>
-                <button class="btn btn-clear btn-lg">Edit My Profile</button>
+                <a href="/profile/edit"><button class="btn btn-clear btn-lg">Edit My Profile</button></a>
             </div>
             <!-- main body - right side (controllers) -->
             <div id="dashboard_nav_div">
-                <h1>Were you really on a break, Ross?</h1>
+                <h1>Welcome, {{session.first_name}} {{session.last_name}}!</h1>
                 <div class="flex" id="dashboard_nav_buttons_div">
                     <div class="dashboard_nav_button flex flex_down align_items_center just_evenly">
                         <img src="../static/assets/messages.png" alt="">
