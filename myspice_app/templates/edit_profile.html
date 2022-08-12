@@ -19,8 +19,8 @@
             <div class="flex align_items_center">
                 <img id="logo" src="../static/assets/logo.JPG" alt=""><span class="font_medium" id="logo_name">Myspice</span>
                 <div class="flex" id="nav_links_div">
-                    <a href="#">Home</a>
-                    <a href="#">Profile</a>
+                    <a href="/dashboard">Home</a>
+                    <a href="/profile/{{session.id}}">Profile</a>
                     <a href="#">Message</a>
                     <a href="#">Search Friends</a>
                     <a href="#">About</a>
@@ -28,7 +28,7 @@
             </div>
             <!-- nav bar - right side buttons -->
             <div>
-                <button class="btn btn-sm btn-clear">Log out</button>
+                <a href="/logout"><button class="btn btn-sm btn-clear">Log out</button></a>
             </div>
         </div>
         <!-- cover photo -> empty div for now -->
@@ -38,7 +38,7 @@
             <!-- main body - left side (profile card) -->
             <div class="flex flex_down align_items_center" id="profile_card_div">
                 <img src="../static/assets/default_profile_picture.png" alt="" id="profile_picture">
-                <h4 id="display_name">Ross Geller</h4>
+                <h4 id="display_name">{{session.first_name}} {{session.last_name}}</h4>
                 <div class="flex flex_down font_medium" id="favorite_list_div">
                     <p id="display_greeting">This section is general.</p>
                     <div class="flex flex_down align_items_center">
@@ -64,55 +64,53 @@
                     <img src="../static/assets/facebook.png" alt="">
                     <img src="../static/assets/twitter.png" alt="">
                 </div>
-                <button class="btn btn-clear btn-lg">Edit My Profile</button>
             </div>
             <!-- main body - right side -->
             <div id="form_div">
                 <h1>Edit My Profile</h1>
-                <form class="flex flex_down">
-                    <div class="flex just_around">
+                <form action="/profile/edit" method="post" class="flex flex_down">
+                    <!-- <div class="flex just_around">
                         <label for="img" id="img_uploader">
                             <img src="../static/assets/upload_profile.png" alt="">
                             File Name
                             <input id="img" type="file" accept="image/*">
                         </label>
-                    </div>
-
+                    </div> -->
                     <div class="flex just_between align_items_center">
-                        <label for="email" class="font_medium">Greeting</label>
-                        <input type="text">
-                    </div>
-                    <div class="flex just_between align_items_center">
-                        <label for="firstName" class="font_medium">Favorite Music</label>
-                        <input type="text">
+                        <label for="greeting" class="font_medium">Greeting</label>
+                        <input type="text" name="greeting" value="{{profile.greeting}}">
                     </div>
                     <div class="flex just_between align_items_center">
-                        <label for="lastName" class="font_medium">Favorite Movie</label>
-                        <input type="text">
+                        <label for="favorite_music" class="font_medium">Favorite Music</label>
+                        <input type="text" name="favorite_music" value="{{profile.favorite_music}}">
                     </div>
                     <div class="flex just_between align_items_center">
-                        <label for="currentPassword" class="font_medium">Favorite Book</label>
-                        <input type="password">
+                        <label for="favorite_movies" class="font_medium">Favorite Movies</label>
+                        <input type="text" name="favorite_movies" value="{{profile.favorite_movies}}">
                     </div>
                     <div class="flex just_between align_items_center">
-                        <label for="newPassword" class="font_medium">Favorite Hero</label>
-                        <input type="password">
+                        <label for="favorite_books" class="font_medium">Favorite Books</label>
+                        <input type="text" name="favorite_books" value="{{profile.favorite_books}}">
                     </div>
                     <div class="flex just_between align_items_center">
-                        <label for="newPassword" class="font_medium">Facebook</label>
-                        <input type="password">
+                        <label for="favorite_heroes" class="font_medium">Favorite Heroes</label>
+                        <input type="text" name="favorite_heroes" value="{{profile.favorite_heroes}}">
                     </div>
                     <div class="flex just_between align_items_center">
-                        <label for="newPassword" class="font_medium">Instagram</label>
-                        <input type="password">
+                        <label for="facebook" class="font_medium">Facebook</label>
+                        <input type="text" name="facebook" value="{{profile.facebook}}">
                     </div>
                     <div class="flex just_between align_items_center">
-                        <label for="newPassword" class="font_medium">Twitter</label>
-                        <input type="password">
+                        <label for="instagram" class="font_medium">Instagram</label>
+                        <input type="text" name="instagram" value="{{profile.instagram}}">
+                    </div>
+                    <div class="flex just_between align_items_center">
+                        <label for="twitter" class="font_medium">Twitter</label>
+                        <input type="text" name="twitter" value="{{profile.twitter}}">
                     </div>
                     <div class="flex just_right" id="buttons_div">
-                        <button class="btn btn-sm btn-clear">Cancel</button>
-                        <button class="btn btn-lg btn-colored">Update</button>
+                        <a href="/dashboard"><button type="button" class="btn btn-sm btn-clear">Cancel</button></a>
+                        <button type="submit" class="btn btn-lg btn-colored">Update</button>
                     </div>
                 </form>
             </div>

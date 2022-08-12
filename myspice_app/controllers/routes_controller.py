@@ -1,5 +1,6 @@
 from myspice_app import app
 from myspice_app.models.user_model import User
+from myspice_app.models.profile_model import Profile
 from flask import render_template, redirect, session, request, flash
 from flask_bcrypt import Bcrypt
 
@@ -27,7 +28,16 @@ def register_post():
         'email': request.form['registration_email'], 
         'password': encrypted_password
     }
+    # register user account information into DB
     User.register_user(new_user)
+
+    getUserId = User.get_user_by_email({"email": new_user["email"]})
+    session['id'] = getUserId.id
+    session['first_name'] = new_user["first_name"]
+    session['last_name'] = new_user["last_name"]
+
+    # create a default profile upon registration
+    User.register_user_part_2({'id': session['id']})
     return redirect('/dashboard')
 
 @app.route('/login')
@@ -48,7 +58,6 @@ def login_post():
             return redirect('/')
         # if a user is found AND the passwords match, save info in session and redirect to dashboard
         else: 
-            session['email'] = request.form['login_email']
             session['id'] = existing_user.id
             session['first_name'] = existing_user.first_name
             session['last_name' ] = existing_user.last_name
@@ -66,15 +75,37 @@ def login_post():
 
 @app.route('/dashboard')
 def dashboard(): 
-    return render_template('dashboard.html')
+    profile = Profile.get_profile_by_id({'user_id': session['id']})
+    return render_template('dashboard.html', profile = profile)
 
-@app.route('/profile')
-def profile():
-    return render_template('profile.html')
+@app.route('/profile/<int:user_id>')
+def profile(user_id):
+    current_user = User.get_user_by_id({'user_id': user_id})
+    current_profile = Profile.get_profile_by_id({'user_id': user_id})
+    return render_template('profile.html', current_profile = current_profile, current_user = current_user)
 
 @app.route('/profile/edit')
 def edit_profile(): 
-    return render_template('edit_profile.html')
+    profile = Profile.get_profile_by_id({'user_id': session['id']})
+    return render_template('edit_profile.html', profile = profile)
+
+@app.route('/profile/edit', methods=['POST'])
+def edit_profile_post(): 
+    data = {
+        'user_id' : session['id'],
+        'greeting' : request.form['greeting'],
+        'favorite_music' : request.form['favorite_music'], 
+        'favorite_movies' : request.form['favorite_movies'], 
+        'favorite_books' : request.form['favorite_books'], 
+        'favorite_heroes' : request.form['favorite_heroes'], 
+        'facebook': request.form['facebook'],
+        'instagram': request.form['instagram'],
+        'twitter': request.form['twitter'],
+    }
+    User.update_user_profile(data)
+    return redirect('/dashboard')
+
+
 
 @app.route('/posts')
 def manage_posts(): 
@@ -87,3 +118,10 @@ def new_post():
 @app.route('/posts/1')
 def view_post(): 
     return render_template('view_post.html')
+
+
+
+@app.route('/logout')
+def logout(): 
+    session.clear()
+    return render_template('login.html')

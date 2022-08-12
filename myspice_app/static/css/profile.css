@@ -154,7 +154,7 @@
     box-shadow: 0px 0px 50px 50px rgba(0, 0, 0, 0.03);
     position: relative;
     bottom: 165px;
-    padding: 60px 0px;
+    padding: 60px 45px;
     background-color: white;
 }
 
@@ -174,10 +174,11 @@
 
 #favorite_list_div div p {
     color: #777E90;
+    text-align: center;
 }
 
 #sns_links_div {
-    margin: 40px 0px;
+    margin-top: 40px;
     gap: 40px;
 }
 
@@ -271,6 +272,10 @@ li:not(:first-child) {
 
 #top_friends_div img {
     height: 135px;
+}
+
+#top_friends_div h2 {
+    text-align: center;
 }
 
 /* footer */
