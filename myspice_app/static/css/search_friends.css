@@ -1,0 +1,203 @@
+::-webkit-scrollbar {
+    width: 16px;
+}
+
+  /* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 10pt;
+    border: 4px solid white;
+}
+
+  /* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* General styling */
+* {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* border: solid 1px black; */
+}
+
+#container {
+    width: 1920px;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex_down {
+    flex-direction: column;
+}
+
+.just_around {
+    justify-content: space-around;
+}
+
+.just_between {
+    justify-content: space-between;
+}
+
+.just_evenly {
+    justify-content: space-evenly;
+}
+
+.just_right {
+    justify-content: right;
+}
+
+.just_center {
+    justify-content: center;
+}
+
+.align_items_center {
+    align-items: center;
+}
+
+.align_self_end {
+    align-self: flex-end;
+}
+
+.font_medium {
+    font-weight: 500;
+}
+
+.font_bold {
+    font-weight: 700;
+}
+
+.btn {
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-sm {
+    width: 148.5px;
+    height: 45.5px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.btn-lg {
+    width: 182px;
+    height: 45.5px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.btn-colored {
+    color: white;
+    background-color: #18A0FB;
+    border: none;
+}
+
+.btn-clear {
+    color: #18A0FB;
+    border: solid 1px #18A0FB;
+    background-color: white;
+}
+
+/* top nav bar */
+
+#nav_bar_div {
+    height: 70px;
+    padding: 0px 90px;
+}
+
+#nav_links_div {
+    margin: 0em 6rem;
+    gap: 50px;
+}
+
+#nav_links_div a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+#nav_links_div a:hover {
+    text-decoration: none;
+    color: #18A0FB;
+}
+
+#logo {
+    height: 40px;
+}
+
+#logo_name {
+    font-size: 32px;
+}
+
+/* main body */
+
+#search_bar {
+    gap: 30px;
+    position: relative;
+    bottom: 85px;
+}
+
+#search_bar input {
+    height: 56px; 
+    width: 575px;
+    background-color: transparent;
+    border: solid 2px white;
+    color: white;
+    padding: 20px;
+}
+
+#search_bar select {
+    width: 310px;
+    background-color: transparent;
+    border: solid 2px white;
+    color: white;
+}
+
+#search_bar button {
+    border: none;
+    background-color: transparent;
+}
+
+#search_bar img {
+    width: 30px;
+}
+
+.search_profile_card {
+    height: 390px; 
+    width: 345px;
+    border: solid 2px #A9A9A9;
+    padding: 25px;
+    gap: 50px;
+}
+
+.search_profile_card img {
+    height: 200px;
+    width: 200px;
+}
+
+#main_body_div {
+    margin: 0px 201px;
+}
+
+#temp_cover_photo_div {
+    height: 330px;
+    background-color: #424242;
+}
+
+/* footer */
+
+#footer_div {
+    height: 86px;
+    border-top: 2px solid #E0E0E0;
+    margin-top: 100px;
+}
+
+#footer_div p {
+    color: #777E90;
+    font-size: 14px;
+}

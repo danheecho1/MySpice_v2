@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myspice</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/search_friends.css">
+</head>
+<body class="flex just_around">
+    <!-- container -->
+    <div class="flex flex_down" id="container">
+        <!-- nav bar -->
+        <div class="flex just_between align_items_center" id="nav_bar_div">
+            <!-- nav bar - left side links -->
+            <div class="flex align_items_center">
+                <img id="logo" src="../static/assets/logo.JPG" alt=""><span class="font_medium" id="logo_name">Myspice</span>
+                <div class="flex" id="nav_links_div">
+                    <a href="/dashboard">Home</a>
+                    <a href="/profile/{{session.id}}">Profile</a>
+                    <a href="#">Message</a>
+                    <a href="#">Search Friends</a>
+                    <a href="#">About</a>
+                </div>
+            </div>
+            <!-- nav bar - right side buttons -->
+            <div>
+                <a href="/logout"><button class="btn btn-sm btn-clear">Log out</button></a>
+            </div>
+        </div>
+        <!-- cover photo -> empty div for now -->
+        <img src="../static/assets/cover.png" alt="">
+        <!-- <div id="temp_cover_photo_div"></div> -->
+        <!-- search bar -->
+        <div class="flex just_center" id="search_bar">
+            <input type="text">
+            <select name="search_type" id="">
+                <option value="search_by_name">Search by name</option>
+                <option value="search_by_email">Search by email</option>
+            </select>
+            <button><img src="../static/assets/search.png" alt=""></button>
+        </div>
+        <!-- main body -->
+        <div class="flex flex_down just_between" id="main_body_div">
+            <h1>8 Result(s)</h1>
+            <div class="flex" id="results_div">
+                <div class="flex flex_down align_items_center search_profile_card">
+                    <img src="../static/assets/default_profile_picture.png" alt="">
+                    <h4>Joey Tribbiani</h4>
+                </div>
+                <div class="flex flex_down align_items_center search_profile_card">
+                    <img src="../static/assets/default_profile_picture.png" alt="">
+                    <h4>Joey Tribbiani</h4>
+                </div>
+                <div class="flex flex_down align_items_center search_profile_card">
+                    <img src="../static/assets/default_profile_picture.png" alt="">
+                    <h4>Joey Tribbiani</h4>
+                </div>
+                <div class="flex flex_down align_items_center search_profile_card">
+                    <img src="../static/assets/default_profile_picture.png" alt="">
+                    <h4>Joey Tribbiani</h4>
+                </div>
+                <div class="flex flex_down align_items_center search_profile_card">
+                    <img src="../static/assets/default_profile_picture.png" alt="">
+                    <h4>Joey Tribbiani</h4>
+                </div>
+            </div>
+
+        </div>
+        <!-- footer -->
+        <div class="flex just_around align_items_center" id="footer_div">
+            <p>No Copyright © 2022 Danny Cho. All rights reserved</p>
+        </div>
+    </div>
+</body>
+</html>

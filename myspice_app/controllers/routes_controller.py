@@ -119,6 +119,10 @@ def new_post():
 def view_post(): 
     return render_template('view_post.html')
 
+@app.route('/search')
+def search(): 
+    return render_template('search_friends.html')
+
 
 
 @app.route('/logout')
