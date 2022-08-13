@@ -260,6 +260,7 @@ li:not(:first-child) {
 
 #comment_content {
     padding: 0px 20px 20px 20px;
+    white-space: pre-wrap;
 }
 
 #top_friends_div {

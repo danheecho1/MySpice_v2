@@ -132,7 +132,15 @@ def view_post():
 
 @app.route('/search')
 def search(): 
-    return render_template('search_friends.html')
+    return render_template('search.html')
+
+@app.route('/search', methods=['POST'])
+def search_post(): 
+    data = {
+        'keyword': request.form['search_keyword']
+    }
+    search_result = User.find_user_name_containing(data)
+    return render_template('search_result.html', search_result = search_result)
 
 
 

@@ -11,7 +11,7 @@
 
   /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
+    background: #555;
 }
 
 /* General styling */
@@ -51,8 +51,16 @@
     justify-content: right;
 }
 
+.just_center {
+    justify-content: center;
+}
+
 .align_items_center {
     align-items: center;
+}
+
+.align_self_end {
+    align-self: flex-end;
 }
 
 .font_medium {
@@ -128,8 +136,57 @@
 
 /* main body */
 
+#search_bar {
+    gap: 30px;
+    position: relative;
+    bottom: 85px;
+}
+
+#search_bar input {
+    height: 56px; 
+    width: 575px;
+    background-color: transparent;
+    border: solid 2px white;
+    color: white;
+    padding: 20px;
+}
+
+#search_bar select {
+    width: 310px;
+    background-color: transparent;
+    border: solid 2px white;
+    color: white;
+}
+
+#search_bar button {
+    border: none;
+    background-color: transparent;
+}
+
+#search_bar img {
+    width: 30px;
+}
+
+.search_profile_card {
+    height: 390px; 
+    width: 345px;
+    border: solid 2px #D9D9D9;
+    padding: 25px;
+    gap: 50px;
+}
+
+.search_profile_card img {
+    height: 200px;
+    width: 200px;
+}
+
 #main_body_div {
     margin: 0px 201px;
+}
+
+#main_body_div h1 {
+
+    margin-bottom: 60px;
 }
 
 #temp_cover_photo_div {
@@ -137,77 +194,9 @@
     background-color: #424242;
 }
 
-#profile_card_div {
-    width: 350px;
-    box-shadow: 0px 0px 50px 50px rgba(0, 0, 0, 0.03);
-    position: relative;
-    bottom: 165px;
-    padding: 60px 45px;
-    background-color: white;
-}
-
-#profile_picture {
-    width: 200px;
-}
-
-#display_name {
-    font-size: 24px;
-    margin-top: 20px;
-    margin-bottom: 48px;
-}
-
-#favorite_list_div {
-    gap: 30px;
-}
-
-#favorite_list_div div p {
-    color: #777E90;
-    text-align: center;
-}
-
-#sns_links_div {
-    margin-top: 40px;
-    gap: 40px;
-}
-
-#form_div {
-    width: 1014px;
-}
-
-#form_div h1 {
-    margin-top: 80px;
-    margin-bottom: 55px;
-}
-
-#form_div label {
-    font-size: 20px;
-    color: #777E90
-}
-
-#form_div input {
-    width: 784px;
-    height: 60px;
-    padding-left: 25px;
-    font-size: 20px;
-    font-weight: 500;
-    border: 2px solid #E0E0E0;
-}
-
-#form_div form {
-    gap: 20px;
-}
-
-#buttons_div {
-    margin-top: 30px;
-    gap: 20px;
-}
-
-input[type=file] {
-    display: none;
-}
-
-#img_uploader {
-    cursor: pointer;
+#results_div {
+    gap: 45px;
+    flex-wrap: wrap;
 }
 
 /* footer */
