@@ -1,3 +1,4 @@
+from msilib.schema import LockPermissions
 from myspice_app.config.mysqlconnection import connectToMySQL
 from flask import flash
 import re
@@ -45,6 +46,12 @@ class User:
         query = "UPDATE profiles SET greeting = %(greeting)s, favorite_music = %(favorite_music)s, favorite_movies = %(favorite_movies)s, favorite_books = %(favorite_books)s, favorite_heroes = %(favorite_heroes)s, instagram = %(instagram)s, facebook = %(facebook)s, twitter = %(twitter)s, updated_at = NOW() WHERE user_id = %(user_id)s;"
         return connectToMySQL('myspice2_schema').query_db(query, data)
 
+    @classmethod
+    def find_user_name_containing(cls, data): 
+        search_keyword = data['keyword']
+        query = "SELECT * FROM users WHERE CONCAT(first_name, ' ', last_name) LIKE '%%"+search_keyword+"%%'"
+        return connectToMySQL('myspice2_schema').query_db(query, data)
+
     @staticmethod
     def validate_registration(user):
         # default is_valid value is true
@@ -85,3 +92,5 @@ class User:
             is_valid = False
         # this static method returns a boolean value of is_valid 
         return is_valid
+
+

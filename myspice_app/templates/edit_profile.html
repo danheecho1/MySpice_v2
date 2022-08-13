@@ -39,23 +39,23 @@
             <div class="flex flex_down align_items_center" id="profile_card_div">
                 <img src="../static/assets/default_profile_picture.png" alt="" id="profile_picture">
                 <h4 id="display_name">{{session.first_name}} {{session.last_name}}</h4>
-                <div class="flex flex_down font_medium" id="favorite_list_div">
-                    <p id="display_greeting">This section is general.</p>
+                <div class="flex flex_down align_items_center font_medium" id="favorite_list_div">
+                    <p id="display_greeting">{{profile.greeting}}</p>
                     <div class="flex flex_down align_items_center">
                         <p>Favorite Music: </p>
-                        <p>Funk is the way to go</p>
+                        <p>{{profile.favorite_music}}</p>
                     </div>
                     <div class="flex flex_down align_items_center">
                         <p>Favorite Movies: </p>    
-                        <p>Funk is the way to go</p>
+                        <p>{{profile.favorite_movies}}</p>
                     </div>
                     <div class="flex flex_down align_items_center">
                         <p>Favorite Books: </p>
-                        <p>Funk is the way to go</p>
+                        <p>{{profile.favorite_books}}</p>
                     </div>
                     <div class="flex flex_down align_items_center">
                         <p>Favorite Heroes: </p>
-                        <p>Funk is the way to go</p>
+                        <p>{{profile.favorite_heroes}}</p>
                     </div>
                 </div>
                 <!-- SNS links -->

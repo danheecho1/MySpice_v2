@@ -167,28 +167,6 @@
     width: 30px;
 }
 
-.search_profile_card {
-    height: 390px; 
-    width: 345px;
-    border: solid 2px #A9A9A9;
-    padding: 25px;
-    gap: 50px;
-}
-
-.search_profile_card img {
-    height: 200px;
-    width: 200px;
-}
-
-#main_body_div {
-    margin: 0px 201px;
-}
-
-#temp_cover_photo_div {
-    height: 330px;
-    background-color: #424242;
-}
-
 /* footer */
 
 #footer_div {
