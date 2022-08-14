@@ -84,7 +84,6 @@ def profile(user_id):
     current_user = User.get_user_by_id({'user_id': user_id})
     current_profile = Profile.get_profile_by_id({'user_id': user_id})
     displayed_comments = Comment.get_displayed_comments({'user_id': user_id})
-    print(displayed_comments)
     return render_template('profile.html', current_profile = current_profile, current_user = current_user, displayed_comments = displayed_comments)
 
 @app.route('/profile/edit')
@@ -118,12 +117,12 @@ def save_comment(user_id):
     Comment.save_comment(data)
     return redirect(f"/profile/{user_id}")
 
-@app.route('/posts')
-def manage_posts(): 
+@app.route('/posts/<int:user_id>')
+def manage_posts(user_id): 
     return render_template('manage_posts.html')
 
-@app.route('/posts/new')
-def new_post(): 
+@app.route('/posts/<int:user_id>/new')
+def new_post(user_id): 
     return render_template('new_post.html')
 
 @app.route('/posts/1')

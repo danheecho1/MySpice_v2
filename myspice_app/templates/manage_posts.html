@@ -70,7 +70,7 @@
             <div id="manage_post_div">
                 <div class="flex just_between align_items_center">
                     <h1>Manage Posts</h1>
-                    <button class="btn btn-lg btn-colored add_content_button">Add a post</button>
+                    <a href="/posts/{{session.id}}/new"><button class="btn btn-lg btn-colored">Add a post</button></a>
                 </div>
                 <div id="display_posts_div">
                     <ul>
@@ -209,7 +209,7 @@
                         </li>
                     </ul>
                 </div>
-                <button class="btn btn-sm btn-clear">Go back</button>
+                <a href="/dashboard"><button class="btn btn-sm btn-clear go_back">Go back</button></a>
             </div>
         </div>
         <!-- footer -->

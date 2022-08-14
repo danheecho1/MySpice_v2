@@ -49,10 +49,10 @@
             <div class="flex" id="results_div">
                 {% if search_result: %}
                     {% for user in search_result %}
-                        <div class="flex flex_down align_items_center search_profile_card">
+                        <a href="/profile/{{user.id}}" class="flex flex_down align_items_center search_profile_card">
                             <img src="../static/assets/default_profile_picture.png" alt="">
                             <h4>{{user.first_name}} {{user.last_name}}</h4>
-                        </div>
+                        </a>
                     {% endfor %}
                 {% endif %}
             </div>

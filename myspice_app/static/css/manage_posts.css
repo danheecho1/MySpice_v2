@@ -94,6 +94,14 @@
     background-color: white;
 }
 
+a {
+    text-decoration: none;
+}
+
+a:visited {
+    color: inherit;
+}
+
 /* top nav bar */
 
 #nav_bar_div {
@@ -179,10 +187,6 @@
     margin-bottom: 55px;
 }
 
-.add_content_button {
-    margin-top: 25px;
-}
-
 ul {
     height: 750px;
     overflow:hidden; 
@@ -212,7 +216,7 @@ li:not(:first-child) {
     margin-left: 35px;
 }
 
-#manage_post_div button {
+.go_back {
     margin-top: 30px;
 }
 
