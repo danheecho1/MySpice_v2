@@ -80,8 +80,12 @@ def login_post():
 
 @app.route('/dashboard')
 def dashboard(): 
-    profile = Profile.get_profile_by_id({'user_id': session['id']})
-    return render_template('dashboard.html', profile = profile)
+    data = {
+        'user_id': session['id']
+    }
+    current_profile = Profile.get_profile_by_id(data)
+    current_picture = Picture.get_user_with_picture_by_id(data)
+    return render_template('dashboard.html', current_profile = current_profile, current_picture = current_picture)
 
 @app.route('/profile/<int:user_id>')
 def profile(user_id):
@@ -155,6 +159,7 @@ def search_post():
 @app.route('/logout')
 def logout(): 
     session.clear()
+    return render_template('login.html')
 
 @app.route('/uploadprofilepicture', methods=['POST'])
 def uploadphoto_post(): 
