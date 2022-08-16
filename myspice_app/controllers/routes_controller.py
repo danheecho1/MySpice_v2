@@ -2,8 +2,12 @@ from myspice_app import app
 from myspice_app.models.user_model import User
 from myspice_app.models.profile_model import Profile
 from myspice_app.models.comment_model import Comment
+from myspice_app.models.picture_model import Picture
 from flask import render_template, redirect, session, request, flash
 from flask_bcrypt import Bcrypt
+
+import os
+import uuid
 
 bcrypt = Bcrypt(app)
 
@@ -81,15 +85,22 @@ def dashboard():
 
 @app.route('/profile/<int:user_id>')
 def profile(user_id):
-    current_user = User.get_user_by_id({'user_id': user_id})
-    current_profile = Profile.get_profile_by_id({'user_id': user_id})
-    displayed_comments = Comment.get_displayed_comments({'user_id': user_id})
-    return render_template('profile.html', current_profile = current_profile, current_user = current_user, displayed_comments = displayed_comments)
+    data = {
+        'user_id': user_id, 
+        'receiver_id': user_id, 
+        'sender_id': session['id']
+    }
+    current_user = User.get_user_by_id(data)
+    current_profile = Profile.get_profile_by_id(data)
+    current_picture = Picture.get_user_with_picture_by_id(data)
+    displayed_comments = Comment.get_displayed_comments(data)
+    return render_template('profile.html', current_profile = current_profile, current_user = current_user, displayed_comments = displayed_comments, current_picture = current_picture)
 
 @app.route('/profile/edit')
 def edit_profile(): 
     profile = Profile.get_profile_by_id({'user_id': session['id']})
-    return render_template('edit_profile.html', profile = profile)
+    current_picture = Picture.get_user_with_picture_by_id({'user_id': session['id']})
+    return render_template('edit_profile.html', profile = profile, current_picture = current_picture)
 
 @app.route('/profile/edit', methods=['POST'])
 def edit_profile_post(): 
@@ -141,9 +152,19 @@ def search_post():
     search_result = User.find_user_name_containing(data)
     return render_template('search_result.html', search_result = search_result)
 
-
-
 @app.route('/logout')
 def logout(): 
     session.clear()
-    return render_template('login.html')
+
+@app.route('/uploadprofilepicture', methods=['POST'])
+def uploadphoto_post(): 
+        profile_picture_submission = request.files["profile_picture_submission"]
+        picture_name = str(uuid.uuid1()) + os.path.splitext(profile_picture_submission.filename)[1]
+        data = {
+            'picture_name': picture_name, 
+            'user_id': session['id']
+        }
+        profile_picture_submission.save(os.path.join(app.root_path, f"static\\images\\{picture_name}"))
+        Picture.upload_profile_photo_step1(data)
+        Picture.upload_profile_photo_step2(data)
+        return redirect('/profile/edit')

@@ -158,8 +158,10 @@
     background-color: white;
 }
 
-#profile_picture {
+.profile_picture {
     width: 200px;
+    height: 200px;
+    border-radius: 50%;
 }
 
 #display_name {
@@ -255,6 +257,8 @@ li:not(:first-child) {
 
 #individual_comment_div img {
     height: 73px;
+    width: 73px;
+    border-radius: 50%;
     margin: 20px;
 }
 
