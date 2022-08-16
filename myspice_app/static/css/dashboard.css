@@ -142,8 +142,10 @@
     background-color: white;
 }
 
-#profile_picture {
+.profile_picture {
     width: 200px;
+    height: 200px;
+    border-radius: 50%;
 }
 
 #display_name {

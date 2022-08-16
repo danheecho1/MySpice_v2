@@ -41,7 +41,7 @@
             <!-- main body - left side (profile card) -->
             <div class="flex flex_down align_items_center" id="profile_card_div">
                 {% if current_picture['name'] %}
-                    <img src="{{url_for('static', filename='images/' + current_picture['name'])}}" class="profile_picture">
+                    <img src={{current_picture.name}} class="profile_picture">
                 {% else %}
                     <img src="../static/assets/default_profile_picture.png" alt="" class="profile_picture">
                 {% endif %}
@@ -199,7 +199,7 @@
                         <div id="individual_comment_div">
                             <div class="flex" id="comment_header_div">
                                 {% if comment.name %}
-                                    <img src="../static/images/{{comment.name}}" alt="">
+                                    <img src={{comment.name}} alt="">
                                 {% else %}
                                     <img src="../static/assets/default_profile_picture.png" alt="">
                                 {% endif %}
