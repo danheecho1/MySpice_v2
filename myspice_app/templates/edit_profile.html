@@ -38,7 +38,7 @@
             <!-- main body - left side (profile card) -->
             <div class="flex flex_down align_items_center" id="profile_card_div">
                 {% if current_picture['name'] %}
-                    <img src="{{url_for('static', filename='images/' + current_picture['name'])}}" class="profile_picture">
+                    <img src={{current_picture.name}} class="profile_picture">
                 {% else %}
                     <img src="../static/assets/default_profile_picture.png" alt="" class="profile_picture">
                 {% endif %}
@@ -75,7 +75,8 @@
                 <form enctype="multipart/form-data" action="/uploadprofilepicture" method="post">
                     <div class="flex just_between align_items_center" id="image_upload_div">
                         <label for="profile_picture_submission" class="font_medium">Profile Picture</label>
-                        <input name="profile_picture_submission" type="file" accept="image/*">
+                        <input type="file" accept="image/*" id="file-upload">
+                        <input type="hidden" value="" id="hiddenInput" name="profile_picture_submission">
                         <button type="submit">Save picture</button>
                     </div>
                 </form>
@@ -124,5 +125,7 @@
             <p>No Copyright © 2022 Danny Cho. All rights reserved</p>
         </div>
     </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../static/scripts/cloudinary.js"></script>
 </body>
 </html>

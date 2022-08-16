@@ -158,13 +158,13 @@ def logout():
 
 @app.route('/uploadprofilepicture', methods=['POST'])
 def uploadphoto_post(): 
-        profile_picture_submission = request.files["profile_picture_submission"]
-        picture_name = str(uuid.uuid1()) + os.path.splitext(profile_picture_submission.filename)[1]
+        picture_name = request.form["profile_picture_submission"]
         data = {
             'picture_name': picture_name, 
             'user_id': session['id']
         }
-        profile_picture_submission.save(os.path.join(app.root_path, f"static\\images\\{picture_name}"))
+        print('the picture name is...')
+        print(picture_name)
         Picture.upload_profile_photo_step1(data)
         Picture.upload_profile_photo_step2(data)
         return redirect('/profile/edit')
