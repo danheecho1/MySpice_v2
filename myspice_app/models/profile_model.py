@@ -9,7 +9,6 @@ class Profile:
         self.favorite_movies = data['favorite_movies']
         self.favorite_books = data['favorite_books']
         self.favorite_heroes = data['favorite_heroes']
-        self.profile_picture = data['profile_picture']
         self.instagram = data['instagram']
         self.facebook = data['facebook']
         self.twitter = data['twitter']

@@ -146,8 +146,10 @@
     background-color: white;
 }
 
-#profile_picture {
+.profile_picture {
     width: 200px;
+    height: 200px;
+    border-radius: 50%;
 }
 
 #display_name {
@@ -187,11 +189,19 @@
 #form_div input {
     width: 784px;
     height: 60px;
-    padding-left: 25px;
+    padding: 0px 20px;
     font-size: 20px;
     font-weight: 500;
     border: 2px solid #E0E0E0;
 }
+
+#image_upload_div input {
+    padding: 14px 0px;
+    border: none;
+    width: auto;
+    margin-right: 117px;
+}
+
 
 #form_div form {
     gap: 20px;
@@ -200,14 +210,6 @@
 #buttons_div {
     margin-top: 30px;
     gap: 20px;
-}
-
-input[type=file] {
-    display: none;
-}
-
-#img_uploader {
-    cursor: pointer;
 }
 
 /* footer */
