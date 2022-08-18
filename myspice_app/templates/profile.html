@@ -100,90 +100,15 @@
                     <h1>Posts by {{current_user.first_name}}</h1>
                     <div id="display_posts_div">
                         <ul>
+                            {% for post in current_posts %}
                             <li>
                                 <div class="flex">
-                                    <p id="post_date">05.18.2022</p>
-                                    <p id="post_title">Who let me out?</p>
+                                    <p id="post_number">#{{post.id}}</p>
+                                    <a href="/posts/{{session.id}}/{{post.id}}"><p id="post_title">{{post.title}}</p></a>
                                 </div>
-                                <p id="post_number">#10</p>
+                                <p id="post_date">{{post.date}}</p>
                             </li>
-                            <li>
-                                <div class="flex">
-                                    <p id="post_date">05.18.2022</p>
-                                    <p id="post_title">Who let me out?</p>
-                                </div>
-                                <p id="post_number">#10</p>
-                            </li>
-                            <li>
-                                <div class="flex">
-                                    <p id="post_date">05.18.2022</p>
-                                    <p id="post_title">Who let me out?</p>
-                                </div>
-                                <p id="post_number">#10</p>
-                            </li>
-                            <li>
-                                <div class="flex">
-                                    <p id="post_date">05.18.2022</p>
-                                    <p id="post_title">Who let me out?</p>
-                                </div>
-                                <p id="post_number">#10</p>
-                            </li>
-                            <li>
-                                <div class="flex">
-                                    <p id="post_date">05.18.2022</p>
-                                    <p id="post_title">Who let me out?</p>
-                                </div>
-                                <p id="post_number">#10</p>
-                            </li>
-                            <li>
-                                <div class="flex">
-                                    <p id="post_date">05.18.2022</p>
-                                    <p id="post_title">Who let me out?</p>
-                                </div>
-                                <p id="post_number">#10</p>
-                            </li>
-                            <li>
-                                <div class="flex">
-                                    <p id="post_date">05.18.2022</p>
-                                    <p id="post_title">Who let me out?</p>
-                                </div>
-                                <p id="post_number">#10</p>
-                            </li>
-                            <li>
-                                <div class="flex">
-                                    <p id="post_date">05.18.2022</p>
-                                    <p id="post_title">Who let me out?</p>
-                                </div>
-                                <p id="post_number">#10</p>
-                            </li>
-                            <li>
-                                <div class="flex">
-                                    <p id="post_date">05.18.2022</p>
-                                    <p id="post_title">Who let me out?</p>
-                                </div>
-                                <p id="post_number">#10</p>
-                            </li>
-                            <li>
-                                <div class="flex">
-                                    <p id="post_date">05.18.2022</p>
-                                    <p id="post_title">Who let me out?</p>
-                                </div>
-                                <p id="post_number">#10</p>
-                            </li>
-                            <li>
-                                <div class="flex">
-                                    <p id="post_date">05.18.2022</p>
-                                    <p id="post_title">Who let me out?</p>
-                                </div>
-                                <p id="post_number">#10</p>
-                            </li>
-                            <li>
-                                <div class="flex">
-                                    <p id="post_date">05.18.2022</p>
-                                    <p id="post_title">Who let me out?</p>
-                                </div>
-                                <p id="post_number">#10</p>
-                            </li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>

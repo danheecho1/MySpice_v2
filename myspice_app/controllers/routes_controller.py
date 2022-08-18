@@ -3,6 +3,7 @@ from myspice_app.models.user_model import User
 from myspice_app.models.profile_model import Profile
 from myspice_app.models.comment_model import Comment
 from myspice_app.models.picture_model import Picture
+from myspice_app.models.post_model import Post
 from flask import render_template, redirect, session, request, flash
 from flask_bcrypt import Bcrypt
 
@@ -97,8 +98,9 @@ def profile(user_id):
     current_user = User.get_user_by_id(data)
     current_profile = Profile.get_profile_by_id(data)
     current_picture = Picture.get_user_with_picture_by_id(data)
+    current_posts = Post.get_all_posts(data)
     displayed_comments = Comment.get_displayed_comments(data)
-    return render_template('profile.html', current_profile = current_profile, current_user = current_user, displayed_comments = displayed_comments, current_picture = current_picture)
+    return render_template('profile.html', current_profile = current_profile, current_user = current_user, current_posts = current_posts, displayed_comments = displayed_comments, current_picture = current_picture)
 
 @app.route('/profile/edit')
 def edit_profile(): 
@@ -134,15 +136,46 @@ def save_comment(user_id):
 
 @app.route('/posts/<int:user_id>')
 def manage_posts(user_id): 
-    return render_template('manage_posts.html')
+    data = {
+        'user_id': session['id']
+    }
+    current_profile = Profile.get_profile_by_id(data)
+    current_picture = Picture.get_user_with_picture_by_id(data)
+    all_posts = Post.get_all_posts(data)
+    return render_template('manage_posts.html', current_profile = current_profile, current_picture = current_picture, all_posts = all_posts)
 
 @app.route('/posts/<int:user_id>/new')
-def new_post(user_id): 
-    return render_template('new_post.html')
+def new_posts(user_id): 
+    data = {
+        'user_id': session['id']
+    }
+    current_profile = Profile.get_profile_by_id(data)
+    current_picture = Picture.get_user_with_picture_by_id(data)
+    return render_template('new_post.html', current_profile = current_profile, current_picture = current_picture)
 
-@app.route('/posts/1')
-def view_post(): 
-    return render_template('view_post.html')
+@app.route('/posts/<int:user_id>/new', methods=['POST'])
+def new_posts_post(user_id): 
+    data = {
+        'title': request.form['title'],
+        'content': request.form['content'], 
+        'user_id': user_id
+    }
+    Post.save_post(data)
+    return redirect(f"/posts/{user_id}")
+
+@app.route('/posts/<int:user_id>/<int:post_id>')
+def view_post(user_id, post_id):
+    data = {
+        'user_id': user_id, 
+        'post_id': post_id
+    }
+    post_owner = User.get_user_by_id(data)
+    post_owner_profile = Profile.get_profile_by_id(data)
+    post_owner_picture = Picture.get_user_with_picture_by_id(data)
+    selected_post = Post.get_one_post(data)
+    print(selected_post)
+    print(selected_post)
+    return render_template('view_post.html', post_owner = post_owner, post_owner_profile = post_owner_profile, post_owner_picture = post_owner_picture, selected_post = selected_post)
 
 @app.route('/search')
 def search(): 

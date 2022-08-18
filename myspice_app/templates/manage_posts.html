@@ -37,25 +37,29 @@
         <div class="flex just_between" id="main_body_div">
             <!-- main body - left side (profile card) -->
             <div class="flex flex_down align_items_center" id="profile_card_div">
-                <img src="../static/assets/default_profile_picture.png" alt="" id="profile_picture">
-                <h4 id="display_name">Ross Geller</h4>
+                {% if current_picture['name'] %}
+                    <img src={{current_picture.name}} class="profile_picture">
+                {% else %}
+                    <img src="../static/assets/default_profile_picture.png" alt="" class="profile_picture">
+                {% endif %}
+                <h4 id="display_name">{{session.first_name}} {{session.last_name}}</h4>
                 <div class="flex flex_down font_medium" id="favorite_list_div">
-                    <p id="display_greeting">This section is general.</p>
+                    <p id="display_greeting">{{current_profile.greeting}}</p>
                     <div class="flex flex_down align_items_center">
                         <p>Favorite Music: </p>
-                        <p>Funk is the way to go</p>
+                        <p>{{current_profile.favorite_music}}</p>
                     </div>
                     <div class="flex flex_down align_items_center">
-                        <p>Favorite Movies: </p>    
-                        <p>Funk is the way to go</p>
+                        <p>Favorite Movies: </p>
+                        <p>{{current_profile.favorite_movies}}</p>
                     </div>
                     <div class="flex flex_down align_items_center">
                         <p>Favorite Books: </p>
-                        <p>Funk is the way to go</p>
+                        <p>{{current_profile.favorite_books}}</p>
                     </div>
                     <div class="flex flex_down align_items_center">
                         <p>Favorite Heroes: </p>
-                        <p>Funk is the way to go</p>
+                        <p>{{current_profile.favorite_heroes}}</p>
                     </div>
                 </div>
                 <!-- SNS links -->
@@ -64,7 +68,7 @@
                     <img src="{{url_for('static', filename='/assets/facebook.png')}}" alt="">
                     <img src="{{url_for('static', filename='/assets/twitter.png')}}" alt="">
                 </div>
-                <button class="btn btn-clear btn-lg">Edit My Profile</button>
+                <a href="/profile/edit"><button class="btn btn-clear btn-lg">Edit My Profile</button></a>
             </div>
             <!-- main body - right side -->
             <div id="manage_post_div">
@@ -74,139 +78,15 @@
                 </div>
                 <div id="display_posts_div">
                     <ul>
+                        {% for post in all_posts %}
                         <li>
                             <div class="flex">
-                                <p id="post_date">05.18.2022</p>
-                                <p id="post_title">Who let me out?</p>
+                                <p id="post_number">#{{post.id}}</p>
+                                <a href="/posts/{{session.id}}/{{post.id}}"><p id="post_title">{{post.title}}</p></a>
                             </div>
-                            <p id="post_number">#10</p>
+                            <p id="post_date">{{post.date}}</p>
                         </li>
-                        <li>
-                            <div class="flex">
-                                <p id="post_date">05.18.2022</p>
-                                <p id="post_title">Who let me out?</p>
-                            </div>
-                            <p id="post_number">#10</p>
-                        </li>
-                        <li>
-                            <div class="flex">
-                                <p id="post_date">05.18.2022</p>
-                                <p id="post_title">Who let me out?</p>
-                            </div>
-                            <p id="post_number">#10</p>
-                        </li>
-                        <li>
-                            <div class="flex">
-                                <p id="post_date">05.18.2022</p>
-                                <p id="post_title">Who let me out?</p>
-                            </div>
-                            <p id="post_number">#10</p>
-                        </li>
-                        <li>
-                            <div class="flex">
-                                <p id="post_date">05.18.2022</p>
-                                <p id="post_title">Who let me out?</p>
-                            </div>
-                            <p id="post_number">#10</p>
-                        </li>
-                        <li>
-                            <div class="flex">
-                                <p id="post_date">05.18.2022</p>
-                                <p id="post_title">Who let me out?</p>
-                            </div>
-                            <p id="post_number">#10</p>
-                        </li>
-                        <li>
-                            <div class="flex">
-                                <p id="post_date">05.18.2022</p>
-                                <p id="post_title">Who let me out?</p>
-                            </div>
-                            <p id="post_number">#10</p>
-                        </li>
-                        <li>
-                            <div class="flex">
-                                <p id="post_date">05.18.2022</p>
-                                <p id="post_title">Who let me out?</p>
-                            </div>
-                            <p id="post_number">#10</p>
-                        </li>
-                        <li>
-                            <div class="flex">
-                                <p id="post_date">05.18.2022</p>
-                                <p id="post_title">Who let me out?</p>
-                            </div>
-                            <p id="post_number">#10</p>
-                        </li>
-                        <li>
-                            <div class="flex">
-                                <p id="post_date">05.18.2022</p>
-                                <p id="post_title">Who let me out?</p>
-                            </div>
-                            <p id="post_number">#10</p>
-                        </li>
-                        <li>
-                            <div class="flex">
-                                <p id="post_date">05.18.2022</p>
-                                <p id="post_title">Who let me out?</p>
-                            </div>
-                            <p id="post_number">#10</p>
-                        </li>
-                        <li>
-                            <div class="flex">
-                                <p id="post_date">05.18.2022</p>
-                                <p id="post_title">Who let me out?</p>
-                            </div>
-                            <p id="post_number">#10</p>
-                        </li>
-                        <li>
-                            <div class="flex">
-                                <p id="post_date">05.18.2022</p>
-                                <p id="post_title">Who let me out?</p>
-                            </div>
-                            <p id="post_number">#10</p>
-                        </li>
-                        <li>
-                            <div class="flex">
-                                <p id="post_date">05.18.2022</p>
-                                <p id="post_title">Who let me out?</p>
-                            </div>
-                            <p id="post_number">#10</p>
-                        </li>
-                        <li>
-                            <div class="flex">
-                                <p id="post_date">05.18.2022</p>
-                                <p id="post_title">Who let me out?</p>
-                            </div>
-                            <p id="post_number">#10</p>
-                        </li>
-                        <li>
-                            <div class="flex">
-                                <p id="post_date">05.18.2022</p>
-                                <p id="post_title">Who let me out?</p>
-                            </div>
-                            <p id="post_number">#10</p>
-                        </li>
-                        <li>
-                            <div class="flex">
-                                <p id="post_date">05.18.2022</p>
-                                <p id="post_title">Who let me out?</p>
-                            </div>
-                            <p id="post_number">#10</p>
-                        </li>
-                        <li>
-                            <div class="flex">
-                                <p id="post_date">05.18.2022</p>
-                                <p id="post_title">Who let me out?</p>
-                            </div>
-                            <p id="post_number">#10</p>
-                        </li>
-                        <li>
-                            <div class="flex">
-                                <p id="post_date">05.18.2022</p>
-                                <p id="post_title">Who let me out?</p>
-                            </div>
-                            <p id="post_number">#10</p>
-                        </li>
+                        {% endfor %}
                     </ul>
                 </div>
                 <a href="/dashboard"><button class="btn btn-sm btn-clear go_back">Go back</button></a>

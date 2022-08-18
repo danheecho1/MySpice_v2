@@ -155,8 +155,10 @@ a:visited {
     background-color: white;
 }
 
-#profile_picture {
+.profile_picture {
     width: 200px;
+    height: 200px;
+    border-radius: 50%;
 }
 
 #display_name {
@@ -167,6 +169,7 @@ a:visited {
 
 #favorite_list_div {
     gap: 30px;
+    text-align: center
 }
 
 #favorite_list_div div p {
@@ -204,6 +207,11 @@ li {
 
 li:not(:first-child) {
     border-top: solid 2px #E0E0E0;
+}
+
+li a {
+    text-decoration: none;
+    color: black;
 }
 
 #post_date, #post_number {
