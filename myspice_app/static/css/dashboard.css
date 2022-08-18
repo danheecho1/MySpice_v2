@@ -156,6 +156,7 @@
 
 #favorite_list_div {
     gap: 30px;
+    text-align: center
 }
 
 #favorite_list_div div p {
@@ -189,6 +190,8 @@
     width: 310px; 
     box-shadow: 0px 0px 50px 50px rgba(0, 0, 0, 0.03);
     transition: 500ms;
+    text-decoration: none;
+    color: black;
 }
 
 .dashboard_nav_button:hover {
