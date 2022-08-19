@@ -99,6 +99,7 @@
                 <div id="manage_post_div">
                     <h1>Posts by {{current_user.first_name}}</h1>
                     <div id="display_posts_div">
+                        {% if current_posts %}
                         <ul>
                             {% for post in current_posts %}
                             <li>
@@ -110,6 +111,10 @@
                             </li>
                             {% endfor %}
                         </ul>
+                        <a href="#"><p>See more</p></a>
+                        {% else %}
+                        <p>{{current_user.first_name}} has not posted anything yet.</p>
+                        {% endif %}
                     </div>
                 </div>
                 <!-- Comments textarea -->

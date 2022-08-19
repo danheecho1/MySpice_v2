@@ -91,7 +91,7 @@ def dashboard():
 @app.route('/profile/<int:user_id>')
 def profile(user_id):
     data = {
-        'user_id': user_id, 
+        'user_id': user_id,
         'receiver_id': user_id, 
         'sender_id': session['id']
     }
@@ -187,7 +187,8 @@ def search_post():
         'keyword': request.form['search_keyword']
     }
     search_result = User.find_user_name_containing(data)
-    return render_template('search_result.html', search_result = search_result)
+    number_of_result = User.get_search_result_count(data)
+    return render_template('search_result.html', search_result = search_result, number_of_result = number_of_result)
 
 @app.route('/logout')
 def logout(): 
