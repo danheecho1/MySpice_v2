@@ -11,7 +11,7 @@
 
   /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: #555; 
 }
 
 /* General styling */
@@ -210,6 +210,11 @@ li {
 
 li:not(:first-child) {
     border-top: solid 2px #E0E0E0;
+}
+
+li a {
+    text-decoration: none;
+    color: black;
 }
 
 #post_date, #post_number {

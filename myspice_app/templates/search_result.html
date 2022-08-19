@@ -45,12 +45,16 @@
         </form>
         <!-- main body -->
         <div class="flex flex_down just_between" id="main_body_div">
-            <h1> Result(s)</h1>
+            <h1>{{number_of_result}} Result(s)</h1>
             <div class="flex" id="results_div">
                 {% if search_result: %}
                     {% for user in search_result %}
                         <a href="/profile/{{user.id}}" class="flex flex_down align_items_center search_profile_card">
-                            <img src="../static/assets/default_profile_picture.png" alt="">
+                            {% if user.name %}
+                                <img src={{user.name}} alt="" class="result_profile_pictures">
+                            {% else %}
+                                <img src="{{url_for('static', filename='/assets/default_profile_picture.png')}}" alt="" class="result_profile_pictures">
+                            {% endif %}
                             <h4>{{user.first_name}} {{user.last_name}}</h4>
                         </a>
                     {% endfor %}

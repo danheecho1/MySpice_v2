@@ -48,8 +48,17 @@ class User:
     @classmethod
     def find_user_name_containing(cls, data): 
         search_keyword = data['keyword']
-        query = "SELECT * FROM users WHERE CONCAT(first_name, ' ', last_name) LIKE '%%"+search_keyword+"%%'"
+        query = "SELECT * FROM users LEFT JOIN pictures ON users.id = pictures.user_id WHERE CONCAT(first_name, ' ', last_name) LIKE '%%"+search_keyword+"%%'"
         return connectToMySQL('myspice2_schema').query_db(query, data)
+
+    @classmethod
+    def get_search_result_count(cls, data): 
+        search_keyword = data['keyword']
+        query = "SELECT COUNT(*) FROM users LEFT JOIN pictures ON users.id = pictures.user_id WHERE CONCAT(first_name, ' ', last_name) LIKE '%%"+search_keyword+"%%'"
+        result = connectToMySQL('myspice2_schema').query_db(query, data)
+        if result: 
+            return result[0]['COUNT(*)']
+        return False
 
     @staticmethod
     def validate_registration(user):
