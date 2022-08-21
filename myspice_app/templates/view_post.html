@@ -40,7 +40,7 @@
                 {% if post_owner_picture['name'] %}
                     <img src={{post_owner_picture.name}} class="profile_picture">
                 {% else %}
-                    <img src="../static/assets/default_profile_picture.png" alt="" class="profile_picture">
+                <img src="{{url_for('static', filename='/assets/default_profile_picture.png')}}" alt="" class="profile_picture">
                 {% endif %}
                 <h4 id="display_name">{{post_owner.first_name}} {{post_owner.last_name}}</h4>
                 <div class="flex flex_down font_medium" id="favorite_list_div">
@@ -81,7 +81,7 @@
                 </div>
                 <!-- buttons -->
                 <div class="flex just_between" id="buttons_div">
-                    <a href="/posts/{{session.id}}"><button class="btn btn-sm btn-clear">Go back</button></a>
+                    <button onclick="history.back()" class="btn btn-sm btn-clear">Go back</button>
                     <div>
                         <button class="btn btn-sm btn-danger">Delete post</button>
                         <button class="btn btn-lg btn-colored">Edit post</button>

@@ -40,7 +40,7 @@
                 {% if current_picture['name'] %}
                     <img src={{current_picture.name}} class="profile_picture">
                 {% else %}
-                    <img src="../static/assets/default_profile_picture.png" alt="" class="profile_picture">
+                <img src="{{url_for('static', filename='/assets/default_profile_picture.png')}}" alt="" class="profile_picture">
                 {% endif %}
                 <h4 id="display_name">{{session.first_name}} {{session.last_name}}</h4>
                 <div class="flex flex_down font_medium" id="favorite_list_div">
@@ -77,19 +77,23 @@
                     <a href="/posts/{{session.id}}/new"><button class="btn btn-lg btn-colored">Add a post</button></a>
                 </div>
                 <div id="display_posts_div">
-                    <ul>
-                        {% for post in all_posts %}
-                        <li>
-                            <div class="flex">
-                                <p id="post_number">#{{post.id}}</p>
-                                <a href="/posts/{{session.id}}/{{post.id}}"><p id="post_title">{{post.title}}</p></a>
-                            </div>
-                            <p id="post_date">{{post.date}}</p>
-                        </li>
-                        {% endfor %}
-                    </ul>
+                    {% if all_posts %}
+                        <ul>
+                            {% for post in all_posts %}
+                            <li>
+                                <div class="flex">
+                                    <p id="post_number">#{{post.id}}</p>
+                                    <a href="/posts/{{session.id}}/{{post.id}}"><p id="post_title">{{post.title}}</p></a>
+                                </div>
+                                <p id="post_date">{{post.date}}</p>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>You have not posted anything yet!</p>
+                    {% endif %}
                 </div>
-                <a href="/dashboard"><button class="btn btn-sm btn-clear go_back">Go back</button></a>
+                <button onclick="history.back()" class="btn btn-sm btn-clear go_back">Go back</button>
             </div>
         </div>
         <!-- footer -->
