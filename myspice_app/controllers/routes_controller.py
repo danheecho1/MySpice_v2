@@ -98,7 +98,8 @@ def profile(user_id):
     current_user = User.get_user_by_id(data)
     current_profile = Profile.get_profile_by_id(data)
     current_picture = Picture.get_user_with_picture_by_id(data)
-    current_posts = Post.get_all_posts(data)
+    current_posts = Post.get_six_posts(data)
+    print(len(current_posts))
     displayed_comments = Comment.get_displayed_comments(data)
     return render_template('profile.html', current_profile = current_profile, current_user = current_user, current_posts = current_posts, displayed_comments = displayed_comments, current_picture = current_picture)
 
@@ -128,7 +129,7 @@ def edit_profile_post():
 def save_comment(user_id):
     data = { 
         'content': request.form['content'],
-        'user_id': user_id,
+        'receiver_id': user_id,
         'sender_id': session['id']
     }
     Comment.save_comment(data)

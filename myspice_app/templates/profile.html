@@ -97,7 +97,7 @@
             <div id="main_body_div_right">
                 <!-- posts -->
                 <div id="manage_post_div">
-                    <h1>Posts by {{current_user.first_name}}</h1>
+                    <h1>Recent posts by {{current_user.first_name}}</h1>
                     <div id="display_posts_div">
                         {% if current_posts %}
                         <ul>
@@ -105,13 +105,15 @@
                             <li>
                                 <div class="flex">
                                     <p id="post_number">#{{post.id}}</p>
-                                    <a href="/posts/{{session.id}}/{{post.id}}"><p id="post_title">{{post.title}}</p></a>
+                                    <a href="/posts/{{current_user.id}}/{{post.id}}"><p id="post_title">{{post.title}}</p></a>
                                 </div>
                                 <p id="post_date">{{post.date}}</p>
                             </li>
                             {% endfor %}
                         </ul>
-                        <a href="#"><p>See more</p></a>
+                            {% if current_posts | length > 5 %}
+                            <a href="/posts/{{current_user.id}}" class="flex just_right"><p>See all</p></a>
+                            {% endif %}
                         {% else %}
                         <p>{{current_user.first_name}} has not posted anything yet.</p>
                         {% endif %}
@@ -125,22 +127,26 @@
                 </form>
                 <!-- Comments display -->
                 <div class="flex flex_down" id="comments_display_div">
-                    {% for comment in displayed_comments %}
-                        <div id="individual_comment_div">
-                            <div class="flex" id="comment_header_div">
-                                {% if comment.name %}
-                                    <img src={{comment.name}} alt="">
-                                {% else %}
-                                    <img src="../static/assets/default_profile_picture.png" alt="">
-                                {% endif %}
-                                <div class="flex flex_down just_center" id="individual_comment_header_div">
-                                    <p>{{comment.created_at}}</p>
-                                    <h4>{{comment.first_name}} {{comment.last_name}}</h4>
+                    {% if displayed_comments %}
+                        {% for comment in displayed_comments %}
+                            <div id="individual_comment_div">
+                                <div class="flex" id="comment_header_div">
+                                    {% if comment.name %}
+                                        <img src={{comment.name}} alt="">
+                                    {% else %}
+                                        <img src="../static/assets/default_profile_picture.png" alt="">
+                                    {% endif %}
+                                    <div class="flex flex_down just_center" id="individual_comment_header_div">
+                                        <p>{{comment.created_at}}</p>
+                                        <h4>{{comment.first_name}} {{comment.last_name}}</h4>
+                                    </div>
                                 </div>
+                                <p id="comment_content">{{comment.content}}</p>
                             </div>
-                            <p id="comment_content">{{comment.content}}</p>
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
+                    {% else %}
+                        <p>{{current_user.first_name}} has not received any comments yet.</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
