@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='/css/view_post.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='/css/new_post.css')}}">
 </head>
 <body class="flex just_around">
     <!-- container -->
@@ -28,7 +28,7 @@
             </div>
             <!-- nav bar - right side buttons -->
             <div>
-                <button class="btn btn-sm btn-clear">Log out</button>
+                <a href="/logout"><button class="btn btn-sm btn-clear">Log out</button></a>
             </div>
         </div>
         <!-- cover photo -> empty div for now -->
@@ -37,29 +37,29 @@
         <div class="flex just_between" id="main_body_div">
             <!-- main body - left side (profile card) -->
             <div class="flex flex_down align_items_center" id="profile_card_div">
-                {% if post_owner_picture['name'] %}
-                    <img src={{post_owner_picture.name}} class="profile_picture">
+                {% if current_picture['name'] %}
+                    <img src={{current_picture.name}} class="profile_picture">
                 {% else %}
-                <img src="{{url_for('static', filename='/assets/default_profile_picture.png')}}" alt="" class="profile_picture">
+                    <img src="../static/assets/default_profile_picture.png" alt="" class="profile_picture">
                 {% endif %}
-                <h4 id="display_name">{{post_owner.first_name}} {{post_owner.last_name}}</h4>
-                <div class="flex flex_down align_items_center font_medium" id="favorite_list_div">
-                    <p id="display_greeting">{{post_owner_profile.greeting}}</p>
+                <h4 id="display_name">{{session.first_name}} {{session.last_name}}</h4>
+                <div class="flex flex_down font_medium" id="favorite_list_div">
+                    <p id="display_greeting">{{current_profile.greeting}}</p>
                     <div class="flex flex_down align_items_center">
                         <p>Favorite Music: </p>
-                        <p>{{post_owner_profile.favorite_music}}</p>
+                        <p>{{current_profile.favorite_music}}</p>
                     </div>
                     <div class="flex flex_down align_items_center">
                         <p>Favorite Movies: </p>
-                        <p>{{post_owner_profile.favorite_movies}}</p>
+                        <p>{{current_profile.favorite_movies}}</p>
                     </div>
                     <div class="flex flex_down align_items_center">
                         <p>Favorite Books: </p>
-                        <p>{{post_owner_profile.favorite_books}}</p>
+                        <p>{{current_profile.favorite_books}}</p>
                     </div>
                     <div class="flex flex_down align_items_center">
                         <p>Favorite Heroes: </p>
-                        <p>{{post_owner_profile.favorite_heroes}}</p>
+                        <p>{{current_profile.favorite_heroes}}</p>
                     </div>
                 </div>
                 <!-- SNS links -->
@@ -68,28 +68,25 @@
                     <img src="{{url_for('static', filename='/assets/facebook.png')}}" alt="" id="facebook">
                     <img src="{{url_for('static', filename='/assets/twitter.png')}}" alt="" id="twitter">
                 </div>
-                <button class="btn btn-clear btn-lg">Edit My Profile</button>
+                <a href="/profile/edit"><button class="btn btn-clear btn-lg">Edit My Profile</button></a>
             </div>
             <!-- main body - right side -->
-            <div id="manage_post_div">
-                <div class="flex just_between align_items_center">
-                    <h1>{{selected_post.title}}</h1>
-                    <div>
-                        <p id="post_date">Created at {{selected_post.created_at}}</p>
-                        <p id="post_date">Updated at {{selected_post.updated_at}}</p>
+            <div id="form_div">
+                <h1>Edit Post</h1>
+                <form action="/posts/{{session.id}}/{{selected_post.id}}/edit" method="post" class="flex flex_down">
+                    <div class="flex flex_down label_input_div">
+                        <label for="title" class="font_medium">Title</label>
+                        <input type="text" name="title" value="{{selected_post.title}}">
                     </div>
-                </div>
-                <div>
-                    <p class="font_medium" id="post_content">{{selected_post.content}}</p>
-                </div>
-                <!-- buttons -->
-                <div class="flex just_between" id="buttons_div">
-                    <button onclick="history.back()" class="btn btn-sm btn-clear">Go back</button>
-                    <div>
-                        <button class="btn btn-sm btn-danger">Delete post</button>
-                        <a href="/posts/{{post_owner.id}}/{{selected_post.id}}/edit"><button class="btn btn-lg btn-colored">Edit post</button></a>
+                    <div class="flex flex_down label_input_div">
+                        <label for="content" class="font_medium">Post</label>
+                        <textarea name="content">{{selected_post.content}}</textarea>
                     </div>
-                </div>
+                    <div class="flex just_right" id="buttons_div">
+                        <a href="/posts/{{session.id}}" class="btn btn-sm btn-clear">Cancel</a>
+                        <button class="btn btn-lg btn-colored">Save</button>
+                    </div>
+                </form>
             </div>
         </div>
         <!-- footer -->

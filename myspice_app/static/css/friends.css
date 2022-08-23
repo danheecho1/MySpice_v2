@@ -187,46 +187,6 @@
     width: 30px;
 }
 
-#form_div {
-    width: 1014px;
-}
-
-#form_div h1 {
-    margin-top: 80px;
-    margin-bottom: 55px;
-}
-
-#form_div label {
-    font-size: 20px;
-    color: #777E90
-}
-
-#form_div input {
-    width: 784px;
-    height: 60px;
-    padding: 0px 20px;
-    font-size: 20px;
-    font-weight: 500;
-    border: 2px solid #E0E0E0;
-}
-
-#image_upload_div input {
-    padding: 14px 0px;
-    border: none;
-    width: auto;
-    margin-right: 117px;
-}
-
-
-#form_div form {
-    gap: 20px;
-}
-
-#buttons_div {
-    margin-top: 30px;
-    gap: 20px;
-}
-
 /* footer */
 
 #footer_div {

@@ -168,8 +168,23 @@
 }
 
 #sns_links_div {
-    margin: 40px 0px;
+    margin-top: 40px;
     gap: 40px;
+}
+
+#instagram {
+    height: 30px;
+    width: 30px;
+}
+
+#facebook {
+    width: 16px;
+    height: 32px;
+}
+
+#twitter {
+    height: 25px;
+    width: 30px;
 }
 
 #form_div {

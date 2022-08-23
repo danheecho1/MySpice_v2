@@ -180,6 +180,21 @@ a:visited {
     gap: 40px;
 }
 
+#instagram {
+    height: 30px;
+    width: 30px;
+}
+
+#facebook {
+    width: 16px;
+    height: 32px;
+}
+
+#twitter {
+    height: 25px;
+    width: 30px;
+}
+
 #manage_post_div {
     width: 1014px;
 }
@@ -224,7 +239,7 @@ li a {
 }
 
 .go_back {
-    margin-top: 30px;
+    margin-top: 50px;
 }
 
 /* footer */
