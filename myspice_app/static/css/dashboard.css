@@ -169,6 +169,21 @@
     gap: 40px;
 }
 
+#instagram {
+    height: 30px;
+    width: 30px;
+}
+
+#facebook {
+    width: 16px;
+    height: 32px;
+}
+
+#twitter {
+    height: 25px;
+    width: 30px;
+}
+
 #dashboard_nav_div {
     width: 1014px;
 }

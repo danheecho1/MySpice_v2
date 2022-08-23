@@ -171,7 +171,20 @@
 #display_name {
     font-size: 24px;
     margin-top: 20px;
-    margin-bottom: 48px;
+}
+
+#friend_request_btn {
+    margin: 50px 0px;
+}
+
+#request_status_message {
+    color: #18A0FB;
+    border: solid 1px #18A0FB;
+    background-color: white;
+    border-radius: 5px;
+    padding: 3px 6px;
+    font-weight: 500;
+    margin: 50px 0px;
 }
 
 #favorite_list_div {
@@ -188,6 +201,21 @@
     gap: 40px;
 }
 
+#instagram {
+    height: 30px;
+    width: 30px;
+}
+
+#facebook {
+    width: 16px;
+    height: 32px;
+}
+
+#twitter {
+    height: 25px;
+    width: 30px;
+}
+
 #main_body_div_right {
     width: 1014px;
 }
@@ -196,7 +224,6 @@
     margin-top: 80px;
     margin-bottom: 55px;
 }
-
 
 li {
     list-style-type: none;

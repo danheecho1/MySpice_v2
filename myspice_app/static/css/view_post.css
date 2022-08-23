@@ -170,11 +170,27 @@
 
 #favorite_list_div div p {
     color: #777E90;
+    text-align: center;
 }
 
 #sns_links_div {
-    margin: 40px 0px;
+    margin: 40px 40px 0px 40px;
     gap: 40px;
+}
+
+#instagram {
+    height: 30px;
+    width: 30px;
+}
+
+#facebook {
+    width: 16px;
+    height: 32px;
+}
+
+#twitter {
+    height: 25px;
+    width: 30px;
 }
 
 #manage_post_div {

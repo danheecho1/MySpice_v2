@@ -22,7 +22,7 @@
                     <a href="/dashboard">Home</a>
                     <a href="/profile/{{session.id}}">Profile</a>
                     <a href="#">Message</a>
-                    <a href="/search">Search Friends</a>
+                    <a href="/search">Search</a>
                     <a href="#">About</a>
                 </div>
             </div>
@@ -63,10 +63,10 @@
                     </div>
                 </div>
                 <!-- SNS links -->
-                <div class="flex" id="sns_links_div">
-                    <img src="{{url_for('static', filename='/assets/instagram.png')}}" alt="">
-                    <img src="{{url_for('static', filename='/assets/facebook.png')}}" alt="">
-                    <img src="{{url_for('static', filename='/assets/twitter.png')}}" alt="">
+                <div class="flex align_items_center" id="sns_links_div">
+                    <img src="{{url_for('static', filename='/assets/instagram.png')}}" alt="" id="instagram">
+                    <img src="{{url_for('static', filename='/assets/facebook.png')}}" alt="" id="facebook">
+                    <img src="{{url_for('static', filename='/assets/twitter.png')}}" alt="" id="twitter">
                 </div>
             </div>
             <!-- main body - right side -->

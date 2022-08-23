@@ -31,3 +31,8 @@ class Post:
         if result: 
             return cls(result[0])
         return False
+
+    @classmethod
+    def edit_post(cls, data): 
+        query = "UPDATE posts SET title = %(title)s, content = %(content)s, updated_at = NOW() WHERE id = %(post_id)s;"
+        return connectToMySQL('myspice2_schema').query_db(query, data)

@@ -4,6 +4,8 @@ from myspice_app.models.profile_model import Profile
 from myspice_app.models.comment_model import Comment
 from myspice_app.models.picture_model import Picture
 from myspice_app.models.post_model import Post
+from myspice_app.models.friendship_model import Friendship
+
 from flask import render_template, redirect, session, request, flash
 from flask_bcrypt import Bcrypt
 
@@ -99,9 +101,11 @@ def profile(user_id):
     current_profile = Profile.get_profile_by_id(data)
     current_picture = Picture.get_user_with_picture_by_id(data)
     current_posts = Post.get_six_posts(data)
-    print(len(current_posts))
     displayed_comments = Comment.get_displayed_comments(data)
-    return render_template('profile.html', current_profile = current_profile, current_user = current_user, current_posts = current_posts, displayed_comments = displayed_comments, current_picture = current_picture)
+    are_we_friends = Friendship.get_friendship_status(data)
+    print("testing to see if we're friends")
+    print(are_we_friends)
+    return render_template('profile.html', current_profile = current_profile, current_user = current_user, current_posts = current_posts, displayed_comments = displayed_comments, current_picture = current_picture, are_we_friends = are_we_friends)
 
 @app.route('/profile/edit')
 def edit_profile(): 
@@ -174,9 +178,29 @@ def view_post(user_id, post_id):
     post_owner_profile = Profile.get_profile_by_id(data)
     post_owner_picture = Picture.get_user_with_picture_by_id(data)
     selected_post = Post.get_one_post(data)
-    print(selected_post)
-    print(selected_post)
     return render_template('view_post.html', post_owner = post_owner, post_owner_profile = post_owner_profile, post_owner_picture = post_owner_picture, selected_post = selected_post)
+
+@app.route('/posts/<int:user_id>/<int:post_id>/edit')
+def edit_post(user_id, post_id):
+    data = {
+        'user_id': user_id, 
+        'post_id': post_id
+    }
+    current_profile = Profile.get_profile_by_id(data)
+    current_picture = Picture.get_user_with_picture_by_id(data)
+    selected_post = Post.get_one_post(data)
+    return render_template('edit_post.html', current_profile = current_profile, current_picture = current_picture, selected_post = selected_post)
+
+@app.route('/posts/<int:user_id>/<int:post_id>/edit', methods=['POST'])
+def edit_post_post(user_id, post_id): 
+    data = {
+        'title': request.form['title'],
+        'content': request.form['content'], 
+        'post_id': post_id
+    }
+    Post.edit_post(data)
+    return redirect(f"/posts/{user_id}")
+
 
 @app.route('/search')
 def search(): 
@@ -196,6 +220,13 @@ def logout():
     session.clear()
     return render_template('login.html')
 
+@app.route('/account_setting/<int:user_id>')
+def account_setting(user_id): 
+    user = User.get_user_by_id({'user_id': session['id']})
+    current_profile = Profile.get_profile_by_id({'user_id': session['id']})
+    current_picture = Picture.get_user_with_picture_by_id({'user_id': session['id']})
+    return render_template('account_settings.html', user = user, current_profile = current_profile, current_picture = current_picture)
+
 @app.route('/uploadprofilepicture', methods=['POST'])
 def uploadphoto_post(): 
         picture_name = request.form["profile_picture_submission"]
@@ -208,3 +239,19 @@ def uploadphoto_post():
         Picture.upload_profile_photo_step1(data)
         Picture.upload_profile_photo_step2(data)
         return redirect('/profile/edit')
+
+
+@app.route('/profile/<int:user_id>/friend_request', methods=['POST'])
+def send_friend_request_post(user_id):
+    data = {
+        'receiver_id': user_id, 
+        'sender_id': session['id']
+    }
+    Friendship.send_request(data)
+    return redirect(f"/profile/{user_id}")
+
+@app.route('/profile/<int:user_id>/friends')
+def friends(user_id): 
+    profile = Profile.get_profile_by_id({'user_id': session['id']})
+    current_picture = Picture.get_user_with_picture_by_id({'user_id': session['id']})
+    return render_template('friends.html', profile = profile, current_picture = current_picture)

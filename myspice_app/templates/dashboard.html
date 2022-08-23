@@ -22,7 +22,7 @@
                     <a href="/dashboard">Home</a>
                     <a href="/profile/{{session.id}}">Profile</a>
                     <a href="#">Message</a>
-                    <a href="/search">Search Friends</a>
+                    <a href="/search">Search</a>
                     <a href="#">About</a>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                 {% if current_picture['name'] %}
                     <img src={{current_picture.name}} class="profile_picture">
                 {% else %}
-                    <img src="../static/assets/default_profile_picture.png" alt="" class="profile_picture">
+                    <img src="{{url_for('static', filename='/assets/default_profile_picture.png')}}" alt="" class="profile_picture">
                 {% endif %}
                 <h4 id="display_name">{{session.first_name}} {{session.last_name}}</h4>
                 <div class="flex flex_down align_items_center font_medium" id="favorite_list_div">
@@ -63,10 +63,10 @@
                     </div>
                 </div>
                 <!-- SNS links -->
-                <div class="flex" id="sns_links_div">
-                    <img src="{{url_for('static', filename='/assets/instagram.png')}}" alt="">
-                    <img src="{{url_for('static', filename='/assets/facebook.png')}}" alt="">
-                    <img src="{{url_for('static', filename='/assets/twitter.png')}}" alt="">
+                <div class="flex align_items_center" id="sns_links_div">
+                    <img src="{{url_for('static', filename='/assets/instagram.png')}}" alt="" id="instagram">
+                    <img src="{{url_for('static', filename='/assets/facebook.png')}}" alt="" id="facebook">
+                    <img src="{{url_for('static', filename='/assets/twitter.png')}}" alt="" id="twitter">
                 </div>
                 <a href="/profile/edit"><button class="btn btn-clear btn-lg">Edit My Profile</button></a>
             </div>
@@ -86,14 +86,14 @@
                         <img src="../static/assets/posts.png" alt="">
                         <p>Manage Posts</p>
                     </a>
-                    <div class="dashboard_nav_button flex flex_down align_items_center just_evenly">
+                    <a href="/profile/{{session.id}}/friends" class="dashboard_nav_button flex flex_down align_items_center just_evenly">
                         <img src="../static/assets/friends.png" alt="">
                         <p>My Friends</p>
-                    </div>
-                    <div class="dashboard_nav_button flex flex_down align_items_center just_evenly">
+                    </a>
+                    <a href="/account_setting/{{session.id}}" class="dashboard_nav_button flex flex_down align_items_center just_evenly">
                         <img src="../static/assets/setting.png" alt="">
                         <p>Account Settings</p>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>

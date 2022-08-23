@@ -22,7 +22,7 @@
                     <a href="/dashboard">Home</a>
                     <a href="/profile/{{session.id}}">Profile</a>
                     <a href="#">Message</a>
-                    <a href="/search">Search Friends</a>
+                    <a href="/search">Search</a>
                     <a href="#">About</a>
                 </div>
             </div>
@@ -46,6 +46,17 @@
                     <img src="../static/assets/default_profile_picture.png" alt="" class="profile_picture">
                 {% endif %}
                     <h4 id="display_name">{{current_user.first_name}} {{current_user.last_name}}</h4>
+                    {% if session.id != current_user.id %}
+                        {% if are_we_friends and are_we_friends[0]['status'] == 1 %}
+                            <p id="request_status_message">Friend</p>
+                        {% elif are_we_friends and are_we_friends[0]['status'] == 0 %}
+                            <p id="request_status_message">Friend Request Pending</p>
+                        {% else %}
+                            <form action="/profile/{{current_user.id}}/friend_request" method="post" onsubmit="return confirm('Are you sure you want to send a friend request?')"><button class="btn btn-lg btn-clear" id="friend_request_btn">Friend Request</button></form>
+                        {% endif %}
+                    {% else %}
+                        <p>this is myself!</p>
+                    {% endif %}
                     <div class="flex flex_down align_items_center font_medium" id="favorite_list_div">
                         <p id="display_greeting">{{current_profile.greeting}}</p>
                         <div class="flex flex_down align_items_center">
@@ -66,10 +77,10 @@
                         </div>
                     </div>
                     <!-- SNS links -->
-                    <div class="flex" id="sns_links_div">
-                        <img src="{{url_for('static', filename='/assets/instagram.png')}}" alt="">
-                        <img src="{{url_for('static', filename='/assets/facebook.png')}}" alt="">
-                        <img src="{{url_for('static', filename='/assets/twitter.png')}}" alt="">
+                    <div class="flex align_items_center" id="sns_links_div">
+                        <img src="{{url_for('static', filename='/assets/instagram.png')}}" alt="" id="instagram">
+                        <img src="{{url_for('static', filename='/assets/facebook.png')}}" alt="" id="facebook">
+                        <img src="{{url_for('static', filename='/assets/twitter.png')}}" alt="" id="twitter">
                     </div>
                 </div>
                 <!-- main body - left side (top friends) -->
@@ -97,25 +108,25 @@
             <div id="main_body_div_right">
                 <!-- posts -->
                 <div id="manage_post_div">
-                    <h1>Recent posts by {{current_user.first_name}}</h1>
+                    <h1>Recent Posts</h1>
                     <div id="display_posts_div">
                         {% if current_posts %}
-                        <ul>
-                            {% for post in current_posts %}
-                            <li>
-                                <div class="flex">
-                                    <p id="post_number">#{{post.id}}</p>
-                                    <a href="/posts/{{current_user.id}}/{{post.id}}"><p id="post_title">{{post.title}}</p></a>
-                                </div>
-                                <p id="post_date">{{post.date}}</p>
-                            </li>
-                            {% endfor %}
-                        </ul>
+                            <ul>
+                                {% for post in current_posts %}
+                                <li>
+                                    <div class="flex">
+                                        <p id="post_number">#{{post.id}}</p>
+                                        <a href="/posts/{{current_user.id}}/{{post.id}}"><p id="post_title">{{post.title}}</p></a>
+                                    </div>
+                                    <p id="post_date">{{post.date}}</p>
+                                </li>
+                                {% endfor %}
+                            </ul>
                             {% if current_posts | length > 5 %}
-                            <a href="/posts/{{current_user.id}}" class="flex just_right"><p>See all</p></a>
+                                <a href="/posts/{{current_user.id}}" id="see_more">See more</a>
                             {% endif %}
                         {% else %}
-                        <p>{{current_user.first_name}} has not posted anything yet.</p>
+                            <p>{{current_user.first_name}} has not posted anything yet.</p>
                         {% endif %}
                     </div>
                 </div>
@@ -155,5 +166,6 @@
             <p>No Copyright © 2022 Danny Cho. All rights reserved</p>
         </div>
     </div>
+    <script src="../static/scripts/profile.js"></script>
 </body>
 </html>
