@@ -283,7 +283,16 @@ li a {
 }
 
 #individual_comment_header_div {
-    gap: 3px;
+    gap: 10px;
+}
+
+#individual_comment_div a {
+    text-decoration: none;
+    color: black;
+}
+
+#individual_comment_div a:hover {
+    color: blue;
 }
 
 #individual_comment_div img {

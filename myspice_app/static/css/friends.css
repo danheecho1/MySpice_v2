@@ -51,8 +51,16 @@
     justify-content: right;
 }
 
+.just_center {
+    justify-content: center;
+}
+
 .align_items_center {
     align-items: center;
+}
+
+.align_self_end {
+    align-self: flex-end;
 }
 
 .font_medium {
@@ -61,6 +69,10 @@
 
 .font_bold {
     font-weight: 700;
+}
+
+.text_right {
+    text-align: right;
 }
 
 .btn {
@@ -132,16 +144,19 @@
     margin: 0px 201px;
 }
 
+#main_body_left_div {
+    gap: 70px;
+}
+
 #temp_cover_photo_div {
     height: 330px;
     background-color: #424242;
 }
 
-#profile_card_div {
+#profile_card_div, #top_friends_div {
+    margin-top: 80px;
     width: 350px;
     box-shadow: 0px 0px 50px 50px rgba(0, 0, 0, 0.03);
-    position: relative;
-    bottom: 165px;
     padding: 60px 45px;
     background-color: white;
 }
@@ -155,7 +170,20 @@
 #display_name {
     font-size: 24px;
     margin-top: 20px;
-    margin-bottom: 48px;
+}
+
+#friend_request_btn {
+    margin: 50px 0px;
+}
+
+#request_status_message {
+    color: #18A0FB;
+    border: solid 1px #18A0FB;
+    background-color: white;
+    border-radius: 5px;
+    padding: 3px 6px;
+    font-weight: 500;
+    margin: 50px 0px;
 }
 
 #favorite_list_div {
@@ -185,6 +213,50 @@
 #twitter {
     height: 25px;
     width: 30px;
+}
+
+#main_body_div_right {
+    width: 1014px;
+}
+
+#manage_post_div h1 {
+    margin-top: 80px;
+    margin-bottom: 55px;
+}
+
+.search_profile_card {
+    height: 390px; 
+    width: 300px;
+    border: solid 2px #D9D9D9;
+    padding: 25px;
+    gap: 50px;
+}
+
+.search_profile_card img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+}
+
+#top_friends_div {
+    gap: 55px;
+}
+
+.individual_top_friend_div {
+    gap: 20px;
+}
+
+#top_friends_div img {
+    height: 135px;
+}
+
+#top_friends_div h2 {
+    text-align: center;
+}
+
+#results_div {
+    gap: 57px;
+    flex-wrap: wrap;
 }
 
 /* footer */

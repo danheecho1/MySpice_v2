@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='/css/edit_profile.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='/css/friends.css')}}">
 </head>
 <body class="flex just_around">
     <!-- container -->
@@ -32,56 +32,82 @@
             </div>
         </div>
         <!-- cover photo -> empty div for now -->
-        <div id="temp_cover_photo_div"></div>
+        <img src="{{url_for('static', filename='/assets/cover.png')}}" alt="">
         <!-- main body -->
         <div class="flex just_between" id="main_body_div">
-            <!-- main body - left side (profile card) -->
-            <div class="flex flex_down align_items_center" id="profile_card_div">
-                {% if current_picture['name'] %}
-                    <img src={{current_picture.name}} class="profile_picture">
-                {% else %}
-                    <img src="{{url_for('static', filename='/assets/default_profile_picture.png')}}" alt="" class="profile_picture">
-                {% endif %}
-                <h4 id="display_name">{{session.first_name}} {{session.last_name}}</h4>
-                <div class="flex flex_down align_items_center font_medium" id="favorite_list_div">
-                    <p id="display_greeting">{{profile.greeting}}</p>
-                    <div class="flex flex_down align_items_center">
-                        <p>Favorite Music: </p>
-                        <p>{{profile.favorite_music}}</p>
+            <!-- main body - left side -->
+            <div class="flex flex_down" id="main_body_left_div">
+                <!-- main body - left side (pending requests) -->
+                {% if pending_requests %}
+                <div class="flex flex_down align_items_center" id="profile_card_div">
+                    <h2>Pending Requests</h2>
+                    {% for request in pending_requests %}
+                    <div class="flex flex_down align_items_center individual_top_friend_div">
+                        <img src="{{url_for('static', filename='/assets/default_profile_picture.png')}}" alt="">
+                        <h3>{{request.first_name}} {{request.last_name}}</h3>
+                        <div class="flex">
+                            <form action="/profile/{{session.id}}/friends/accept" method="post">
+                                <input type="hidden" name="friendship_id" value="{{request.id}}">
+                                <button type="submit">Accept</button>
+                            </form>
+                            <form action="/profile/{{session.id}}/friends/reject" method="post">
+                                <input type="hidden" name="friendship_id" value="{{request.id}}">
+                                <button type="submit">Reject</button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="flex flex_down align_items_center">
-                        <p>Favorite Movies: </p>    
-                        <p>{{profile.favorite_movies}}</p>
-                    </div>
-                    <div class="flex flex_down align_items_center">
-                        <p>Favorite Books: </p>
-                        <p>{{profile.favorite_books}}</p>
-                    </div>
-                    <div class="flex flex_down align_items_center">
-                        <p>Favorite Heroes: </p>
-                        <p>{{profile.favorite_heroes}}</p>
-                    </div>
+                    {% endfor %}
                 </div>
-                <!-- SNS links -->
-                <div class="flex align_items_center" id="sns_links_div">
-                    <img src="{{url_for('static', filename='/assets/instagram.png')}}" alt="" id="instagram">
-                    <img src="{{url_for('static', filename='/assets/facebook.png')}}" alt="" id="facebook">
-                    <img src="{{url_for('static', filename='/assets/twitter.png')}}" alt="" id="twitter">
+                {% endif %}
+                <!-- main body - left side (top friends) -->
+                <div class="flex flex_down align_items_center" id="top_friends_div">
+                    <h2>Top Friends</h2>
+                    <div class="flex flex_down align_items_center individual_top_friend_div">
+                        <img src="{{url_for('static', filename='/assets/default_profile_picture.png')}}" alt="">
+                        <h3>Joey Tribbiani</h3>
+                    </div>
+                    <div class="flex flex_down align_items_center individual_top_friend_div">
+                        <img src="{{url_for('static', filename='/assets/default_profile_picture.png')}}" alt="">
+                        <h3>Joey Tribbiani</h3>
+                    </div>
+                    <div class="flex flex_down align_items_center individual_top_friend_div">
+                        <img src="{{url_for('static', filename='/assets/default_profile_picture.png')}}" alt="">
+                        <h3>Joey Tribbiani</h3>
+                    </div>
                 </div>
             </div>
             <!-- main body - right side -->
-            
-
-
-
-
+            <div id="main_body_div_right">
+                <!-- posts -->
+                <div id="manage_post_div">
+                    <h1>Friends</h1>
+                    <div class="flex" id="results_div">
+                        {% if friends %}
+                            {% for friend in friends %}
+                        <div href="/profile/{{current_user.id}}" class="flex flex_down align_items_center search_profile_card">
+                            <a href="#"><img src="{{url_for('static', filename='/assets/default_profile_picture.png')}}" alt="" class="result_profile_pictures"></a>
+                            <a href="#"><h4>{{friend.first_name}} {{friend.last_name}}</h4></a>
+                            <div class="flex">
+                                <form action="/profile/{{session.id}}/friends/reject" method="post">
+                                    <input type="hidden" value="{{friend.id}}" name="friendship_id">
+                                    <button type="submit">Unfriend</button>
+                                </form>
+                                <form action="#">
+                                    <input type="hidden" value="{{friend.id}}" name="friendship_id">
+                                    <button>Make a top friend</button>
+                                </form>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- footer -->
         <div class="flex just_around align_items_center" id="footer_div">
             <p>No Copyright © 2022 Danny Cho. All rights reserved</p>
         </div>
     </div>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="../static/scripts/cloudinary.js"></script>
 </body>
 </html>

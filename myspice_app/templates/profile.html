@@ -86,9 +86,9 @@
                 <!-- main body - left side (top friends) -->
                 <div class="flex flex_down align_items_center" id="top_friends_div">
                     {% if current_user.first_name[-1] == 's' %}
-                        <h2>{{current_user.first_name}}' Top 3 Friends</h2>
+                        <h2>{{current_user.first_name}}' Top Friends</h2>
                     {% else %}
-                        <h2>{{current_user.first_name}}'s Top 3 Friends</h2>
+                        <h2>{{current_user.first_name}}'s Top Friends</h2>
                     {% endif %}
                     <div class="flex flex_down align_items_center individual_top_friend_div">
                         <img src="../static/assets/default_profile_picture.png" alt="">
@@ -143,13 +143,13 @@
                             <div id="individual_comment_div">
                                 <div class="flex" id="comment_header_div">
                                     {% if comment.name %}
-                                        <img src={{comment.name}} alt="">
+                                    <a href="/profile/{{comment.id}}"><img src={{comment.name}} alt=""></a>
                                     {% else %}
-                                        <img src="../static/assets/default_profile_picture.png" alt="">
+                                    <a href="/profile/{{comment.id}}"><img src="../static/assets/default_profile_picture.png" alt=""></a>
                                     {% endif %}
                                     <div class="flex flex_down just_center" id="individual_comment_header_div">
                                         <p>{{comment.created_at}}</p>
-                                        <h4>{{comment.first_name}} {{comment.last_name}}</h4>
+                                        <a href="/profile/{{comment.id}}"><h4>{{comment.first_name}} {{comment.last_name}}</h4></a>
                                     </div>
                                 </div>
                                 <p id="comment_content">{{comment.content}}</p>
@@ -166,6 +166,5 @@
             <p>No Copyright © 2022 Danny Cho. All rights reserved</p>
         </div>
     </div>
-    <script src="../static/scripts/profile.js"></script>
 </body>
 </html>

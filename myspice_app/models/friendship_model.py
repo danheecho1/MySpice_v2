@@ -25,10 +25,20 @@ class Friendship:
 
     @classmethod
     def get_pending_requests(cls, data): 
-        query = "SELECT * FROM friendships WHERE status = 0 and user_id = %(user_id)s;"
+        query = "SELECT * FROM friendships LEFT JOIN users ON users.id = friendships.user2_id WHERE status = 0 AND (user1_id = %(user_id)s or user2_id = %(user_id)s) AND (users.id != %(user_id)s);"
         return connectToMySQL('myspice2_schema').query_db(query, data)
 
     @classmethod
     def get_all_friends(cls, data):
-        query = "SELECT * FROM friendships WHERE status = 1 and user_id = %(user_id)s;"
+        query = "SELECT * FROM friendships LEFT JOIN users ON (users.id = friendships.user1_id or users.id = friendships.user2_id) WHERE status = 1 AND (user1_id = %(user_id)s or user2_id = %(user_id)s) AND (users.id != %(user_id)s);"
+        return connectToMySQL('myspice2_schema').query_db(query, data)
+
+    @classmethod 
+    def accept_request(cls, data):
+        query = "UPDATE friendships SET status = 1 WHERE (id = %(friendship_id)s);"
+        return connectToMySQL('myspice2_schema').query_db(query, data)
+
+    @classmethod
+    def reject_request(cls, data): 
+        query = "DELETE FROM friendships WHERE id = %(friendship_id)s;"
         return connectToMySQL('myspice2_schema').query_db(query, data)
