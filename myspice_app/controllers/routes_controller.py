@@ -252,6 +252,26 @@ def send_friend_request_post(user_id):
 
 @app.route('/profile/<int:user_id>/friends')
 def friends(user_id): 
-    profile = Profile.get_profile_by_id({'user_id': session['id']})
+    current_user = User.get_user_by_id({'user_id': session['id']})
+    current_profile = Profile.get_profile_by_id({'user_id': session['id']})
     current_picture = Picture.get_user_with_picture_by_id({'user_id': session['id']})
-    return render_template('friends.html', profile = profile, current_picture = current_picture)
+    friends = Friendship.get_all_friends({'user_id': session['id']})
+    pending_requests = Friendship.get_pending_requests({'user_id': session['id']})
+    print(pending_requests)
+    return render_template('friends.html', current_user = current_user, pending_requests = pending_requests, current_profile = current_profile, current_picture = current_picture, friends = friends)
+
+@app.route('/profile/<int:user_id>/friends/accept', methods=['POST'])
+def accept_request_post(user_id): 
+    data = {
+        'friendship_id': request.form['friendship_id']
+    }
+    Friendship.accept_request(data)
+    return redirect(f"/profile/{user_id}/friends")
+
+@app.route('/profile/<int:user_id>/friends/reject', methods=['POST'])
+def reject_request_post(user_id): 
+    data = {
+        'friendship_id': request.form['friendship_id']
+    }
+    Friendship.reject_request(data)
+    return redirect(f"/profile/{user_id}/friends")
