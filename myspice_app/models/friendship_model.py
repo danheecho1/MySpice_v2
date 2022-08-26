@@ -7,6 +7,7 @@ class Friendship:
         self.user1_id = data['user1_id']
         self.user2_id = data['user2_id']
         self.status = data['status']
+        self.best_friend = data['best_friend']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
@@ -15,7 +16,7 @@ class Friendship:
 
     @classmethod
     def send_request(cls, data): 
-        query = "INSERT INTO friendships (created_at, updated_at, user1_id, user2_id, status) VALUES (NOW(), NOW(), %(receiver_id)s, %(sender_id)s, 0);"
+        query = "INSERT INTO friendships (created_at, updated_at, user1_id, user2_id, status, best_friend) VALUES (NOW(), NOW(), %(receiver_id)s, %(sender_id)s, 0, 0);"
         return connectToMySQL('myspice2_schema').query_db(query, data)
 
     @classmethod 
@@ -25,12 +26,12 @@ class Friendship:
 
     @classmethod
     def get_pending_requests(cls, data): 
-        query = "SELECT * FROM friendships LEFT JOIN users ON users.id = friendships.user2_id WHERE status = 0 AND (user1_id = %(user_id)s or user2_id = %(user_id)s) AND (users.id != %(user_id)s);"
+        query = "SELECT * FROM friendships LEFT JOIN users ON users.id = friendships.user2_id LEFT JOIN pictures ON users.id = pictures.user_id WHERE status = 0 AND (user1_id = %(user_id)s or user2_id = %(user_id)s) AND (users.id != %(user_id)s);"
         return connectToMySQL('myspice2_schema').query_db(query, data)
 
     @classmethod
     def get_all_friends(cls, data):
-        query = "SELECT * FROM friendships LEFT JOIN users ON (users.id = friendships.user1_id or users.id = friendships.user2_id) WHERE status = 1 AND (user1_id = %(user_id)s or user2_id = %(user_id)s) AND (users.id != %(user_id)s);"
+        query = "SELECT users.id, first_name, last_name, name, best_friend FROM friendships LEFT JOIN users ON (users.id = friendships.user1_id or users.id = friendships.user2_id) LEFT JOIN pictures ON users.id = pictures.user_id WHERE status = 1 AND (user1_id = %(user_id)s or user2_id = %(user_id)s) AND (users.id != %(user_id)s);"
         return connectToMySQL('myspice2_schema').query_db(query, data)
 
     @classmethod 

@@ -253,6 +253,11 @@ li a {
     margin-left: 35px;
 }
 
+#see_more {
+    margin-top: 20px;
+    float: right;
+}
+
 #comments_div h1 {
     margin-top: 80px;
 }

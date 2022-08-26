@@ -32,7 +32,7 @@
             </div>
         </div>
         <!-- cover photo -> empty div for now -->
-        <div id="temp_cover_photo_div"></div>
+        <img src="{{url_for('static', filename='/assets/cover.png')}}" alt="">
         <!-- main body -->
         <div class="flex just_between" id="main_body_div">
             <!-- main body - left side (profile card) -->
@@ -83,8 +83,8 @@
                         <textarea name="content"></textarea>
                     </div>
                     <div class="flex just_right" id="buttons_div">
-                        <a href="/posts/{{session.id}}" class="btn btn-sm btn-clear">Cancel</a>
-                        <button class="btn btn-lg btn-colored">Publish</button>
+                        <a href="/posts/{{session.id}}"><button type="button" class="btn btn-sm btn-clear">Cancel</button></a>
+                        <button type="submit" class="btn btn-lg btn-colored">Publish</button>
                     </div>
                 </form>
             </div>
