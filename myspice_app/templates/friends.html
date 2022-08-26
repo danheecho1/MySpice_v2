@@ -43,7 +43,11 @@
                     <h2>Pending Requests</h2>
                     {% for request in pending_requests %}
                     <div class="flex flex_down align_items_center individual_top_friend_div">
-                        <img src="{{url_for('static', filename='/assets/default_profile_picture.png')}}" alt="">
+                        {% if request.name %}
+                        <img src="{{request.name}}" alt="" class="pending_request_picture">
+                        {% else %}
+                        <img src="{{url_for('static', filename='/assets/default_profile_picture.png')}}" alt="" class="pending_request_picture">
+                        {% endif %}
                         <h3>{{request.first_name}} {{request.last_name}}</h3>
                         <div class="flex">
                             <form action="/profile/{{session.id}}/friends/accept" method="post">
@@ -84,8 +88,12 @@
                     <div class="flex" id="results_div">
                         {% if friends %}
                             {% for friend in friends %}
-                        <div href="/profile/{{current_user.id}}" class="flex flex_down align_items_center search_profile_card">
-                            <a href="#"><img src="{{url_for('static', filename='/assets/default_profile_picture.png')}}" alt="" class="result_profile_pictures"></a>
+                        <div class="flex flex_down align_items_center search_profile_card">
+                            {% if friend.name %}
+                            <a href="/profile/{{friend.id}}"><img src="{{friend.name}}" alt="" class="result_profile_pictures"></a>
+                            {% else %}
+                            <a href="/profile/{{friend.id}}"><img src="{{url_for('static', filename='/assets/default_profile_picture.png')}}" alt=""></a>
+                            {% endif %}
                             <a href="#"><h4>{{friend.first_name}} {{friend.last_name}}</h4></a>
                             <div class="flex">
                                 <form action="/profile/{{session.id}}/friends/reject" method="post">
@@ -98,7 +106,7 @@
                                 </form>
                             </div>
                         </div>
-                        {% endfor %}
+                            {% endfor %}
                         {% endif %}
                     </div>
                 </div>

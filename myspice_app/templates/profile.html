@@ -48,7 +48,7 @@
                     <h4 id="display_name">{{current_user.first_name}} {{current_user.last_name}}</h4>
                     {% if session.id != current_user.id %}
                         {% if are_we_friends and are_we_friends[0]['status'] == 1 %}
-                            <p id="request_status_message">Friend</p>
+                            <p id="request_status_message">Friends</p>
                         {% elif are_we_friends and are_we_friends[0]['status'] == 0 %}
                             <p id="request_status_message">Friend Request Pending</p>
                         {% else %}
@@ -86,9 +86,9 @@
                 <!-- main body - left side (top friends) -->
                 <div class="flex flex_down align_items_center" id="top_friends_div">
                     {% if current_user.first_name[-1] == 's' %}
-                        <h2>{{current_user.first_name}}' Top Friends</h2>
+                        <h2>{{current_user.first_name}}' Top 3 Friends</h2>
                     {% else %}
-                        <h2>{{current_user.first_name}}'s Top Friends</h2>
+                        <h2>{{current_user.first_name}}'s Top 3 Friends</h2>
                     {% endif %}
                     <div class="flex flex_down align_items_center individual_top_friend_div">
                         <img src="../static/assets/default_profile_picture.png" alt="">
@@ -123,7 +123,7 @@
                                 {% endfor %}
                             </ul>
                             {% if current_posts | length > 5 %}
-                                <a href="/posts/{{current_user.id}}" id="see_more">See more</a>
+                                <span><a href="/posts/{{current_user.id}}/view_all" id="see_more">See more</a></span>
                             {% endif %}
                         {% else %}
                             <p>{{current_user.first_name}} has not posted anything yet.</p>
