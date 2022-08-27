@@ -271,6 +271,8 @@ def friends(user_id):
     current_picture = Picture.get_user_with_picture_by_id({'user_id': session['id']})
     friends = Friendship.get_all_friends({'user_id': session['id']})
     pending_requests = Friendship.get_pending_requests({'user_id': session['id']})
+    print("these are the friends!!!!")
+    print(friends)
     return render_template('friends.html', current_user = current_user, pending_requests = pending_requests, current_profile = current_profile, current_picture = current_picture, friends = friends)
 
 @app.route('/profile/<int:user_id>/friends/accept', methods=['POST'])
@@ -284,7 +286,10 @@ def accept_request_post(user_id):
 @app.route('/profile/<int:user_id>/friends/reject', methods=['POST'])
 def reject_request_post(user_id): 
     data = {
-        'friendship_id': request.form['friendship_id']
+        'friend_id': request.form['friend_id'], 
+        'user_id': user_id
     }
+    print("THIS IS THE DATA")
+    print(data)
     Friendship.reject_request(data)
     return redirect(f"/profile/{user_id}/friends")

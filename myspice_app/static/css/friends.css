@@ -200,19 +200,14 @@
     gap: 40px;
 }
 
-#instagram {
-    height: 30px;
-    width: 30px;
+#sns_links_div a {
+    display: flex;
+    align-items: center;
 }
 
-#facebook {
-    width: 16px;
-    height: 32px;
-}
-
-#twitter {
-    height: 25px;
-    width: 30px;
+#sns_links_div img {
+    height: 35px;
+    width: 35px;
 }
 
 #main_body_div_right {
