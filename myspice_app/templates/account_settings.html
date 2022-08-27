@@ -64,9 +64,21 @@
                 </div>
                 <!-- SNS links -->
                 <div class="flex align_items_center" id="sns_links_div">
+                    {% if current_profile.instagram %}
+                    <a href="https://{{current_profile.instagram}}"><img src="{{url_for('static', filename='/assets/instagram_linked.png')}}" alt="" id="instagram"></a>
+                    {% else %}
                     <img src="{{url_for('static', filename='/assets/instagram.png')}}" alt="" id="instagram">
+                    {% endif %}
+                    {% if current_profile.facebook %}
+                    <a href="https://{{current_profile.facebook}}"><img src="{{url_for('static', filename='/assets/facebook_linked.png')}}" alt="" id="facebook"></a>
+                    {% else %}
                     <img src="{{url_for('static', filename='/assets/facebook.png')}}" alt="" id="facebook">
+                    {% endif %}
+                    {% if current_profile.twitter %}
+                    <a href="https://{{current_profile.twitter}}"><img src="{{url_for('static', filename='/assets/twitter_linked.png')}}" alt="" id="twitter"></a>
+                    {% else %}
                     <img src="{{url_for('static', filename='/assets/twitter.png')}}" alt="" id="twitter">
+                    {% endif %}
                 </div>
             </div>
             <!-- main body - right side -->

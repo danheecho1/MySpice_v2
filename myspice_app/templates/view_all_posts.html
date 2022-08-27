@@ -64,17 +64,32 @@
                 </div>
                 <!-- SNS links -->
                 <div class="flex align_items_center" id="sns_links_div">
+                    {% if current_profile.instagram %}
+                    <a href="https://{{current_profile.instagram}}"><img src="{{url_for('static', filename='/assets/instagram_linked.png')}}" alt="" id="instagram"></a>
+                    {% else %}
                     <img src="{{url_for('static', filename='/assets/instagram.png')}}" alt="" id="instagram">
+                    {% endif %}
+                    {% if current_profile.facebook %}
+                    <a href="https://{{current_profile.facebook}}"><img src="{{url_for('static', filename='/assets/facebook_linked.png')}}" alt="" id="facebook"></a>
+                    {% else %}
                     <img src="{{url_for('static', filename='/assets/facebook.png')}}" alt="" id="facebook">
+                    {% endif %}
+                    {% if current_profile.twitter %}
+                    <a href="https://{{current_profile.twitter}}"><img src="{{url_for('static', filename='/assets/twitter_linked.png')}}" alt="" id="twitter"></a>
+                    {% else %}
                     <img src="{{url_for('static', filename='/assets/twitter.png')}}" alt="" id="twitter">
+                    {% endif %}
                 </div>
                 <a href="/profile/edit"><button class="btn btn-clear btn-lg">Edit My Profile</button></a>
             </div>
             <!-- main body - right side -->
             <div id="manage_post_div">
                 <div class="flex just_between align_items_center">
-                    <h1>Manage Posts</h1>
-                    <a href="/posts/{{session.id}}/new"><button class="btn btn-lg btn-colored">Add a post</button></a>
+                    {% if current_user.first_name[-1] == 's' %}
+                    <h1>{{current_user.first_name}}' Posts</h1>
+                    {% else %}
+                    <h1>{{current_user.first_name}}'s Posts</h1>
+                    {% endif %}
                 </div>
                 <div id="display_posts_div">
                     {% if all_posts %}

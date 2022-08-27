@@ -64,9 +64,21 @@
                 </div>
                 <!-- SNS links -->
                 <div class="flex align_items_center" id="sns_links_div">
+                    {% if post_owner_profile.instagram %}
+                    <a href="https://{{post_owner_profile.instagram}}"><img src="{{url_for('static', filename='/assets/instagram_linked.png')}}" alt="" id="instagram"></a>
+                    {% else %}
                     <img src="{{url_for('static', filename='/assets/instagram.png')}}" alt="" id="instagram">
+                    {% endif %}
+                    {% if post_owner_profile.facebook %}
+                    <a href="https://{{post_owner_profile.facebook}}"><img src="{{url_for('static', filename='/assets/facebook_linked.png')}}" alt="" id="facebook"></a>
+                    {% else %}
                     <img src="{{url_for('static', filename='/assets/facebook.png')}}" alt="" id="facebook">
+                    {% endif %}
+                    {% if post_owner_profile.twitter %}
+                    <a href="https://{{post_owner_profile.twitter}}"><img src="{{url_for('static', filename='/assets/twitter_linked.png')}}" alt="" id="twitter"></a>
+                    {% else %}
                     <img src="{{url_for('static', filename='/assets/twitter.png')}}" alt="" id="twitter">
+                    {% endif %}
                 </div>
                 <button class="btn btn-clear btn-lg">Edit My Profile</button>
             </div>

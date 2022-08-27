@@ -94,14 +94,14 @@
                             {% else %}
                             <a href="/profile/{{friend.id}}"><img src="{{url_for('static', filename='/assets/default_profile_picture.png')}}" alt=""></a>
                             {% endif %}
-                            <a href="#"><h4>{{friend.first_name}} {{friend.last_name}}</h4></a>
+                            <a href="/profile/{{friend.id}}"><h4>{{friend.first_name}} {{friend.last_name}}</h4></a>
                             <div class="flex">
                                 <form action="/profile/{{session.id}}/friends/reject" method="post">
-                                    <input type="hidden" value="{{friend.id}}" name="friendship_id">
+                                    <input type="hidden" value="{{friend.id}}" name="friend_id">
                                     <button type="submit">Unfriend</button>
                                 </form>
                                 <form action="#">
-                                    <input type="hidden" value="{{friend.id}}" name="friendship_id">
+                                    <input type="hidden" value="{{friend.id}}" name="friend_id">
                                     <button>Make a top friend</button>
                                 </form>
                             </div>

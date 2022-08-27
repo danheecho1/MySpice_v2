@@ -76,19 +76,33 @@
                             <p>{{current_profile.favorite_heroes}}</p>
                         </div>
                     </div>
-                    <!-- SNS links -->
-                    <div class="flex align_items_center" id="sns_links_div">
-                        <img src="{{url_for('static', filename='/assets/instagram.png')}}" alt="" id="instagram">
-                        <img src="{{url_for('static', filename='/assets/facebook.png')}}" alt="" id="facebook">
-                        <img src="{{url_for('static', filename='/assets/twitter.png')}}" alt="" id="twitter">
-                    </div>
+                <!-- SNS links -->
+                <div class="flex align_items_center" id="sns_links_div">
+                    {% if current_profile.facebook %}
+                    <a href="https://{{current_profile.facebook}}"><img src="{{url_for('static', filename='/assets/facebook_linked.png')}}" alt="" id="facebook"></a>
+                    {% else %}
+                    <img src="{{url_for('static', filename='/assets/facebook.png')}}" alt="" id="facebook">
+                    {% endif %}
+
+                    {% if current_profile.instagram %}
+                    <a href="https://{{current_profile.instagram}}"><img src="{{url_for('static', filename='/assets/instagram_linked.png')}}" alt="" id="instagram"></a>
+                    {% else %}
+                    <img src="{{url_for('static', filename='/assets/instagram.png')}}" alt="" id="instagram">
+                    {% endif %}
+
+                    {% if current_profile.twitter %}
+                    <a href="https://{{current_profile.twitter}}"><img src="{{url_for('static', filename='/assets/twitter_linked.png')}}" alt="" id="twitter"></a>
+                    {% else %}
+                    <img src="{{url_for('static', filename='/assets/twitter.png')}}" alt="" id="twitter">
+                    {% endif %}
+                </div>
                 </div>
                 <!-- main body - left side (top friends) -->
                 <div class="flex flex_down align_items_center" id="top_friends_div">
                     {% if current_user.first_name[-1] == 's' %}
-                        <h2>{{current_user.first_name}}' Top 3 Friends</h2>
+                        <h2>{{current_user.first_name}}' Friends</h2>
                     {% else %}
-                        <h2>{{current_user.first_name}}'s Top 3 Friends</h2>
+                        <h2>{{current_user.first_name}}'s Friends</h2>
                     {% endif %}
                     <div class="flex flex_down align_items_center individual_top_friend_div">
                         <img src="../static/assets/default_profile_picture.png" alt="">

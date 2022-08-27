@@ -64,9 +64,21 @@
                 </div>
                 <!-- SNS links -->
                 <div class="flex align_items_center" id="sns_links_div">
-                    <img src="{{url_for('static', filename='/assets/instagram.png')}}" alt="" id="instagram">
-                    <img src="{{url_for('static', filename='/assets/facebook.png')}}" alt="" id="facebook">
-                    <img src="{{url_for('static', filename='/assets/twitter.png')}}" alt="" id="twitter">
+                    {% if profile.instagram %}
+                    <a href="https://{{profile.instagram}}"><img src="{{url_for('static', filename='/assets/instagram_linked.png')}}" alt=""></a>
+                    {% else %}
+                    <a href="#"><img src="{{url_for('static', filename='/assets/instagram.png')}}" alt=""></a>
+                    {% endif %}
+                    {% if profile.facebook %}
+                    <a href="https://{{profile.facebook}}"><img src="{{url_for('static', filename='/assets/facebook_linked.png')}}" alt=""></a>
+                    {% else %}
+                    <a href="#"><img src="{{url_for('static', filename='/assets/facebook.png')}}" alt="" id="facebook"></a>
+                    {% endif %}
+                    {% if profile.twitter %}
+                    <a href="https://{{profile.twitter}}"><img src="{{url_for('static', filename='/assets/twitter_linked.png')}}" alt=""></a>
+                    {% else %}
+                    <a href="#"><img src="{{url_for('static', filename='/assets/twitter.png')}}" alt=""></a>
+                    {% endif %}
                 </div>
             </div>
             <!-- main body - right side -->
@@ -103,15 +115,15 @@
                     </div>
                     <div class="flex just_between align_items_center">
                         <label for="facebook" class="font_medium">Facebook</label>
-                        <input type="text" name="facebook" value="{{profile.facebook}}">
+                        <input type="text" name="facebook" value="{{profile.facebook}}" placeholder="i.e. www.facebook.com/username">
                     </div>
                     <div class="flex just_between align_items_center">
                         <label for="instagram" class="font_medium">Instagram</label>
-                        <input type="text" name="instagram" value="{{profile.instagram}}">
+                        <input type="text" name="instagram" value="{{profile.instagram}}" placeholder="i.e. www.instagram.com/username">
                     </div>
                     <div class="flex just_between align_items_center">
                         <label for="twitter" class="font_medium">Twitter</label>
-                        <input type="text" name="twitter" value="{{profile.twitter}}">
+                        <input type="text" name="twitter" value="{{profile.twitter}}" placeholder="i.e. www.twitter.com/username">
                     </div>
                     <div class="flex just_right" id="buttons_div">
                         <a href="/dashboard"><button type="button" class="btn btn-sm btn-clear">Cancel</button></a>
