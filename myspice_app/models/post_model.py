@@ -15,8 +15,8 @@ class Post:
         return connectToMySQL('myspice2_schema').query_db(query, data)
 
     @classmethod
-    def get_six_posts(cls, data):
-        query = "SELECT id, title, content, CAST(created_at as DATE) AS date FROM posts WHERE user_id = %(user_id)s ORDER BY created_at DESC LIMIT 6;"
+    def get_five_posts(cls, data):
+        query = "SELECT id, title, content, CAST(created_at as DATE) AS date FROM posts WHERE user_id = %(user_id)s ORDER BY created_at DESC LIMIT 5;"
         return connectToMySQL('myspice2_schema').query_db(query, data)
 
     @classmethod

@@ -49,8 +49,20 @@
     justify-content: space-evenly;
 }
 
+.just_center {
+    justify-content: center;
+}
+
+.just_right {
+    justify-content: right;
+}
+
 .align_items_center {
     align-items: center;
+}
+
+.align_self_end {
+    align-self: flex-end;
 }
 
 .font_medium {
@@ -62,6 +74,7 @@
 }
 
 .btn {
+    font-size: 12px;
     border-radius: 6px;
     cursor: pointer;
     font-weight: 500;
@@ -73,7 +86,7 @@
 }
 
 .btn-lg {
-    width: 120px;
+    width: 125px;
 }
 
 .btn-colored {
@@ -97,6 +110,7 @@
     background-color: white;
     position: fixed;
     z-index: 2;
+    border-bottom: 1px solid #E0E0E0;
 }
 
 #nav_bar_links_div {
@@ -116,54 +130,13 @@
 }
 
 #logo {
-    height: 20px;
-}
-
-#temp_cover_photo_div {
-    width: 1250px;
-    height: 200px;
-}
-
-/* top nav bar */
-
-#nav_bar_div {
-    height: 45px;
-    width: 1250px;
-    padding: 0px 60px;
-    background-color: white;
-    position: fixed;
-    z-index: 2;
-}
-
-#nav_bar_links_div {
-    margin: 0px 65px;
-    gap: 35px;
-}
-
-#nav_bar_links_div a {
-    text-decoration: none;
-    color: black;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-#nav_bar_links_div a:hover {
-    color: #18A0FB;
-}
-
-#logo {
-    height: 20px;
-}
-
-#temp_cover_photo_div {
-    width: 1250px;
-    height: 200px;
+    height: 30px;
 }
 
 /* main body */
 
 #main_body_div {
-    margin: 0px 125px;
+    margin: 95px 125px;
     width: 1000px;
 }
 
@@ -175,8 +148,6 @@
 #profile_card_div, 
 #top_friends_div {
     box-shadow: 0px 0px 50px 50px rgba(0, 0, 0, 0.03);
-    position: relative;
-    bottom: 93px;
     padding: 28px;
     background-color: white;
 }
@@ -189,8 +160,21 @@
 
 #display_name {
     font-size: 15px;
-    margin-top: 15px;
-    margin-bottom: 30px;
+}
+
+#request_status_div {
+    position: relative;
+    bottom: 150px;
+    right: 82px;
+}
+
+.request_status {
+    color:  #18A0FB;
+    border: 1px solid #18A0FB;
+    border-radius: 6px;
+    height: 25px;
+    width: 70px;
+    font-size: 12px;
 }
 
 #favorite_list_div {
@@ -229,13 +213,36 @@
     width: 27px;
 }
 
+#top_friends_div img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+.individual_top_friend_div {
+    gap: 20px;
+}
+
+#top_friends_div h2 {
+    text-align: center;
+    font-size: 15px;
+}
+
+#top_friends_div h3 {
+    font-size: 13px;
+}
+
+#top_friends_div a {
+    text-decoration: none;
+    color: #1E40AF;
+}
+
 #main_body_right_div {
     width: 700px;
     gap: 50px;
-    margin-top: 50px;
 }
 
-#manage_post_div {
+#right_side_content_div {
     gap: 40px;
 }
 
@@ -253,7 +260,7 @@ li {
 }
 
 li:not(:first-child) {
-    border-top: solid 2px #E0E0E0;
+    border-top: solid 1px #E0E0E0;
 }
 
 li a {
@@ -273,21 +280,19 @@ li a {
 #see_more {
     margin-top: 20px;
     float: right;
+    text-decoration: none;
+    color: #1E40AF;
 }
 
 #comments_div textarea {
-    border: 2px solid #E0E0E0;
-    height: 185px;
+    border: 1px solid #E0E0E0;
+    height: 125px;
     resize: none;
-    padding: 15px 20px;
-    font-size: 20px;
+    padding: 10px 10px 10px 15px;
+    font-size: 13px;
     font-weight: 500;
     margin-top: 30px;
     margin-bottom: 20px;
-}
-
-#comments_div button {
-    margin-bottom: 60px;
 }
 
 #comments_display_div {
@@ -300,8 +305,8 @@ li a {
     background-color: white;
 }
 
-#individual_comment_header_div {
-    gap: 10px;
+#comment_header_div_right_side {
+    gap: 3px;
 }
 
 #individual_comment_div a {
@@ -314,38 +319,36 @@ li a {
 }
 
 #individual_comment_div img {
-    height: 73px;
-    width: 73px;
+    height: 50px;
+    width: 50px;
     border-radius: 50%;
     margin: 20px;
+}
+
+#comment_header_div_right_side p {
+    color: #777E90;
+}
+
+#comment_header_div_right_side h4 {
+    font-size: 13px; 
 }
 
 #comment_content {
     padding: 0px 20px 20px 20px;
     white-space: pre-wrap;
+    font-size: 13px;
 }
 
 #top_friends_div {
-    gap: 55px;
+    gap: 40px;
 }
 
-.individual_top_friend_div {
-    gap: 20px;
-}
-
-#top_friends_div img {
-    height: 135px;
-}
-
-#top_friends_div h2 {
-    text-align: center;
-}
 
 /* footer */
 
 #footer_div {
     height: 86px;
-    border-top: 2px solid #E0E0E0;
+    border-top: 1px solid #E0E0E0;
     margin-top: 100px;
 }
 

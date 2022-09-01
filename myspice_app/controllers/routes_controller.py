@@ -100,12 +100,13 @@ def profile(user_id):
     current_user = User.get_user_by_id(data)
     current_profile = Profile.get_profile_by_id(data)
     current_picture = Picture.get_user_with_picture_by_id(data)
-    current_posts = Post.get_six_posts(data)
+    five_posts = Post.get_five_posts(data)
+    all_posts = Post.get_all_posts(data)
     displayed_comments = Comment.get_displayed_comments(data)
+    random_friends = Friendship.random_three_friends(data)
+    all_friends = Friendship.get_all_friends(data)
     are_we_friends = Friendship.get_friendship_status(data)
-    print("testing to see if we're friends")
-    print(are_we_friends)
-    return render_template('profile.html', current_profile = current_profile, current_user = current_user, current_posts = current_posts, displayed_comments = displayed_comments, current_picture = current_picture, are_we_friends = are_we_friends)
+    return render_template('profile.html', current_profile = current_profile, current_user = current_user, five_posts = five_posts, all_posts = all_posts, displayed_comments = displayed_comments, current_picture = current_picture, random_friends = random_friends, are_we_friends = are_we_friends, all_friends = all_friends)
 
 @app.route('/profile/edit')
 def edit_profile(): 

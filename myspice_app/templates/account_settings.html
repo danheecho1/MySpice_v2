@@ -18,7 +18,7 @@
             <!-- nav bar - left side links -->
             <div class="flex align_items_center">
                 <img src="{{url_for('static', filename='/assets/logo.jpg')}}" id="logo"><span class="font_medium" id="logo_name">Myspice</span>
-                <div class="flex" id="nav_links_div">
+                <div class="flex" id="nav_bar_links_div">
                     <a href="/dashboard">Home</a>
                     <a href="/profile/{{session.id}}">Profile</a>
                     <a href="#">Message</a>
@@ -31,8 +31,6 @@
                 <a href="/logout"><button class="btn btn-sm btn-clear">Log out</button></a>
             </div>
         </div>
-        <!-- cover photo -> empty div for now -->
-        <img src="{{url_for('static', filename='/assets/cover.png')}}" alt="">
         <!-- main body -->
         <div class="flex just_between" id="main_body_div">
             <!-- main body - left side (profile card) -->
