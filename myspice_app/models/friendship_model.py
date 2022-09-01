@@ -45,7 +45,8 @@ class Friendship:
 
     @classmethod
     def random_three_friends(cls, data):
-        query = "SELECT users.id, first_name, last_name, name FROM friendships LEFT JOIN users ON (users.id = friendships.user1_id or users.id = friendships.user2_id) LEFT JOIN pictures ON users.id = pictures.user_id WHERE status = 1 AND (user1_id = %(user_id)s or user2_id = %(user_id)s) AND (users.id != %(user_id)s) ORDER BY RAND() LIMIT 3;"
+        query = "SELECT users.id, first_name, last_name, name, friendships.updated_at FROM friendships LEFT JOIN users ON (users.id = friendships.user1_id or users.id = friendships.user2_id) LEFT JOIN pictures ON users.id = pictures.user_id WHERE status = 1 AND (user1_id = %(user_id)s or user2_id = %(user_id)s) AND (users.id != %(user_id)s) ORDER BY RAND() LIMIT 3;"
+        return connectToMySQL('myspice2_schema').query_db(query, data)
 
     @classmethod
     def friends_count(cls, data):

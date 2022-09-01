@@ -17,119 +17,128 @@
         <div class="flex just_between align_items_center" id="nav_bar_div">
             <!-- nav bar - left side links -->
             <div class="flex align_items_center">
-                <img src="{{url_for('static', filename='/assets/logo.jpg')}}" id="logo"><span class="font_medium" id="logo_name">Myspice</span>
-                <div class="flex" id="nav_links_div">
+                <img src="{{url_for('static', filename='/assets/logo.png')}}" id="logo">
+                <div class="flex" id="nav_bar_links_div">
                     <a href="/dashboard">Home</a>
                     <a href="/profile/{{session.id}}">Profile</a>
-                    <a href="#">Message</a>
+                    <a href="#">Feeds</a>
                     <a href="/search">Search</a>
                     <a href="#">About</a>
                 </div>
             </div>
-            <!-- nav bar - right side buttons -->
-            <div>
-                <a href="/logout"><button class="btn btn-sm btn-clear">Log out</button></a>
-            </div>
+            <!-- nav bar - right side button -->
+            <a href="/logout">
+                <button class="btn btn-sm btn-clear">Log out</button>
+            </a>
         </div>
-        <!-- cover photo -> empty div for now -->
-        <img src="../static/assets/cover.png" alt="">
         <!-- main body -->
         <div class="flex just_between" id="main_body_div">
-            <!-- main body - left side (profile card) -->
-            <div class="flex flex_down align_items_center" id="profile_card_div">
-                {% if current_picture['name'] %}
+            <!-- main body - left side -->
+            <div class="flex flex_down" id="main_body_left_div">
+                <!-- main body - left side (profile card) -->
+                <div class="flex flex_down align_items_center" id="profile_card_div">
+                    {% if current_picture['name'] %}
                     <img src={{current_picture.name}} class="profile_picture">
-                {% else %}
+                    {% else %}
                     <img src="../static/assets/default_profile_picture.png" alt="" class="profile_picture">
-                {% endif %}
-                <h4 id="display_name">{{session.first_name}} {{session.last_name}}</h4>
-                <div class="flex flex_down align_items_center font_medium" id="favorite_list_div">
-                    <p id="display_greeting">{{profile.greeting}}</p>
-                    <div class="flex flex_down align_items_center">
-                        <p>Favorite Music: </p>
-                        <p>{{profile.favorite_music}}</p>
-                    </div>
-                    <div class="flex flex_down align_items_center">
-                        <p>Favorite Movies: </p>    
-                        <p>{{profile.favorite_movies}}</p>
-                    </div>
-                    <div class="flex flex_down align_items_center">
-                        <p>Favorite Books: </p>
-                        <p>{{profile.favorite_books}}</p>
-                    </div>
-                    <div class="flex flex_down align_items_center">
-                        <p>Favorite Heroes: </p>
-                        <p>{{profile.favorite_heroes}}</p>
-                    </div>
-                </div>
-                <!-- SNS links -->
-                <div class="flex align_items_center" id="sns_links_div">
-                    {% if profile.instagram %}
-                    <a href="https://{{profile.instagram}}"><img src="{{url_for('static', filename='/assets/instagram_linked.png')}}" alt=""></a>
-                    {% else %}
-                    <a href="#"><img src="{{url_for('static', filename='/assets/instagram.png')}}" alt=""></a>
                     {% endif %}
-                    {% if profile.facebook %}
-                    <a href="https://{{profile.facebook}}"><img src="{{url_for('static', filename='/assets/facebook_linked.png')}}" alt=""></a>
-                    {% else %}
-                    <a href="#"><img src="{{url_for('static', filename='/assets/facebook.png')}}" alt="" id="facebook"></a>
-                    {% endif %}
-                    {% if profile.twitter %}
-                    <a href="https://{{profile.twitter}}"><img src="{{url_for('static', filename='/assets/twitter_linked.png')}}" alt=""></a>
-                    {% else %}
-                    <a href="#"><img src="{{url_for('static', filename='/assets/twitter.png')}}" alt=""></a>
-                    {% endif %}
+                    <div id="request_status_div">
+                        <p class="request_status" style="border: none;"></p>
+                    </div>
+                    <h4 id="display_name">{{session.first_name}} {{session.last_name}}</h4>
+                    <div class="flex flex_down align_items_center font_medium" id="favorite_list_div">
+                        <p id="display_greeting">{{profile.greeting}}</p>
+                        <div class="flex flex_down align_items_center">
+                            <p>Favorite Music: </p>
+                            <p>{{profile.favorite_music}}</p>
+                        </div>
+                        <div class="flex flex_down align_items_center">
+                            <p>Favorite Movies: </p>    
+                            <p>{{profile.favorite_movies}}</p>
+                        </div>
+                        <div class="flex flex_down align_items_center">
+                            <p>Favorite Books: </p>
+                            <p>{{profile.favorite_books}}</p>
+                        </div>
+                        <div class="flex flex_down align_items_center">
+                            <p>Favorite Heroes: </p>
+                            <p>{{profile.favorite_heroes}}</p>
+                        </div>
+                    </div>
+                    <!-- SNS links -->
+                    <div class="flex align_items_center" id="sns_links_div">
+                        {% if profile.instagram %}
+                        <a href="https://{{profile.instagram}}"><img src="{{url_for('static', filename='/assets/instagram_linked.png')}}" alt=""></a>
+                        {% else %}
+                        <a href="#"><img src="{{url_for('static', filename='/assets/instagram.png')}}" alt=""></a>
+                        {% endif %}
+                        {% if profile.facebook %}
+                        <a href="https://{{profile.facebook}}"><img src="{{url_for('static', filename='/assets/facebook_linked.png')}}" alt=""></a>
+                        {% else %}
+                        <a href="#"><img src="{{url_for('static', filename='/assets/facebook.png')}}" alt="" id="facebook"></a>
+                        {% endif %}
+                        {% if profile.twitter %}
+                        <a href="https://{{profile.twitter}}"><img src="{{url_for('static', filename='/assets/twitter_linked.png')}}" alt=""></a>
+                        {% else %}
+                        <a href="#"><img src="{{url_for('static', filename='/assets/twitter.png')}}" alt=""></a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
             <!-- main body - right side -->
-            <div id="form_div">
-                <h1>Edit My Profile</h1>
-                <form enctype="multipart/form-data" action="/uploadprofilepicture" method="post">
-                    <div class="flex just_between align_items_center" id="image_upload_div">
-                        <label for="profile_picture_submission" class="font_medium">Profile Picture</label>
-                        <input type="file" accept="image/*" id="file-upload">
-                        <input type="hidden" value="" id="hiddenInput" name="profile_picture_submission">
-                        <button type="submit">Save picture</button>
+            <div id="main_body_right_div">
+                <!-- main body - right side (form) -->
+                <div class="flex flex_down" id="right_side_content_div">
+                    <h1 class="right_side_header">Edit My Profile</h1>
+                    <div class="flex flex_down" style="gap: 20px;">
+                        <form enctype="multipart/form-data" action="/uploadprofilepicture" method="post">
+                            <div class="flex just_between align_items_center" id="image_upload_div">
+                                <label for="profile_picture_submission" class="font_medium">Profile Picture</label>
+                                <input type="file" accept="image/*" id="file-upload">
+                                <input type="hidden" value="" id="hiddenInput" name="profile_picture_submission">
+                                <button type="submit">Save picture</button>
+                            </div>
+                        </form>
+                        <form action="/profile/edit" method="post" class="flex flex_down">
+                            <div class="flex just_between align_items_center">
+                                <label for="greeting" class="font_medium">Greeting</label>
+                                <input type="text" name="greeting" value="{{profile.greeting}}">
+                            </div>
+                            <div class="flex just_between align_items_center">
+                                <label for="favorite_music" class="font_medium">Favorite Music</label>
+                                <input type="text" name="favorite_music" value="{{profile.favorite_music}}">
+                            </div>
+                            <div class="flex just_between align_items_center">
+                                <label for="favorite_movies" class="font_medium">Favorite Movies</label>
+                                <input type="text" name="favorite_movies" value="{{profile.favorite_movies}}">
+                            </div>
+                            <div class="flex just_between align_items_center">
+                                <label for="favorite_books" class="font_medium">Favorite Books</label>
+                                <input type="text" name="favorite_books" value="{{profile.favorite_books}}">
+                            </div>
+                            <div class="flex just_between align_items_center">
+                                <label for="favorite_heroes" class="font_medium">Favorite Heroes</label>
+                                <input type="text" name="favorite_heroes" value="{{profile.favorite_heroes}}">
+                            </div>
+                            <div class="flex just_between align_items_center">
+                                <label for="facebook" class="font_medium">Facebook</label>
+                                <input type="text" name="facebook" value="{{profile.facebook}}" placeholder="i.e. www.facebook.com/username">
+                            </div>
+                            <div class="flex just_between align_items_center">
+                                <label for="instagram" class="font_medium">Instagram</label>
+                                <input type="text" name="instagram" value="{{profile.instagram}}" placeholder="i.e. www.instagram.com/username">
+                            </div>
+                            <div class="flex just_between align_items_center">
+                                <label for="twitter" class="font_medium">Twitter</label>
+                                <input type="text" name="twitter" value="{{profile.twitter}}" placeholder="i.e. www.twitter.com/username">
+                            </div>
+                            <div class="flex just_right" id="buttons_div">
+                                <a href="/dashboard"><button type="button" class="btn btn-sm btn-clear">Cancel</button></a>
+                                <button type="submit" class="btn btn-lg btn-colored">Update</button>
+                            </div>
+                        </form>
                     </div>
-                </form>
-                <form action="/profile/edit" method="post" class="flex flex_down">
-                    <div class="flex just_between align_items_center">
-                        <label for="greeting" class="font_medium">Greeting</label>
-                        <input type="text" name="greeting" value="{{profile.greeting}}">
-                    </div>
-                    <div class="flex just_between align_items_center">
-                        <label for="favorite_music" class="font_medium">Favorite Music</label>
-                        <input type="text" name="favorite_music" value="{{profile.favorite_music}}">
-                    </div>
-                    <div class="flex just_between align_items_center">
-                        <label for="favorite_movies" class="font_medium">Favorite Movies</label>
-                        <input type="text" name="favorite_movies" value="{{profile.favorite_movies}}">
-                    </div>
-                    <div class="flex just_between align_items_center">
-                        <label for="favorite_books" class="font_medium">Favorite Books</label>
-                        <input type="text" name="favorite_books" value="{{profile.favorite_books}}">
-                    </div>
-                    <div class="flex just_between align_items_center">
-                        <label for="favorite_heroes" class="font_medium">Favorite Heroes</label>
-                        <input type="text" name="favorite_heroes" value="{{profile.favorite_heroes}}">
-                    </div>
-                    <div class="flex just_between align_items_center">
-                        <label for="facebook" class="font_medium">Facebook</label>
-                        <input type="text" name="facebook" value="{{profile.facebook}}" placeholder="i.e. www.facebook.com/username">
-                    </div>
-                    <div class="flex just_between align_items_center">
-                        <label for="instagram" class="font_medium">Instagram</label>
-                        <input type="text" name="instagram" value="{{profile.instagram}}" placeholder="i.e. www.instagram.com/username">
-                    </div>
-                    <div class="flex just_between align_items_center">
-                        <label for="twitter" class="font_medium">Twitter</label>
-                        <input type="text" name="twitter" value="{{profile.twitter}}" placeholder="i.e. www.twitter.com/username">
-                    </div>
-                    <div class="flex just_right" id="buttons_div">
-                        <a href="/dashboard"><button type="button" class="btn btn-sm btn-clear">Cancel</button></a>
-                        <button type="submit" class="btn btn-lg btn-colored">Update</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
         <!-- footer -->

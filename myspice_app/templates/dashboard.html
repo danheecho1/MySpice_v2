@@ -31,8 +31,6 @@
                 <button class="btn btn-sm btn-clear">Log out</button>
             </a>
         </div>
-        <!-- cover photo (temp) -->
-        <img src="../static/assets/cover.png" alt="" id="temp_cover_photo_div">
         <!-- main body -->
         <div class="flex just_between" id="main_body_div">
             <!-- main body - left side -->
@@ -44,6 +42,9 @@
                     {% else %}
                         <img src="{{url_for('static', filename='/assets/default_profile_picture.png')}}" alt="" class="profile_picture">
                     {% endif %}
+                    <div id="request_status_div">
+                        <p class="request_status" style="border: none;"></p>
+                    </div>
                     <h4 id="display_name">{{session.first_name}} {{session.last_name}}</h4>
                     <div class="flex flex_down align_items_center font_medium" id="favorite_list_div">
                         <p id="display_greeting">{{current_profile.greeting}}</p>

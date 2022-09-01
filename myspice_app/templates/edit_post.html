@@ -17,88 +17,100 @@
         <div class="flex just_between align_items_center" id="nav_bar_div">
             <!-- nav bar - left side links -->
             <div class="flex align_items_center">
-                <img src="{{url_for('static', filename='/assets/logo.jpg')}}" id="logo"><span class="font_medium" id="logo_name">Myspice</span>
-                <div class="flex" id="nav_links_div">
+                <img src="{{url_for('static', filename='/assets/logo.png')}}" id="logo">
+                <div class="flex" id="nav_bar_links_div">
                     <a href="/dashboard">Home</a>
                     <a href="/profile/{{session.id}}">Profile</a>
-                    <a href="#">Message</a>
+                    <a href="#">Feeds</a>
                     <a href="/search">Search</a>
                     <a href="#">About</a>
                 </div>
             </div>
-            <!-- nav bar - right side buttons -->
-            <div>
-                <a href="/logout"><button class="btn btn-sm btn-clear">Log out</button></a>
-            </div>
+            <!-- nav bar - right side button -->
+            <a href="/logout">
+                <button class="btn btn-sm btn-clear">Log out</button>
+            </a>
         </div>
-        <!-- cover photo -> empty div for now -->
-        <div id="temp_cover_photo_div"></div>
         <!-- main body -->
         <div class="flex just_between" id="main_body_div">
-            <!-- main body - left side (profile card) -->
-            <div class="flex flex_down align_items_center" id="profile_card_div">
-                {% if current_picture['name'] %}
+            <!-- main body - left side -->
+            <div class="flex flex_down" id="main_body_left_div">
+                <!-- main body - left side (profile card) -->
+                <div class="flex flex_down align_items_center" id="profile_card_div">
+                    {% if current_picture['name'] %}
                     <img src={{current_picture.name}} class="profile_picture">
-                {% else %}
+                    {% else %}
                     <img src="../static/assets/default_profile_picture.png" alt="" class="profile_picture">
-                {% endif %}
-                <h4 id="display_name">{{session.first_name}} {{session.last_name}}</h4>
-                <div class="flex flex_down font_medium" id="favorite_list_div">
-                    <p id="display_greeting">{{current_profile.greeting}}</p>
-                    <div class="flex flex_down align_items_center">
-                        <p>Favorite Music: </p>
-                        <p>{{current_profile.favorite_music}}</p>
+                    {% endif %}
+                    <div id="request_status_div">
+                        <p class="request_status" style="border: none;"></p>
                     </div>
-                    <div class="flex flex_down align_items_center">
-                        <p>Favorite Movies: </p>
-                        <p>{{current_profile.favorite_movies}}</p>
+                    <h4 class="flex align_items_center" id="display_name">{{session.first_name}} {{session.last_name}}</h4>
+                    <div class="flex flex_down align_items_center font_medium" id="favorite_list_div">
+                        <p id="display_greeting">{{current_profile.greeting}}</p>
+                        <div class="flex flex_down align_items_center">
+                            <p class="favorite_category">Favorite Music</p>
+                            <p class="favorite_response">{{current_profile.favorite_music}}</p>
+                        </div>
+                        <div class="flex flex_down align_items_center">
+                            <p class="favorite_category">Favorite Movies</p>
+                            <p class="favorite_response">{{current_profile.favorite_movies}}</p>
+                        </div>
+                        <div class="flex flex_down align_items_center">
+                            <p class="favorite_category">Favorite Books</p>
+                            <p class="favorite_response">{{current_profile.favorite_books}}</p>
+                        </div>
+                        <div class="flex flex_down align_items_center">
+                            <p class="favorite_category">Favorite Heroes</p>
+                            <p class="favorite_response">{{current_profile.favorite_heroes}}</p>
+                        </div>
                     </div>
-                    <div class="flex flex_down align_items_center">
-                        <p>Favorite Books: </p>
-                        <p>{{current_profile.favorite_books}}</p>
-                    </div>
-                    <div class="flex flex_down align_items_center">
-                        <p>Favorite Heroes: </p>
-                        <p>{{current_profile.favorite_heroes}}</p>
+                    <!-- SNS links -->
+                    <div class="flex align_items_center" id="sns_links_div">
+                        {% if current_profile.instagram %}
+                        <a href="https://{{current_profile.instagram}}">
+                            <img src="{{url_for('static', filename='/assets/instagram_linked.png')}}" alt="" id="instagram">
+                        </a>
+                        {% else %}
+                        <img src="{{url_for('static', filename='/assets/instagram.png')}}" alt="" id="instagram">
+                        {% endif %}
+                        {% if current_profile.facebook %}
+                        <a href="https://{{current_profile.facebook}}">
+                            <img src="{{url_for('static', filename='/assets/facebook_linked.png')}}" alt="" id="facebook">
+                        </a>
+                        {% else %}
+                        <img src="{{url_for('static', filename='/assets/facebook.png')}}" alt="" id="facebook">
+                        {% endif %}
+                        {% if current_profile.twitter %}
+                        <a href="https://{{current_profile.twitter}}">
+                            <img src="{{url_for('static', filename='/assets/twitter_linked.png')}}" alt="" id="twitter">
+                        </a>
+                        {% else %}
+                        <img src="{{url_for('static', filename='/assets/twitter.png')}}" alt="" id="twitter">
+                        {% endif %}
                     </div>
                 </div>
-                <!-- SNS links -->
-                <div class="flex align_items_center" id="sns_links_div">
-                    {% if current_profile.instagram %}
-                    <a href="https://{{current_profile.instagram}}"><img src="{{url_for('static', filename='/assets/instagram_linked.png')}}" alt="" id="instagram"></a>
-                    {% else %}
-                    <img src="{{url_for('static', filename='/assets/instagram.png')}}" alt="" id="instagram">
-                    {% endif %}
-                    {% if current_profile.facebook %}
-                    <a href="https://{{current_profile.facebook}}"><img src="{{url_for('static', filename='/assets/facebook_linked.png')}}" alt="" id="facebook"></a>
-                    {% else %}
-                    <img src="{{url_for('static', filename='/assets/facebook.png')}}" alt="" id="facebook">
-                    {% endif %}
-                    {% if current_profile.twitter %}
-                    <a href="https://{{current_profile.twitter}}"><img src="{{url_for('static', filename='/assets/twitter_linked.png')}}" alt="" id="twitter"></a>
-                    {% else %}
-                    <img src="{{url_for('static', filename='/assets/twitter.png')}}" alt="" id="twitter">
-                    {% endif %}
-                </div>
-                <a href="/profile/edit"><button class="btn btn-clear btn-lg">Edit My Profile</button></a>
             </div>
             <!-- main body - right side -->
-            <div id="form_div">
-                <h1>Edit Post</h1>
-                <form action="/posts/{{session.id}}/{{selected_post.id}}/edit" method="post" class="flex flex_down">
-                    <div class="flex flex_down label_input_div">
-                        <label for="title" class="font_medium">Title</label>
-                        <input type="text" name="title" value="{{selected_post.title}}">
-                    </div>
-                    <div class="flex flex_down label_input_div">
-                        <label for="content" class="font_medium">Post</label>
-                        <textarea name="content">{{selected_post.content}}</textarea>
-                    </div>
-                    <div class="flex just_right" id="buttons_div">
-                        <a href="/posts/{{session.id}}"><button class="btn btn-sm btn-clear">Cancel</button></a>
-                        <button class="btn btn-lg btn-colored">Save</button>
-                    </div>
-                </form>
+            <div id="main_body_right_div">
+                <!-- main body - right side (post) -->
+                <div class="flex flex_down" id="right_side_content_div">
+                    <h1 class="right_side_header">Edit Post</h1>
+                    <form action="/posts/{{session.id}}/{{selected_post.id}}/edit" method="post" class="flex flex_down">
+                        <div class="flex flex_down label_input_div">
+                            <label for="title" class="font_medium">Title</label>
+                            <input type="text" name="title" value="{{selected_post.title}}">
+                        </div>
+                        <div class="flex flex_down label_input_div">
+                            <label for="content" class="font_medium">Post</label>
+                            <textarea name="content">{{selected_post.content}}</textarea>
+                        </div>
+                        <div class="flex just_right" id="buttons_div">
+                            <a href="/posts/{{session.id}}"><button class="btn btn-sm btn-clear">Cancel</button></a>
+                            <button class="btn btn-lg btn-colored">Save</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
         <!-- footer -->
