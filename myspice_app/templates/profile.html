@@ -45,9 +45,9 @@
                     <div id="request_status_div">
                         {% if session.id != current_user.id %}
                         {% if are_we_friends and are_we_friends[0]['status'] == 1 %}
-                        <p class="flex align_items_center just_around request_status">Friends</p>
+                        <p class="flex align_items_center just_around request_status font_medium">Friends</p>
                         {% elif are_we_friends and are_we_friends[0]['status'] == 0 %}
-                        <p class="flex align_items_center just_around request_status">Pending</p>
+                        <p class="flex align_items_center just_around request_status font_medium">Pending</p>
                         {% else %}
                         <form action="/profile/{{current_user.id}}/friend_request" method="post" onsubmit="return confirm('Are you sure you want to send a friend request?')"><button class="flex align_items_center just_around btn btn-clear request_status">Add</button></form>
                             {% endif %}
@@ -55,7 +55,7 @@
                         <p class="request_status" style="border: none;"></p>
                         {% endif %}
                     </div>
-                    <h4 class="flex align_items_center" id="display_name">{{current_user.first_name}} {{current_user.last_name}}</h4>
+                    <h4 class="text_center" id="display_name">{{current_user.first_name}} {{current_user.last_name}}</h4>
                     <div class="flex flex_down align_items_center font_medium" id="favorite_list_div">
                         <p id="display_greeting">{{current_profile.greeting}}</p>
                         <div class="flex flex_down align_items_center">
@@ -118,9 +118,13 @@
                         <h3>{{friend.first_name}} {{friend.last_name}}</h3>
                     </div>
                         {% endfor %}
+                    {% else %}
+                    <p>{{current_user.first_name}} has no friends yet!</p>
                     {% endif %}
                     {% if all_friends | length > 3 %}
                     <a class="font_medium" href="#">See more</a>
+                    {% else %}
+                    <p></p>
                     {% endif %}
                 </div>
             </div>
