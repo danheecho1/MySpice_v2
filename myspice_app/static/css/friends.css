@@ -20,7 +20,7 @@
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
-    font-size: 12px;
+    font-size: 13px;
     box-sizing: border-box;
     /* border: solid 1px black; */
 }
@@ -59,6 +59,10 @@
 
 .align_items_center {
     align-items: center;
+}
+
+.align_self_center {
+    align-self: center;
 }
 
 .align_self_end {
@@ -101,6 +105,12 @@
     background-color: white;
 }
 
+.btn-danger {
+    color: red;
+    border: solid 1px red;
+    background-color: white;
+}
+
 /* top nav bar */
 
 #nav_bar_div {
@@ -135,14 +145,59 @@
 
 /* main body */
 
+#cover_photo {
+    margin-top: 45px;
+}
+
+#search_bar {
+    gap: 20px;
+    position: relative;
+    bottom: 64px;
+}
+
+#search_bar input {
+    height: 30px; 
+    width: 375px;
+    background-color: transparent;
+    border: solid 1px white;
+    color: white;
+    padding: 0px 10px;
+}
+
+#search_bar input::placeholder {
+    color: white;
+}
+
+#search_bar select {
+    width: 200px;
+    background-color: transparent;
+    border: solid 1px white;
+    color: white;
+    padding: 0px 10px;
+}
+
+#search_bar button {
+    border: none;
+    background-color: transparent;
+}
+
+#search_bar img {
+    width: 20px;
+}
+
 #main_body_div {
-    margin: 95px 125px;
     width: 1000px;
+    gap: 40px;
+    margin-bottom: 100px;
 }
 
 #main_body_left_div {
     width: 250px;
     gap: 50px;
+}
+
+.right_side_header {
+    font-size: 23px;
 }
 
 .profile_picture {
@@ -194,70 +249,98 @@
     width: 35px;
 }
 
-#main_body_div_right {
-    width: 1000px;
-}
-
-#manage_post_div h1 {
-    margin-top: 80px;
-    margin-bottom: 55px;
-}
-
 .search_profile_card {
-    height: 390px; 
-    width: 300px;
-    border: solid 2px #D9D9D9;
-    padding: 25px;
-    gap: 50px;
+    width: 220px;
+    border: solid 1px #D9D9D9;
+    padding: 40px;
+    gap: 25px;
+    transition: 500ms;
+}
+
+.search_profile_card a {
+    text-decoration: none;
+}
+
+.search_profile_card h4 {
+    font-size: 16px;
+    color: black;
 }
 
 .search_profile_card img {
-    height: 200px;
-    width: 200px;
+    height: 100px;
+    width: 100px;
     border-radius: 50%;
-}
-
-#top_friends_div {
-    gap: 55px;
-}
-
-.individual_top_friend_div {
-    gap: 20px;
-}
-
-#top_friends_div img {
-    height: 135px;
-}
-
-#top_friends_div h2 {
-    text-align: center;
 }
 
 #results_div {
-    gap: 57px;
+    gap: 40px;
     flex-wrap: wrap;
 }
 
+#pending_requests_div {
+    gap: 40px;
+}
+
 .pending_request_picture {
-    height: 125px;
-    width: 125px;
+    height: 75px;
+    width: 75px;
     border-radius: 50%;
 }
 
-#individual_request {
-    width: 229px;
+#request_cards_div {
+    width: 1000px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+}
 
+.individual_card {
+    width: 220px;
+    height: 85px;
+    gap: 25px;
+    overflow-wrap: break-word;
+}
+
+.individual_card a {
+    text-decoration: none;
+    color: black;
+}
+
+#friend_request_buttons_div {
+    gap: 5px;
+}
+
+.individual_card button {
+    padding: 5px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+#individual_card_right_side {
+    gap: 15px;
+}
+
+#individual_card_right_side p {
+    font-size: 13px;
+}
+
+#existing_friends_div {
+    gap: 40px;
 }
 
 /* footer */
 
 #footer_div {
-    height: 86px;
-    border-top: 2px solid #E0E0E0;
-    margin-top: 100px;
+    width: 1250px;
+    height: 50px;
+    border-top: 1px solid #E0E0E0;
+    position: fixed;
+    bottom: 0;
+    align-self: center;
+    background-color: white;
+    z-index: 2;
 }
 
 #footer_div p {
     color: #777E90;
-    font-size: 14px;
 }

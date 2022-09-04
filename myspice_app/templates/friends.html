@@ -31,65 +31,65 @@
                 <button class="btn btn-sm btn-clear">Log out</button>
             </a>
         </div>
+        <!-- cover photo -> empty div for now -->
+        <img src="{{url_for('static', filename='/assets/cover.png')}}" alt="" id="cover_photo">
+        <!-- search bar -->
+        <form action="/search" method="post" class="flex just_center" id="search_bar">
+            <input type="text" name="search_keyword" placeholder="Search by name">
+            <button><img src="{{url_for('static', filename='/assets/search.png')}}" alt=""></button>
+        </form>
         <!-- main body -->
-        <div class="flex flex_down just_between" id="main_body_div">
+        <div class="flex flex_down align_self_center" id="main_body_div">
             <!-- main body - pending requests -->
             {% if pending_requests %}
-            <div class="flex flex_down">
-                <h2 class="right_side_header">Pending Requests</h2>
-                <div class="flex" id="individual_request">
+            <div class="flex flex_down" id="pending_requests_div">
+                <h1 class="right_side_header">Pending Requests</h1>
+                <div class="flex" id="request_cards_div">
                     {% for request in pending_requests %}
-                    <div class="flex align_items_center">
+                    <div class="flex align_items_center individual_card">
                         {% if request.name %}
                         <img src="{{request.name}}" alt="" class="pending_request_picture">
                         {% else %}
                         <img src="{{url_for('static', filename='/assets/default_profile_picture.png')}}" alt="" class="pending_request_picture">
                         {% endif %}
-                        <h3>{{request.first_name}} {{request.last_name}}</h3>
-                        <div class="flex">
-                            <form action="/profile/{{session.id}}/friends/accept" method="post">
-                                <input type="hidden" name="friendship_id" value="{{request.id}}">
-                                <button type="submit">Accept</button>
-                            </form>
-                            <form action="/profile/{{session.id}}/friends/reject" method="post">
-                                <input type="hidden" name="friendship_id" value="{{request.id}}">
-                                <button type="submit">Reject</button>
-                            </form>
+                        <div class="flex flex_down" id="individual_card_right_side">
+                            <p class="font_bold">{{request.first_name}} {{request.last_name}}</p>
+                            <div class="flex" id="friend_request_buttons_div">
+                                <form action="/profile/{{session.id}}/friends/accept" method="post">
+                                    <input type="hidden" name="friendship_id" value="{{request.id}}">
+                                    <button type="submit" class="btn-clear">Accept</button>
+                                </form>
+                                <form action="/profile/{{session.id}}/friends/reject" method="post">
+                                    <input type="hidden" name="friendship_id" value="{{request.id}}">
+                                    <button type="submit" class="btn-danger">Reject</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                     {% endfor %}
                 </div>
             </div>
             {% endif %}
-            <!-- main body - right side -->
-            <div id="main_body_div_right">
-                <!-- posts -->
-                <div id="manage_post_div">
-                    <h1>Friends</h1>
-                    <div class="flex" id="results_div">
-                        {% if friends %}
-                            {% for friend in friends %}
-                        <div class="flex flex_down align_items_center search_profile_card">
-                            {% if friend.name %}
-                            <a href="/profile/{{friend.id}}"><img src="{{friend.name}}" alt="" class="result_profile_pictures"></a>
-                            {% else %}
-                            <a href="/profile/{{friend.id}}"><img src="{{url_for('static', filename='/assets/default_profile_picture.png')}}" alt=""></a>
-                            {% endif %}
-                            <a href="/profile/{{friend.id}}"><h4>{{friend.first_name}} {{friend.last_name}}</h4></a>
-                            <div class="flex">
-                                <form action="/profile/{{session.id}}/friends/reject" method="post">
-                                    <input type="hidden" value="{{friend.id}}" name="friend_id">
-                                    <button type="submit">Unfriend</button>
-                                </form>
-                                <form action="#">
-                                    <input type="hidden" value="{{friend.id}}" name="friend_id">
-                                    <button>Make a top friend</button>
-                                </form>
-                            </div>
-                        </div>
-                            {% endfor %}
+            <!-- main body - existing friends -->
+            <div class="flex flex_down" id="existing_friends_div">
+                <h1 class="right_side_header">Friends</h1>
+                <div class="flex" id="results_div">
+                    {% if friends %}
+                        {% for friend in friends %}
+                    <div class="flex flex_down align_items_center search_profile_card">
+                        {% if friend.name %}
+                        <a href="/profile/{{friend.id}}"><img src="{{friend.name}}" alt="" class="result_profile_pictures"></a>
+                        {% else %}
+                        <a href="/profile/{{friend.id}}"><img src="{{url_for('static', filename='/assets/default_profile_picture.png')}}" alt=""></a>
                         {% endif %}
+                        <a href="/profile/{{friend.id}}"><h4 class="font_medium">{{friend.first_name}} {{friend.last_name}}</h4></a>
+                        <form action="/profile/{{session.id}}/friends/reject" method="post">
+                            <input type="hidden" value="{{friend.id}}" name="friend_id">
+                            <button type="submit" class="btn btn-lg btn-danger">Unfriend</button>
+                        </form>
                     </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </div>

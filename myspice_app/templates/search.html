@@ -17,32 +17,32 @@
         <div class="flex just_between align_items_center" id="nav_bar_div">
             <!-- nav bar - left side links -->
             <div class="flex align_items_center">
-                <img src="{{url_for('static', filename='/assets/logo.jpg')}}" id="logo"><span class="font_medium" id="logo_name">Myspice</span>
-                <div class="flex" id="nav_links_div">
+                <img src="{{url_for('static', filename='/assets/logo.png')}}" id="logo">
+                <div class="flex" id="nav_bar_links_div">
                     <a href="/dashboard">Home</a>
                     <a href="/profile/{{session.id}}">Profile</a>
-                    <a href="#">Message</a>
+                    <a href="#">Feeds</a>
                     <a href="/search">Search</a>
                     <a href="#">About</a>
                 </div>
             </div>
-            <!-- nav bar - right side buttons -->
-            <div>
-                <a href="/logout"><button class="btn btn-sm btn-clear">Log out</button></a>
-            </div>
+            <!-- nav bar - right side button -->
+            <a href="/logout">
+                <button class="btn btn-sm btn-clear">Log out</button>
+            </a>
         </div>
         <!-- cover photo -> empty div for now -->
-        <img src="../static/assets/cover.png" alt="">
-        <!-- <div id="temp_cover_photo_div"></div> -->
+        <img src="../static/assets/cover.png" alt="" id="cover_photo">
         <!-- search bar -->
         <form action="/search" method="post" class="flex just_center" id="search_bar">
-            <input type="text" name="search_keyword">
-            <select name="search_type" id="">
-                <option value="search_by_name">Search by name</option>
-                <option value="search_by_email">Search by email</option>
-            </select>
+            <input type="text" name="search_keyword" placeholder="Search by name">
             <button><img src="../static/assets/search.png" alt=""></button>
         </form>
+        <!-- main body -->
+        <div class="flex flex_down align_self_center" id="main_body_div">
+            <h1 class="right_side_header">Search</h1>
+            <p>Search for people on Myspice by their name!</p>
+        </div>
         <!-- footer -->
         <div class="flex just_around align_items_center" id="footer_div">
             <p>No Copyright © 2022 Danny Cho. All rights reserved</p>

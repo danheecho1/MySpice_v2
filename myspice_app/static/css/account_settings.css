@@ -20,7 +20,7 @@
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
-    font-size: 12px;
+    font-size: 13px;
     box-sizing: border-box;
     /* border: solid 1px black; */
 }
@@ -59,6 +59,10 @@
 
 .align_items_center {
     align-items: center;
+}
+
+.text_center {
+    text-align: center;
 }
 
 .align_self_end {
@@ -136,33 +140,45 @@
 /* main body */
 
 #main_body_div {
-    margin: 0px 201px;
+    margin: 95px 125px;
+    width: 1000px;
 }
 
-#temp_cover_photo_div {
-    height: 330px;
-    background-color: #424242;
+#main_body_left_div {
+    width: 250px;
+    gap: 50px;
 }
 
 #profile_card_div {
-    width: 350px;
     box-shadow: 0px 0px 50px 50px rgba(0, 0, 0, 0.03);
-    position: relative;
-    bottom: 165px;
-    padding: 60px 45px;
+    padding: 28px;
     background-color: white;
 }
 
 .profile_picture {
-    width: 200px;
-    height: 200px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
 }
 
 #display_name {
-    font-size: 24px;
-    margin-top: 20px;
-    margin-bottom: 48px;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+#request_status_div {
+    position: relative;
+    bottom: 150px;
+    right: 82px;
+}
+
+.request_status {
+    color:  #18A0FB;
+    border: 1px solid #18A0FB;
+    border-radius: 6px;
+    height: 25px;
+    width: 70px;
+    font-size: 12px;
 }
 
 #favorite_list_div {
@@ -170,13 +186,25 @@
     text-align: center
 }
 
-#favorite_list_div div p {
+#favorite_list_div div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.favorite_category {
+    color: black;
+    text-align: center;
+}
+
+.favorite_response {
     color: #777E90;
+    text-align: center;
 }
 
 #sns_links_div {
-    margin-top: 40px;
-    gap: 40px;
+    margin: 40px 0px;
+    gap: 25px;
 }
 
 #sns_links_div a {
@@ -185,34 +213,47 @@
 }
 
 #sns_links_div img {
-    height: 35px;
-    width: 35px;
+    height: 27px;
+    width: 27px;
 }
 
-#form_div {
-    width: 1014px;
+#main_body_right_div {
+    width: 700px;
+    gap: 50px;
 }
 
-#form_div h1 {
-    margin-top: 80px;
-    margin-bottom: 55px;
+#right_side_content_div {
+    margin-top: 28px;
+    gap: 40px;
 }
 
-#form_div label {
-    font-size: 20px;
+.right_side_header {
+    font-size: 23px;
+}
+
+#main_body_right_div label {
+    font-size: 13px;
     color: #777E90
 }
 
-#form_div input {
-    width: 784px;
-    height: 60px;
-    padding-left: 25px;
-    font-size: 20px;
+#main_body_right_div input {
+    width: 510px;
+    height: 35px;
+    padding: 0px 10px;
+    font-size: 13px;
     font-weight: 500;
-    border: 2px solid #E0E0E0;
+    border: 1px solid #E0E0E0;
 }
 
-#form_div form {
+#image_upload_div input {
+    padding: 14px 0px;
+    border: none;
+    width: auto;
+    margin-right: 41px;
+}
+
+
+#main_body_right_div form {
     gap: 20px;
 }
 
@@ -224,12 +265,16 @@
 /* footer */
 
 #footer_div {
-    height: 86px;
-    border-top: 2px solid #E0E0E0;
-    margin-top: 100px;
+    width: 1250px;
+    height: 50px;
+    border-top: 1px solid #E0E0E0;
+    position: fixed;
+    bottom: 0;
+    align-self: center;
+    background-color: white;
+    z-index: 2;
 }
 
 #footer_div p {
     color: #777E90;
-    font-size: 14px;
 }

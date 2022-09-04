@@ -249,8 +249,6 @@ def uploadphoto_post():
             'picture_name': picture_name, 
             'user_id': session['id']
         }
-        print('the picture name is...')
-        print(picture_name)
         Picture.upload_profile_photo_step1(data)
         Picture.upload_profile_photo_step2(data)
         return redirect('/profile/edit')
@@ -272,8 +270,6 @@ def friends(user_id):
     current_picture = Picture.get_user_with_picture_by_id({'user_id': session['id']})
     friends = Friendship.get_all_friends({'user_id': session['id']})
     pending_requests = Friendship.get_pending_requests({'user_id': session['id']})
-    print("these are the friends!!!!")
-    print(friends)
     return render_template('friends.html', current_user = current_user, pending_requests = pending_requests, current_profile = current_profile, current_picture = current_picture, friends = friends)
 
 @app.route('/profile/<int:user_id>/friends/accept', methods=['POST'])
@@ -290,7 +286,5 @@ def reject_request_post(user_id):
         'friend_id': request.form['friend_id'], 
         'user_id': user_id
     }
-    print("THIS IS THE DATA")
-    print(data)
     Friendship.reject_request(data)
     return redirect(f"/profile/{user_id}/friends")
