@@ -186,11 +186,15 @@
     padding: 40px;
     gap: 25px;
     transition: 500ms;
+}
+
+.search_profile_card a {
     text-decoration: none;
 }
 
 .search_profile_card:hover {
     transform: scale(1.05);
+    border: solid 1px #888888;
 }
 
 .search_profile_card img {

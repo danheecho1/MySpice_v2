@@ -111,6 +111,11 @@
     background-color: white;
 }
 
+.btn-danger:hover {
+    color: white;
+    background-color: red;
+}
+
 /* top nav bar */
 
 #nav_bar_div {
@@ -251,10 +256,15 @@
 
 .search_profile_card {
     width: 220px;
+    height: 303px;
     border: solid 1px #D9D9D9;
     padding: 40px;
-    gap: 25px;
     transition: 500ms;
+}
+
+.search_profile_card:hover {
+    transform: scale(1.05);
+    border: solid 1px #888888;
 }
 
 .search_profile_card a {
@@ -264,6 +274,7 @@
 .search_profile_card h4 {
     font-size: 16px;
     color: black;
+    text-align: center;
 }
 
 .search_profile_card img {

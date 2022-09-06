@@ -76,7 +76,7 @@
                 <div class="flex" id="results_div">
                     {% if friends %}
                         {% for friend in friends %}
-                    <div class="flex flex_down align_items_center search_profile_card">
+                    <div class="flex flex_down just_between align_items_center search_profile_card">
                         {% if friend.name %}
                         <a href="/profile/{{friend.id}}"><img src="{{friend.name}}" alt="" class="result_profile_pictures"></a>
                         {% else %}
