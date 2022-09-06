@@ -17,12 +17,12 @@
         <div class="flex just_between align_items_center" id="nav_bar_div">
             <!-- nav bar - left side links -->
             <div class="flex align_items_center">
-                <img src="{{url_for('static', filename='/assets/logo.jpg')}}" id="logo"><span class="font_medium" id="logo_name">Myspice</span>
-                <div class="flex" id="nav_links_div">
+                <img src="{{url_for('static', filename='/assets/logo.png')}}" id="logo">
+                <div class="flex" id="nav_bar_links_div">
                     <a href="/dashboard">Home</a>
                     <a href="/profile/{{session.id}}">Profile</a>
-                    <a href="#">Message</a>
-                    <a href="/search">Search Friends</a>
+                    <a href="#">Feeds</a>
+                    <a href="/search">Search</a>
                     <a href="#">About</a>
                 </div>
             </div>
@@ -32,6 +32,7 @@
                 <button class="btn btn-sm btn-colored" onclick="window.location.href='/register';">Register</button>
             </div>
         </div>
+        <img src="{{url_for('static', filename='assets/cover2.png')}}" alt="" id="cover_photo">
         <!-- main body -->
         <div class="flex just_between align_items_center" id="main_body_div">
             <!-- main body - left side -->
@@ -41,7 +42,7 @@
             </div>
             <!-- main body - right side -->
             <form action="/register" method="post">
-                <div class="flex flex_down" id="main_body_div_right">
+                <div class="flex flex_down just_between" id="main_body_div_right">
                     <header class="font_bold">Join myspice.com</header>
                     <div class="flex flex_down" id="registration_form">
                         <div class="flex just_between" id="name_input">
@@ -50,7 +51,7 @@
                                 {% with messages = get_flashed_messages(category_filter=['registration_first_name']) %}
                                     {% if messages %}
                                         {% for message in messages %}
-                                            placeholder="{{message}}
+                                            placeholder="{{message}}"
                                         {% endfor %}
                                     {% else %}
                                         placeholder="First Name"
@@ -63,7 +64,7 @@
                                 {% with messages = get_flashed_messages(category_filter=['registration_last_name']) %}
                                     {% if messages %}
                                         {% for message in messages %}
-                                            placeholder="{{message}}
+                                            placeholder="{{message}}"
                                         {% endfor %}
                                     {% else %}
                                         placeholder="Last Name"

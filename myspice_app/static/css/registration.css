@@ -1,30 +1,32 @@
+/* Scrollbar styling */
+
 ::-webkit-scrollbar {
     width: 16px;
 }
 
-  /* Handle */
 ::-webkit-scrollbar-thumb {
     background: #888; 
     border-radius: 10pt;
     border: 4px solid white;
 }
 
-  /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555; 
 }
 
-/* General styling */
+/* Resets and general & blanket styling */
+
 * {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
+    font-size: 13px;
     box-sizing: border-box;
     /* border: solid 1px black; */
 }
 
 #container {
-    width: 1920px;
+    width: 1250px;
 }
 
 .flex {
@@ -47,8 +49,24 @@
     justify-content: space-evenly;
 }
 
+.just_center {
+    justify-content: center;
+}
+
+.just_right {
+    justify-content: right;
+}
+
 .align_items_center {
     align-items: center;
+}
+
+.text_center {
+    text-align: center;
+}
+
+.align_self_end {
+    align-self: flex-end;
 }
 
 .font_medium {
@@ -60,15 +78,19 @@
 }
 
 .btn {
+    font-size: 12px;
     border-radius: 6px;
     cursor: pointer;
+    font-weight: 500;
+    height: 30px;
 }
 
 .btn-sm {
-    width: 148.5px;
-    height: 45.5px;
-    font-size: 18px;
-    font-weight: 500;
+    width: 95px;
+}
+
+.btn-lg {
+    width: 125px;
 }
 
 .btn-colored {
@@ -86,96 +108,100 @@
 /* top nav bar */
 
 #nav_bar_div {
-    height: 70px;
-    padding: 0px 90px;
+    height: 45px;
+    width: 1250px;
+    padding: 0px 60px;
+    background-color: white;
+    position: fixed;
+    z-index: 2;
+    border-bottom: 1px solid #E0E0E0;
 }
 
-#nav_links_div {
-    margin: 0em 6rem;
-    gap: 50px;
+#nav_bar_links_div {
+    margin: 0px 65px;
+    gap: 35px;
 }
 
-#nav_links_div a {
+#nav_bar_links_div a {
     text-decoration: none;
     color: black;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 500;
 }
 
-#nav_links_div a:hover {
-    text-decoration: none;
+#nav_bar_links_div a:hover {
     color: #18A0FB;
 }
 
 #logo {
-    height: 40px;
-}
-
-#logo_name {
-    font-size: 32px;
+    height: 30px;
 }
 
 /* main body */
 
+#cover_photo {
+    margin-top: 45px;
+}
+
 #main_body_div {
-    margin: 0px 201px;
-    height: 924px
+    margin: 50px 125px;
+    width: 1000px;
 }
 
 #main_body_div_left {
-    width: 600px;
-    gap: 35px;
+    width: 450px;
+    gap: 50px;
 }
 
 #main_body_div_left header {
-    font-size: 48px;
-    line-height: 72px;
+    font-size: 31px;
+    line-height: 47px;
 }
 
 #main_body_div_left p {
-    font-size: 32px;
-    line-height: 50px;
+    font-size: 20px;
+    line-height: 32px;
 }
 
 #main_body_div_right {
-    padding: 55px 62px;
+    padding: 35px 40px;
     border: solid 2px #E0E0E0;
-    width: 622px;
-    height: 510px;
+    width: 405px;
+    height: 330px;
 }
 
 #main_body_div_right header {
-    font-size: 24px;
-    margin-bottom: 40px;
+    font-size: 16px;
 }
 
 #registration_form {
-    gap: 20px;
+    gap: 15px;
 }
 
 #main_body_div_right input {
-    height: 40px;
-    border: 2px solid #E0E0E0;
-    padding-left: 15px;
+    height: 30px;
+    border: 1px solid #E0E0E0;
+    padding-left: 8px;
+    font-size: 11px;
 }
 
 #name_input input {
-    width: 237px;
-}
-
-#main_body_div_right button {
-    margin-top: 40px;
+    width: 155px;
 }
 
 /* footer */
 
 #footer_div {
-    height: 86px;
-    border-top: 2px solid #E0E0E0;
-    margin-top: 100px;
+    width: 1250px;
+    height: 50px;
+    border-top: 1px solid #E0E0E0;
+    position: fixed;
+    bottom: 0;
+    align-self: center;
+    background-color: white;
+    z-index: 2;
 }
 
 #footer_div p {
     color: #777E90;
-    font-size: 14px;
 }
