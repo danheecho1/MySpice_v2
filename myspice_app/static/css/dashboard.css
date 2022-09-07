@@ -140,6 +140,10 @@
 
 /* main body */
 
+#cover_photo {
+    margin-top: 45px;
+}
+
 #main_body_div {
     margin: 95px 125px;
     width: 1000px;
@@ -148,10 +152,14 @@
 #main_body_left_div {
     width: 250px;
     gap: 50px;
+    position: relative;
+    bottom: 188px;
 }
 
 #profile_card_div {
     box-shadow: 0px 0px 50px 50px rgba(0, 0, 0, 0.03);
+    outline: 1px solid rgba(244, 244, 244, 0.2);
+    outline-offset: 4px;
     padding: 28px;
     background-color: white;
 }
@@ -224,7 +232,6 @@
 }
 
 #dashboard_nav_div {
-    margin-top: 28px;
     gap: 40px;
 }
 

@@ -321,6 +321,10 @@
     gap: 5px;
 }
 
+#friend_request_buttons_div button {
+    cursor: pointer;
+}
+
 .individual_card button {
     padding: 5px;
     background-color: white;

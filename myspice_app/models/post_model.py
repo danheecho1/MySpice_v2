@@ -36,3 +36,16 @@ class Post:
     def edit_post(cls, data): 
         query = "UPDATE posts SET title = %(title)s, content = %(content)s, updated_at = NOW() WHERE id = %(post_id)s;"
         return connectToMySQL('myspice2_schema').query_db(query, data)
+
+    @classmethod
+    def posts_count(cls, data):
+        query = "SELECT COUNT(*) FROM posts LEFT JOIN users ON users.id = posts.user_id WHERE users.id = %(user_id)s;"
+        result = connectToMySQL('myspice2_schema').query_db(query, data)
+        if result: 
+            return result[0]['COUNT(*)']
+        return False
+
+    @classmethod
+    def get_paginated_posts(cls, data):
+        query = "SELECT id, title, content, CAST(created_at as DATE) AS date FROM posts WHERE user_id = %(user_id)s ORDER BY created_at DESC LIMIT 1000000 OFFSET %(offset)s;"
+        return connectToMySQL('myspice2_schema').query_db(query, data)

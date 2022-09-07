@@ -21,7 +21,6 @@
                 <div class="flex" id="nav_bar_links_div">
                     <a href="/dashboard">Home</a>
                     <a href="/profile/{{session.id}}">Profile</a>
-                    <a href="#">Feeds</a>
                     <a href="/search">Search</a>
                     <a href="#">About</a>
                 </div>
@@ -103,12 +102,12 @@
                         {% endif %}
                     </div>
                     <div id="display_posts_div">
-                        {% if all_posts %}
+                        {% if paginated_posts %}
                             <ul>
-                                {% for post in all_posts %}
+                                {% for post in paginated_posts %}
                                 <li>
                                     <div class="flex">
-                                        <p id="post_number">#{{post.id}}</p>
+                                        <p id="post_number">#{{loop.revindex}}</p>
                                         <a href="/posts/{{current_user.id}}/{{post.id}}"><p id="post_title">{{post.title}}</p></a>
                                     </div>
                                     <p id="post_date">{{post.date}}</p>
@@ -119,7 +118,22 @@
                             <p>{{current_user.first_name}} not posted anything yet!</p>
                         {% endif %}
                     </div>
-                    <button onclick="history.back()" class="btn btn-sm btn-clear go_back">Go back</button>
+                    <div class="flex align_self_center just_around" id="pagination">
+                        <ul class="flex">
+                            {% if prev >= 1 %}
+                            <a href="/posts/{{current_user.id}}/view_all/page/{{prev}}"><< Previous</a>
+                            {% endif %}
+                            {% for page in range(pages) %}
+                            <li>
+                                <a href="/posts/{{current_user.id}}/view_all/page/{{loop.index}}">{{loop.index}}</a>
+                            </li>
+                            {% endfor %}
+                            {% if next <= pages %}
+                            <a href="/posts/{{current_user.id}}/view_all/page/{{next}}">Next >></a>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <a href="/profile/{{current_user.id}}"><button class="btn btn-sm btn-clear go_back">Go back</button></a>
                 </div>
             </div>
         </div>
