@@ -49,3 +49,8 @@ class Post:
     def get_paginated_posts(cls, data):
         query = "SELECT id, title, content, CAST(created_at as DATE) AS date FROM posts WHERE user_id = %(user_id)s ORDER BY created_at DESC LIMIT 1000000 OFFSET %(offset)s;"
         return connectToMySQL('myspice2_schema').query_db(query, data)
+
+    @classmethod 
+    def delete_post(cls, data): 
+        query = "DELETE FROM posts WHERE id = %(post_id)s"
+        return connectToMySQL('myspice2_schema').query_db(query, data)

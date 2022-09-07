@@ -256,6 +256,13 @@ def edit_post_post(user_id, post_id):
     Post.edit_post(data)
     return redirect(f"/posts/{user_id}")
 
+@app.route('/posts/<int:user_id>/<int:post_id>/delete', methods=['POST'])
+def delete_post(user_id, post_id): 
+    data = {
+        'post_id': post_id
+    }
+    Post.delete_post(data)
+    return redirect(f"/posts/{user_id}")
 
 @app.route('/search')
 def search(): 
