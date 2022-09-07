@@ -227,7 +227,12 @@
     font-size: 23px;
 }
 
-li {
+#display_posts_div ul {
+    max-height: 344px;
+    overflow-y: hidden;
+}
+
+#display_posts_div li {
     list-style-type: none;
     display: flex;
     font-weight: 500;
@@ -236,11 +241,11 @@ li {
     justify-content: space-between;
 }
 
-li:not(:first-child) {
+#display_posts_div li:not(:first-child) {
     border-top: solid 1px #E0E0E0;
 }
 
-li a {
+#display_posts_div li a {
     text-decoration: none;
     color: black;
 }
@@ -252,6 +257,24 @@ li a {
 #post_title {
     font-size: 13px;
     margin-left: 35px;
+}
+
+#pagination ul {
+    gap: 25px;
+    list-style-type: none;
+
+}
+
+#pagination a {
+    display: flex;
+    align-self: center;
+    color: black;
+    text-decoration: none;
+    padding: 5px;
+}
+
+#pagination a:active {
+    background-color: #888;
 }
 
 .go_back {

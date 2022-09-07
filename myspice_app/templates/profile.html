@@ -21,7 +21,6 @@
                 <div class="flex" id="nav_bar_links_div">
                     <a href="/dashboard">Home</a>
                     <a href="/profile/{{session.id}}">Profile</a>
-                    <a href="#">Feeds</a>
                     <a href="/search">Search</a>
                     <a href="#">About</a>
                 </div>
@@ -31,6 +30,8 @@
                 <button class="btn btn-sm btn-clear">Log out</button>
             </a>
         </div>
+        <!-- cover photo -> empty div for now -->
+        <img src="{{url_for('static', filename='/assets/cover2.png')}}" alt="" id="cover_photo">
         <!-- main body -->
         <div class="flex just_between" id="main_body_div">
             <!-- main body - left side -->
@@ -111,18 +112,18 @@
                         {% for friend in random_friends %}
                     <div class="flex flex_down align_items_center individual_top_friend_div">
                         {% if friend.name %}
-                        <img src="{{friend.name}}" alt="">
+                        <a href="/profile/{{friend.id}}"><img src="{{friend.name}}" alt=""></a>
                         {% else %}
-                        <img src="../static/assets/default_profile_picture.png">
+                        <a href="/profile/{{friend.id}}"><img src="../static/assets/default_profile_picture.png"></a>
                         {% endif %}
-                        <h3>{{friend.first_name}} {{friend.last_name}}</h3>
+                        <a href="/profile/{{friend.id}}"><h3>{{friend.first_name}} {{friend.last_name}}</h3></a>
                     </div>
                         {% endfor %}
                     {% else %}
                     <p>{{current_user.first_name}} has no friends yet!</p>
                     {% endif %}
                     {% if all_friends | length > 3 %}
-                    <a class="font_medium" href="#">See more</a>
+                    <a class="font_medium see_more" href="#">See more</a>
                     {% else %}
                     <p></p>
                     {% endif %}
@@ -134,21 +135,21 @@
                 <div class="flex flex_down" id="right_side_content_div">
                     <h1 class="right_side_header">From {{current_user.first_name}}</h1>
                     <div id="display_posts_div">
-                    {% if five_posts %}
+                    {% if all_posts %}
                         <ul>
-                        {% for post in five_posts %}
+                        {% for post in all_posts %}
                             <li>
                                 <div class="flex">
-                                    <p id="post_number">#{{post.id}}</p>
+                                    <p id="post_number">#{{loop.revindex}}</p>
                                     <a href="/posts/{{current_user.id}}/{{post.id}}"><p id="post_title">{{post.title}}</p></a>
                                 </div>
                                 <p id="post_date">{{post.date}}</p>
                             </li>
                         {% endfor %}
                         </ul>
-                        {% if all_posts | length > 5 %}
+                        {% if all_posts | length > 10 %}
                             <span>
-                                <a href="/posts/{{current_user.id}}/view_all" class="font_medium" id="see_more">See more</a>
+                                <a href="/posts/{{current_user.id}}/view_all" class="font_medium see_more">See more</a>
                             </span>
                         {% endif %}
                     {% else %}

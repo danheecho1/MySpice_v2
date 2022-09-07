@@ -21,7 +21,6 @@
                 <div class="flex" id="nav_bar_links_div">
                     <a href="/dashboard">Home</a>
                     <a href="/profile/{{session.id}}">Profile</a>
-                    <a href="#">Feeds</a>
                     <a href="/search">Search</a>
                     <a href="#">About</a>
                 </div>
@@ -32,7 +31,7 @@
             </a>
         </div>
         <!-- cover photo -> empty div for now -->
-        <img src="{{url_for('static', filename='/assets/cover.png')}}" alt="" id="cover_photo">
+        <img src="{{url_for('static', filename='/assets/cover2.png')}}" alt="" id="cover_photo">
         <!-- search bar -->
         <form action="/search" method="post" class="flex just_center" id="search_bar">
             <input type="text" name="search_keyword" placeholder="Search by name">

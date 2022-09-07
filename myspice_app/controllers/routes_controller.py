@@ -8,9 +8,7 @@ from myspice_app.models.friendship_model import Friendship
 
 from flask import render_template, redirect, session, request, flash
 from flask_bcrypt import Bcrypt
-
-import os
-import uuid
+import math
 
 bcrypt = Bcrypt(app)
 
@@ -141,28 +139,70 @@ def save_comment(user_id):
     return redirect(f"/profile/{user_id}")
 
 # This route is for the OP to manage his/her own posts (from dashboard page)
-@app.route('/posts/<int:user_id>')
-def manage_posts(user_id): 
+@app.route('/posts/<int:user_id>', defaults={'page': 1})
+@app.route('/posts/<int:user_id>/page/<int:page>')
+def manage_posts(user_id, page): 
+    # Some pagination variables (how many rows per page)
+    limit= 8
+    offset = page * limit - limit
     data = {
-        'user_id': session['id']
+        'user_id': user_id, 
+        'limit': limit, 
+        'offset': offset
     }
-    current_profile = Profile.get_profile_by_id(data)
-    current_picture = Picture.get_user_with_picture_by_id(data)
-    all_posts = Post.get_all_posts(data)
-    return render_template('manage_posts.html', current_profile = current_profile, current_picture = current_picture, all_posts = all_posts)
 
-# This route is for others to view all posts from other profiles (from profile page)
-@app.route('/posts/<int:user_id>/view_all')
-def view_all_posts(user_id): 
-    data = {
-        'user_id': user_id
-    }
+    # how to get paginated posts using limit and offset from this page? 
+    paginated_posts = Post.get_paginated_posts(data)
+
+    # count how many resulting rows came out
+    number_of_posts = Post.posts_count(data)
+
+    # calculate how many pages we would need
+    total_page = math.ceil(number_of_posts / limit)
+
+    # navigating through pages (next and previous)
+    next = page + 1
+    prev = page - 1
+
     current_user = User.get_user_by_id(data)
     current_profile = Profile.get_profile_by_id(data)
     current_picture = Picture.get_user_with_picture_by_id(data)
     all_posts = Post.get_all_posts(data)
-    return render_template('view_all_posts.html', current_user = current_user, current_profile = current_profile, current_picture = current_picture, all_posts = all_posts)
+    return render_template('manage_posts.html', paginated_posts = paginated_posts, pages = total_page, next = next, prev = prev, current_user = current_user, current_profile = current_profile, current_picture = current_picture, all_posts = all_posts)
 
+# This route is for others to view all posts from other profiles (from profile page)
+@app.route('/posts/<int:user_id>/view_all', defaults={'page': 1})
+@app.route('/posts/<int:user_id>/view_all/page/<int:page>')
+def view_all_posts_paginated(user_id, page): 
+
+    # Some pagination variables (how many rows per page)
+    limit= 10
+    offset = page * limit - limit
+    data = {
+        'user_id': user_id, 
+        'limit': limit, 
+        'offset': offset
+    }
+
+    # how to get paginated posts using limit and offset from this page? 
+    paginated_posts = Post.get_paginated_posts(data)
+
+    # count how many resulting rows came out
+    number_of_posts = Post.posts_count(data)
+
+    # calculate how many pages we would need
+    total_page = math.ceil(number_of_posts / limit)
+
+    # navigating through pages (next and previous)
+    next = page + 1
+    prev = page - 1
+
+    current_user = User.get_user_by_id(data)
+    current_profile = Profile.get_profile_by_id(data)
+    current_picture = Picture.get_user_with_picture_by_id(data)
+    all_posts = Post.get_all_posts(data)
+
+    return render_template('view_all_posts.html', paginated_posts = paginated_posts, pages = total_page, next = next, prev = prev, current_user = current_user, current_profile = current_profile, current_picture = current_picture, all_posts = all_posts)
 
 @app.route('/posts/<int:user_id>/new')
 def new_posts(user_id): 
