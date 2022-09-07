@@ -144,7 +144,7 @@
 }
 
 #main_body_div {
-    margin: 95px 125px;
+    margin: 45px 125px;
     width: 1000px;
 }
 
@@ -152,7 +152,7 @@
     width: 250px;
     gap: 50px;
     position: relative;
-    bottom: 188px;
+    bottom: 138px;
 }
 
 #top_friends_div {

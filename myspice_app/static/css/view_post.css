@@ -101,6 +101,12 @@
     background-color: white;
 }
 
+.btn-danger {
+    color: red;
+    border: solid 1px red;
+    background-color: white;
+}
+
 /* top nav bar */
 
 #nav_bar_div {
@@ -135,19 +141,26 @@
 
 /* main body */
 
+#cover_photo {
+    margin-top: 45px;
+}
+
 #main_body_div {
-    margin: 95px 125px;
+    margin: 45px 125px;
     width: 1000px;
 }
 
 #main_body_left_div {
     width: 250px;
     gap: 50px;
+    position: relative;
+    bottom: 138px;
 }
 
-#profile_card_div, 
-#top_friends_div {
+#profile_card_div {
     box-shadow: 0px 0px 50px 50px rgba(0, 0, 0, 0.03);
+    outline: 1px solid rgba(244, 244, 244, 0.2);
+    outline-offset: 4px;
     padding: 28px;
     background-color: white;
 }
@@ -220,7 +233,6 @@
 }
 
 #right_side_content_div {
-    margin-top: 28px;
     gap: 40px;
 }
 
@@ -248,6 +260,10 @@
 
 #buttons_div {
     margin-top: 80px;
+}
+
+#buttons_div div {
+    gap: 10px;
 }
 
 /* footer */
