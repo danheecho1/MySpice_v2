@@ -178,7 +178,7 @@ def manage_posts(user_id, page):
 def view_all_posts_paginated(user_id, page): 
 
     # Some pagination variables (how many rows per page)
-    limit= 10
+    limit= 8
     offset = page * limit - limit
     data = {
         'user_id': user_id, 
@@ -332,11 +332,6 @@ def update_password(user_id):
     encrypted_password = bcrypt.generate_password_hash(request.form['new_password'])
     User.update_user_password({'new_password': encrypted_password, 'user_id': user_id})
     return redirect('/dashboard')
-
-
-
-
-
 
 @app.route('/uploadprofilepicture', methods=['POST'])
 def uploadphoto_post(): 
