@@ -1,3 +1,4 @@
+from csv import unregister_dialect
 from myspice_app import app
 from myspice_app.models.user_model import User
 from myspice_app.models.profile_model import Profile
@@ -84,9 +85,10 @@ def dashboard():
     data = {
         'user_id': session['id']
     }
+    current_user = User.get_user_by_id(data)
     current_profile = Profile.get_profile_by_id(data)
     current_picture = Picture.get_user_with_picture_by_id(data)
-    return render_template('dashboard.html', current_profile = current_profile, current_picture = current_picture)
+    return render_template('dashboard.html', current_user = current_user, current_profile = current_profile, current_picture = current_picture)
 
 @app.route('/profile/<int:user_id>')
 def profile(user_id):
@@ -284,10 +286,57 @@ def logout():
 
 @app.route('/account_setting/<int:user_id>')
 def account_setting(user_id): 
-    user = User.get_user_by_id({'user_id': session['id']})
-    current_profile = Profile.get_profile_by_id({'user_id': session['id']})
-    current_picture = Picture.get_user_with_picture_by_id({'user_id': session['id']})
+    user = User.get_user_by_id({'user_id': user_id})
+    current_profile = Profile.get_profile_by_id({'user_id': user_id})
+    current_picture = Picture.get_user_with_picture_by_id({'user_id': user_id})
     return render_template('account_settings.html', user = user, current_profile = current_profile, current_picture = current_picture)
+
+@app.route('/account_setting/<int:user_id>/update_account', methods=['POST'])
+def update_account(user_id): 
+    data = {
+        'user_id': user_id, 
+        'update_email': request.form['update_email'],
+        'update_first_name': request.form['update_first_name'], 
+        'update_last_name': request.form['update_last_name']
+    }
+    # validates information provided. if not validated, redirect back to registration page. 
+    if not User.validate_account_update(data): 
+        return redirect(f'/account_setting/{user_id}')
+    User.update_user_account(data)
+    return redirect('/dashboard')
+
+@app.route('/account_setting/<int:user_id>/update_password', methods=['POST'])
+def update_password(user_id):
+    data = {
+        'user_id': user_id, 
+        'current_password': request.form['current_password'], 
+        'new_password': request.form['new_password'], 
+        'new_password_confirm': request.form['new_password_confirm']
+    }
+    existing_user = User.get_user_by_id(data)
+    plain_password = request.form['current_password']
+    hashed_password = existing_user.password
+
+    # if the current password doesn't match what we have in the db, display flash message
+    if not bcrypt.check_password_hash(hashed_password, plain_password): 
+        flash("Password is incorrect", 'login_error')
+        print("YO CURRENT PASSWORD NOT MATCHING")
+        return redirect(f'/account_setting/{user_id}')
+
+    # validate the new password
+    elif not User.validate_password_update(data): 
+        print("VALIDATION FAILED FOR NEW PASSWORD")
+        return redirect(f'/account_setting/{user_id}')
+
+    # if we pass the two tests above, hash and save the new password
+    encrypted_password = bcrypt.generate_password_hash(request.form['new_password'])
+    User.update_user_password({'new_password': encrypted_password, 'user_id': user_id})
+    return redirect('/dashboard')
+
+
+
+
+
 
 @app.route('/uploadprofilepicture', methods=['POST'])
 def uploadphoto_post(): 
