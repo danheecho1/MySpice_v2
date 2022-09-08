@@ -41,6 +41,16 @@ class User:
         return False
 
     @classmethod
+    def update_user_account(cls, data):
+        query = "UPDATE users SET email = %(update_email)s, first_name = %(update_first_name)s, last_name = %(update_last_name)s, updated_at = NOW() WHERE users.id = %(user_id)s"
+        return connectToMySQL('myspice2_schema').query_db(query, data)
+
+    @classmethod
+    def update_user_password(cls, data):
+        query = "UPDATE users SET password = %(new_password)s, updated_at = NOW() WHERE users.id = %(user_id)s;"
+        return connectToMySQL('myspice2_schema').query_db(query, data)
+
+    @classmethod
     def update_user_profile(cls, data): 
         query = "UPDATE profiles SET greeting = %(greeting)s, favorite_music = %(favorite_music)s, favorite_movies = %(favorite_movies)s, favorite_books = %(favorite_books)s, favorite_heroes = %(favorite_heroes)s, instagram = %(instagram)s, facebook = %(facebook)s, twitter = %(twitter)s, updated_at = NOW() WHERE user_id = %(user_id)s;"
         return connectToMySQL('myspice2_schema').query_db(query, data)
@@ -101,4 +111,53 @@ class User:
         # this static method returns a boolean value of is_valid 
         return is_valid
 
+    @staticmethod
+    def validate_account_update(user):
+        is_valid = True
+        # checking that a first name is provided
+        if len(user['update_first_name']) < 1: 
+            flash("First name is required", 'update_first_name')
+            is_valid = False
+        # checking that a last name is provided
+        if len(user['update_last_name']) < 1:
+            flash("Last name is required", 'update_last_name')
+            is_valid = False
+        # for validating email addresses, we will have three steps: 1) email address is provided, 2) the format is valid, and 3) it is not a duplicate. 
+        # 1) checking that an email address is provided
+        if len(user['update_email']) < 1: 
+            flash("Email address is required", 'update_email')
+            is_valid = False
+        # 2) provided email follows the right format
+        elif not email_regex.match(user['update_email']): 
+            flash("Invalid email address", 'update_email')
+            is_valid = False
+        # 3) provided email is not a duplicate
+        else: 
+            current_user = User.get_user_by_id(user)
+            current_user_email = current_user.email
+            new_email = user['update_email']
+            existing_user = User.get_user_by_email({'email': new_email})
+            if existing_user and current_user_email != new_email:
+                flash("Email already exists", 'update_email')
+                is_valid = False
+        return is_valid
 
+    @staticmethod
+    def validate_password_update(user):
+        is_valid = True
+        # checking that the password is at least 8 characters
+        if len(user['new_password']) < 8: 
+            flash("Password must be at least 8 characters", 'new_password')
+            print("PASSWORD TOO SHORT")
+            is_valid = False
+        elif len(user['new_password_confirm']) < 1: 
+            flash("Confirm password is required", 'new_password_confirm')
+            print("NO PASSWORD CONFIRM AT ALL?")
+            is_valid = False
+        # checking that confirm password matches
+        elif user['new_password'] != user['new_password_confirm']: 
+            flash("password does not match", 'new_password_confirm')
+            print("PASSWORD AND CONFIRM NO MATCH")
+            is_valid = False
+        # this static method returns a boolean value of is_valid 
+        return is_valid

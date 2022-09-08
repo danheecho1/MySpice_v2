@@ -90,31 +90,38 @@
             <div id="main_body_right_div">
                 <div class="flex flex_down" id="right_side_content_div">
                     <h1 class="right_side_header">Account Settings</h1>
-                    <form class="flex flex_down">
+                    <form action="/account_setting/{{user.id}}/update_account" class="flex flex_down" method="post">
                         <div class="flex just_between align_items_center">
                             <label for="email" class="font_medium">Email</label>
-                            <input type="text" value="{{user.email}}">
+                            <input type="text" value="{{user.email}}" name="update_email">
                         </div>
                         <div class="flex just_between align_items_center">
                             <label for="firstName" class="font_medium">First Name</label>
-                            <input type="text" value="{{user.first_name}}">
+                            <input type="text" value="{{user.first_name}}" name="update_first_name">
                         </div>
                         <div class="flex just_between align_items_center">
-                            
                             <label for="lastName" class="font_medium">Last Name</label>
-                            <input type="text" value="{{user.last_name}}">
+                            <input type="text" value="{{user.last_name}}" name="update_last_name">
                         </div>
+                        <button type="submit" class="btn btn-colored btn-lg align_self_end">Update</button>
+                    </form>
+                    <h1 class="right_side_header">Update Password</h1>
+                    <form action="/account_setting/{{user.id}}/update_password" class="flex flex_down" method="post">
                         <div class="flex just_between align_items_center">
                             <label for="currentPassword" class="font_medium">Current Password</label>
-                            <input type="password">
+                            <input type="password" name="current_password">
                         </div>
                         <div class="flex just_between align_items_center">
                             <label for="newPassword" class="font_medium">New Password</label>
-                            <input type="password">
+                            <input type="password" name="new_password">
                         </div>
-                        <div class="flex just_right" id="buttons_div">
-                            <a href="/dashboard"><button class="btn btn-sm btn-clear" type="button">Cancel</button></a>
-                            <button class="btn btn-lg btn-colored">Update</button>
+                        <div class="flex just_between align_items_center">
+                            <label for="confirmPassword" class="font_medium">Confirm Password</label>
+                            <input type="password" name="new_password_confirm">
+                        </div>
+                        <div class="flex just_between" id="buttons_div">
+                            <a href="/dashboard"><button class="btn btn-sm btn-clear" type="button">Back</button></a>
+                            <button type="submit" class="btn btn-lg btn-colored">Update</button>
                         </div>
                     </form>
                 </div>
