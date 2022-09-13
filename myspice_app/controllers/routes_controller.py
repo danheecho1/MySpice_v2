@@ -1,4 +1,3 @@
-from csv import unregister_dialect
 from myspice_app import app
 from myspice_app.models.user_model import User
 from myspice_app.models.profile_model import Profile
@@ -49,7 +48,7 @@ def register_post():
 
 @app.route('/login')
 def login(): 
-    return render_template('login.html')
+    return render_template('index.html')
 
 @app.route('/login', methods=['POST'])
 def login_post():
