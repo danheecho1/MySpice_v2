@@ -40,7 +40,7 @@ class Friendship:
 
     @classmethod
     def reject_request(cls, data): 
-        query = "DELETE FROM friendships WHERE (user1_id = %(friend_id)s AND user2_id = %(user_id)s) OR (user1_id = %(user_id)s AND user2_id = %(friend_id)s);"
+        query = "DELETE FROM friendships WHERE (id = %(friendship_id)s);"
         return connectToMySQL('myspice2_schema').query_db(query, data)
 
     @classmethod
@@ -51,4 +51,10 @@ class Friendship:
     @classmethod
     def friends_count(cls, data):
         query = "SELECT COUNT(*) FROM friendships LEFT JOIN users ON (users.id = friendships.user1_id or users.id = friendships.user2_id) LEFT JOIN pictures ON users.id = pictures.user_id WHERE status = 1 AND (user1_id = %(user_id)s or user2_id = %(user_id)s) AND (users.id != %(user_id)s);"
+        return connectToMySQL('myspice2_schema').query_db(query, data)
+
+    @classmethod
+    def find_friend_name_containing(cls, data): 
+        search_keyword = data['keyword']
+        query = "SELECT users.id, first_name, last_name, name FROM friendships LEFT JOIN users ON (users.id = friendships.user1_id or users.id = friendships.user2_id) LEFT JOIN pictures ON users.id = pictures.user_id WHERE status = 1 AND (user1_id = %(user_id)s or user2_id = %(user_id)s) AND (users.id != %(user_id)s) AND CONCAT(first_name, ' ', last_name) LIKE '%%"+search_keyword+"%%'"
         return connectToMySQL('myspice2_schema').query_db(query, data)

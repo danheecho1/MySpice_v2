@@ -39,36 +39,6 @@
         </form>
         <!-- main body -->
         <div class="flex flex_down align_self_center" id="main_body_div">
-            <!-- main body - pending requests -->
-            {% if pending_requests %}
-            <div class="flex flex_down" id="pending_requests_div">
-                <h1 class="right_side_header">Pending Requests</h1>
-                <div class="flex" id="request_cards_div">
-                    {% for request in pending_requests %}
-                    <div class="flex align_items_center individual_card">
-                        {% if request.name %}
-                        <a href="/profile/{{request.user2_id}}"><img src="{{request.name}}" alt="" class="pending_request_picture"></a>
-                        {% else %}
-                        <a href="/profile/{{request.user2_id}}"><img src="{{url_for('static', filename='/assets/default_profile_picture.png')}}" alt="" class="pending_request_picture"></a>
-                        {% endif %}
-                        <div class="flex flex_down" id="individual_card_right_side">
-                            <a href="/profile/{{request.user2_id}}"><p class="font_bold">{{request.first_name}} {{request.last_name}}</p></a>
-                            <div class="flex" id="friend_request_buttons_div">
-                                <form action="/profile/{{session.id}}/friends/accept" method="post">
-                                    <input type="hidden" name="friendship_id" value="{{request.id}}">
-                                    <button type="submit" class="btn-clear">Accept</button>
-                                </form>
-                                <form action="/profile/{{session.id}}/friends/reject" method="post">
-                                    <input type="hidden" name="friendship_id" value="{{request.id}}">
-                                    <button type="submit" class="btn-danger">Reject</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
             <!-- main body - existing friends -->
             <div class="flex flex_down" id="existing_friends_div">
                 <h1 class="right_side_header">Friends</h1>
