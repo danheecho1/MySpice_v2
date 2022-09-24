@@ -161,3 +161,10 @@ class User:
             is_valid = False
         # this static method returns a boolean value of is_valid 
         return is_valid
+
+    @staticmethod
+    def validate_session(email_session): 
+        if 'email' in email_session: 
+            return True
+        else: 
+            return False

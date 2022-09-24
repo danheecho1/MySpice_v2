@@ -41,6 +41,7 @@ def register_post():
     session['id'] = getUserId.id
     session['first_name'] = new_user["first_name"]
     session['last_name'] = new_user["last_name"]
+    session['email'] = new_user["email"]
 
     # create a default profile upon registration
     User.register_user_part_2({'id': session['id']})
@@ -67,6 +68,7 @@ def login_post():
             session['id'] = existing_user.id
             session['first_name'] = existing_user.first_name
             session['last_name' ] = existing_user.last_name
+            session['email'] = existing_user.email
             return redirect('/dashboard')
     # if a user is not found with the email address provided, we have two possible errors: 
     else:
@@ -81,30 +83,36 @@ def login_post():
 
 @app.route('/dashboard')
 def dashboard(): 
-    data = {
-        'user_id': session['id']
-    }
-    current_user = User.get_user_by_id(data)
-    current_profile = Profile.get_profile_by_id(data)
-    current_picture = Picture.get_user_with_picture_by_id(data)
+    if User.validate_session(session):
+        data = {
+            'user_id': session['id']
+        }
+        current_user = User.get_user_by_id(data)
+        current_profile = Profile.get_profile_by_id(data)
+        current_picture = Picture.get_user_with_picture_by_id(data)
+    else: 
+        return redirect('/')
     return render_template('dashboard.html', current_user = current_user, current_profile = current_profile, current_picture = current_picture)
 
 @app.route('/profile/<int:user_id>')
 def profile(user_id):
-    data = {
-        'user_id': user_id,
-        'receiver_id': user_id, 
-        'sender_id': session['id']
-    }
-    current_user = User.get_user_by_id(data)
-    current_profile = Profile.get_profile_by_id(data)
-    current_picture = Picture.get_user_with_picture_by_id(data)
-    five_posts = Post.get_five_posts(data)
-    all_posts = Post.get_all_posts(data)
-    displayed_comments = Comment.get_displayed_comments(data)
-    random_friends = Friendship.random_three_friends(data)
-    all_friends = Friendship.get_all_friends(data)
-    are_we_friends = Friendship.get_friendship_status(data)
+    if User.validate_session(session):
+        data = {
+            'user_id': user_id,
+            'receiver_id': user_id, 
+            'sender_id': session['id']
+        }
+        current_user = User.get_user_by_id(data)
+        current_profile = Profile.get_profile_by_id(data)
+        current_picture = Picture.get_user_with_picture_by_id(data)
+        five_posts = Post.get_five_posts(data)
+        all_posts = Post.get_all_posts(data)
+        displayed_comments = Comment.get_displayed_comments(data)
+        random_friends = Friendship.random_three_friends(data)
+        all_friends = Friendship.get_all_friends(data)
+        are_we_friends = Friendship.get_friendship_status(data)
+    else: 
+        return redirect('/')
     return render_template('profile.html', current_profile = current_profile, current_user = current_user, five_posts = five_posts, all_posts = all_posts, displayed_comments = displayed_comments, current_picture = current_picture, random_friends = random_friends, are_we_friends = are_we_friends, all_friends = all_friends)
 
 @app.route('/profile/edit')
@@ -143,40 +151,44 @@ def save_comment(user_id):
 @app.route('/posts/<int:user_id>', defaults={'page': 1})
 @app.route('/posts/<int:user_id>/page/<int:page>')
 def manage_posts(user_id, page): 
-    # Some pagination variables (how many rows per page)
-    limit= 8
-    offset = page * limit - limit
-    data = {
-        'user_id': user_id, 
-        'limit': limit, 
-        'offset': offset
-    }
+    # validation first
+    if user_id == session['id']:
+        # Some pagination variables (how many rows per page)
+        limit= 8
+        offset = page * limit - limit
+        data = {
+            'user_id': user_id, 
+            'limit': limit, 
+            'offset': offset
+        }
 
-    # how to get paginated posts using limit and offset from this page? 
-    paginated_posts = Post.get_paginated_posts(data)
+        # how to get paginated posts using limit and offset from this page? 
+        paginated_posts = Post.get_paginated_posts(data)
 
-    # count how many resulting rows came out
-    number_of_posts = Post.posts_count(data)
+        # count how many resulting rows came out
+        number_of_posts = Post.posts_count(data)
 
-    # calculate how many pages we would need
-    total_page = math.ceil(number_of_posts / limit)
+        # calculate how many pages we would need
+        total_page = math.ceil(number_of_posts / limit)
 
-    # navigating through pages (next and previous)
-    next = page + 1
-    prev = page - 1
+        # navigating through pages (next and previous)
+        next = page + 1
+        prev = page - 1
 
-    current_user = User.get_user_by_id(data)
-    current_profile = Profile.get_profile_by_id(data)
-    current_picture = Picture.get_user_with_picture_by_id(data)
-    all_posts = Post.get_all_posts(data)
-    return render_template('manage_posts.html', paginated_posts = paginated_posts, pages = total_page, next = next, prev = prev, current_user = current_user, current_profile = current_profile, current_picture = current_picture, all_posts = all_posts)
+        current_user = User.get_user_by_id(data)
+        current_profile = Profile.get_profile_by_id(data)
+        current_picture = Picture.get_user_with_picture_by_id(data)
+        all_posts = Post.get_all_posts(data)
+        return render_template('manage_posts.html', paginated_posts = paginated_posts, pages = total_page, next = next, prev = prev, current_user = current_user, current_profile = current_profile, current_picture = current_picture, all_posts = all_posts)
+    else: 
+        return redirect('/dashboard')
 
 # This route is for others to view all posts from other profiles (from profile page)
 @app.route('/posts/<int:user_id>/view_all', defaults={'page': 1})
 @app.route('/posts/<int:user_id>/view_all/page/<int:page>')
 def view_all_posts_paginated(user_id, page): 
 
-    # Some pagination variables (how many rows per page)
+    # pagination variables (how many rows per page)
     limit= 8
     offset = page * limit - limit
     data = {
@@ -281,7 +293,7 @@ def search_post():
 @app.route('/logout')
 def logout(): 
     session.clear()
-    return render_template('login.html')
+    return render_template('index.html')
 
 @app.route('/account_setting/<int:user_id>')
 def account_setting(user_id): 
@@ -362,6 +374,19 @@ def friends(user_id):
     pending_requests = Friendship.get_pending_requests({'user_id': session['id']})
     return render_template('friends.html', current_user = current_user, pending_requests = pending_requests, current_profile = current_profile, current_picture = current_picture, friends = friends)
 
+@app.route('/profile/<int:user_id>/friends', methods=['POST'])
+def search_friends_post(user_id): 
+    data = {
+        'keyword': request.form['search_keyword'], 
+        'user_id': user_id
+    }
+    search_result = Friendship.find_user_name_containing(data)
+    return render_template('search_friends_result.html', search_result = search_result)
+
+
+
+
+
 @app.route('/profile/<int:user_id>/friends/accept', methods=['POST'])
 def accept_request_post(user_id): 
     data = {
@@ -373,7 +398,7 @@ def accept_request_post(user_id):
 @app.route('/profile/<int:user_id>/friends/reject', methods=['POST'])
 def reject_request_post(user_id): 
     data = {
-        'friend_id': request.form['friend_id'], 
+        'friendship_id': request.form['friendship_id'], 
         'user_id': user_id
     }
     Friendship.reject_request(data)
