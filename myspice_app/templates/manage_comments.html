@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='/css/view_post.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='/css/manage_comments.css')}}">
 </head>
 <body class="flex just_around">
     <!-- container -->
@@ -30,59 +30,70 @@
                 <button class="btn btn-sm btn-clear">Log out</button>
             </a>
         </div>
-        <img src="{{url_for('static', filename='assets/cover2.png')}}" alt="" id="cover_photo">
+        <!-- cover photo -> empty div for now -->
+        <img src="{{url_for('static', filename='/assets/cover2.png')}}" alt="" id="cover_photo">
         <!-- main body -->
         <div class="flex just_between" id="main_body_div">
             <!-- main body - left side -->
             <div class="flex flex_down" id="main_body_left_div">
                 <!-- main body - left side (profile card) -->
                 <div class="flex flex_down align_items_center" id="profile_card_div">
-                    {% if post_owner_picture['name'] %}
-                        <img src={{post_owner_picture.name}} class="profile_picture">
+                    {% if current_picture['name'] %}
+                    <img src={{current_picture.name}} class="profile_picture">
                     {% else %}
-                    <img src="{{url_for('static', filename='/assets/default_profile_picture.png')}}" alt="" class="profile_picture">
+                    <img src="../static/assets/default_profile_picture.png" alt="" class="profile_picture">
                     {% endif %}
                     <div id="request_status_div">
+                        {% if session.id != current_user.id %}
+                        {% if are_we_friends and are_we_friends[0]['status'] == 1 %}
+                        <p class="flex align_items_center just_around request_status font_medium">Friends</p>
+                        {% elif are_we_friends and are_we_friends[0]['status'] == 0 %}
+                        <p class="flex align_items_center just_around request_status font_medium">Pending</p>
+                        {% else %}
+                        <form action="/profile/{{current_user.id}}/friend_request" method="post" onsubmit="return confirm('Are you sure you want to send a friend request?')"><button class="flex align_items_center just_around btn btn-clear request_status">Add</button></form>
+                            {% endif %}
+                        {% else %}
                         <p class="request_status" style="border: none;"></p>
+                        {% endif %}
                     </div>
-                    <h4 id="display_name">{{post_owner.first_name}} {{post_owner.last_name}}</h4>
+                    <h4 class="text_center" id="display_name">{{current_user.first_name}} {{current_user.last_name}}</h4>
                     <div class="flex flex_down align_items_center font_medium" id="favorite_list_div">
-                        <p id="display_greeting">{{post_owner_profile.greeting}}</p>
+                        <p id="display_greeting">{{current_profile.greeting}}</p>
                         <div class="flex flex_down align_items_center">
                             <p class="favorite_category">Favorite Music</p>
-                            <p class="favorite_response">{{post_owner_profile.favorite_music}}</p>
+                            <p class="favorite_response">{{current_profile.favorite_music}}</p>
                         </div>
                         <div class="flex flex_down align_items_center">
                             <p class="favorite_category">Favorite Movies</p>
-                            <p class="favorite_response">{{post_owner_profile.favorite_movies}}</p>
+                            <p class="favorite_response">{{current_profile.favorite_movies}}</p>
                         </div>
                         <div class="flex flex_down align_items_center">
                             <p class="favorite_category">Favorite Books</p>
-                            <p class="favorite_response">{{post_owner_profile.favorite_books}}</p>
+                            <p class="favorite_response">{{current_profile.favorite_books}}</p>
                         </div>
                         <div class="flex flex_down align_items_center">
                             <p class="favorite_category">Favorite Heroes</p>
-                            <p class="favorite_response">{{post_owner_profile.favorite_heroes}}</p>
+                            <p class="favorite_response">{{current_profile.favorite_heroes}}</p>
                         </div>
                     </div>
                     <!-- SNS links -->
                     <div class="flex align_items_center" id="sns_links_div">
-                        {% if post_owner_profile.instagram %}
-                        <a href="https://{{post_owner_profile.instagram}}">
+                        {% if current_profile.instagram %}
+                        <a href="https://{{current_profile.instagram}}">
                             <img src="{{url_for('static', filename='/assets/instagram_linked.png')}}" alt="" id="instagram">
                         </a>
                         {% else %}
                         <img src="{{url_for('static', filename='/assets/instagram.png')}}" alt="" id="instagram">
                         {% endif %}
-                        {% if post_owner_profile.facebook %}
-                        <a href="https://{{post_owner_profile.facebook}}">
+                        {% if current_profile.facebook %}
+                        <a href="https://{{current_profile.facebook}}">
                             <img src="{{url_for('static', filename='/assets/facebook_linked.png')}}" alt="" id="facebook">
                         </a>
                         {% else %}
                         <img src="{{url_for('static', filename='/assets/facebook.png')}}" alt="" id="facebook">
                         {% endif %}
-                        {% if post_owner_profile.twitter %}
-                        <a href="https://{{post_owner_profile.twitter}}">
+                        {% if current_profile.twitter %}
+                        <a href="https://{{current_profile.twitter}}">
                             <img src="{{url_for('static', filename='/assets/twitter_linked.png')}}" alt="" id="twitter">
                         </a>
                         {% else %}
@@ -93,30 +104,35 @@
             </div>
             <!-- main body - right side -->
             <div id="main_body_right_div">
-                <!-- main body - right side (post) -->
+                <!-- main body - right side (posts) -->
                 <div class="flex flex_down" id="right_side_content_div">
-                    <div class="flex just_between align_items_center">
-                        <h1 class="right_side_header">{{selected_post.title}}</h1>
-                        <div>
-                            <p id="post_date">Created at {{selected_post.created_at}}</p>
-                            <p id="post_date">Updated at {{selected_post.updated_at}}</p>
+                    <h1 class="right_side_header">Manage Comments</h1>
+                    <!-- Comments display -->
+                    <div class="flex flex_down font_medium" id="comments_display_div">
+                        {% if comments %}
+                            {% for comment in comments %}
+                        <div id="individual_comment_div" onmouseover="display()">
+                            <div class="flex just_between" id="comment_header_div">
+                                <div class="flex" id="comment_header_div_left_side">
+                                    {% if comment.name %}
+                                    <a href="/profile/{{comment.id}}"><img src={{comment.name}} alt=""></a>
+                                    {% else %}
+                                    <a href="/profile/{{comment.id}}"><img src="../static/assets/default_profile_picture.png" alt=""></a>
+                                    {% endif %}
+                                    <div class="flex flex_down just_center" id="comment_header_div_right_side">
+                                        <p>{{comment.created_at}}</p>
+                                        <a href="/profile/{{comment.id}}"><h4>{{comment.first_name}} {{comment.last_name}}</h4></a>
+                                    </div>
+                                </div>
+                                <form action="#" id="delete_button_form">
+                                    <button>DELETE</button>
+                                </form>
+                            </div>
+                            <p id="comment_content">{{comment.content}}</p>
                         </div>
-                    </div>
-                    <div>
-                        <p class="font_medium" id="post_content">{{selected_post.content}}</p>
-                    </div>
-                    <!-- buttons -->
-                    <div class="flex just_between" id="buttons_div">
-                        <button onclick="history.back()" class="btn btn-sm btn-clear">Go back</button>
-                        {% if logged_in_user == post_owner.id %}
-                        <div class="flex">
-                            <form action="/posts/{{post_owner.id}}/{{selected_post.id}}/delete" method="post">
-                                <button class="btn btn-sm btn-danger">Delete post</button>
-                            </form>
-                            <a href="/posts/{{post_owner.id}}/{{selected_post.id}}/edit">
-                                <button class="btn btn-lg btn-colored">Edit post</button>
-                            </a>
-                        </div>
+                            {% endfor %}
+                        {% else %}
+                        <p>{{current_user.first_name}} has not received any comments yet.</p>
                         {% endif %}
                     </div>
                 </div>
@@ -127,5 +143,6 @@
             <p>No Copyright © 2022 Danny Cho. All rights reserved</p>
         </div>
     </div>
+    <script src="../static/scripts/manage_comments.js"></script>
 </body>
 </html>
