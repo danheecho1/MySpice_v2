@@ -61,7 +61,7 @@ def login_post():
         hashed_password = existing_user.password
         # if a user is found, but the passwords don't match, display flash message
         if not bcrypt.check_password_hash(hashed_password, plain_password): 
-            flash("Password is incorrect", 'login_error')
+            flash("Password is incorrect", 'password')
             return redirect('/')
         # if a user is found AND the passwords match, save info in session and redirect to dashboard
         else: 
@@ -74,11 +74,11 @@ def login_post():
     else:
         # email address was not provided
         if request.form['login_email'] == "": 
-            flash("Please enter your email", 'login_error')
+            flash("Please enter your email", 'email')
             return redirect('/')
         # email address was not found in the DB
         else: 
-            flash("Entered email does not exist", 'login_error')
+            flash("Entered email does not exist", 'email')
             return redirect('/')
 
 @app.route('/dashboard')
@@ -93,6 +93,19 @@ def dashboard():
     else: 
         return redirect('/')
     return render_template('dashboard.html', current_user = current_user, current_profile = current_profile, current_picture = current_picture)
+
+
+@app.route('/manage_comments/<int:user_id>')
+def manage_comments(user_id): 
+    if User.validate_session(session):
+        data = {
+            'user_id': session['id']
+        }
+        current_user = User.get_user_by_id(data)
+        current_profile = Profile.get_profile_by_id(data)
+        current_picture = Picture.get_user_with_picture_by_id(data)
+        comments = Comment.get_all_comments(data)
+    return render_template('manage_comments.html', current_user = current_user, current_profile = current_profile, current_picture = current_picture, comments = comments)
 
 @app.route('/profile/<int:user_id>')
 def profile(user_id):
@@ -242,11 +255,12 @@ def view_post(user_id, post_id):
         'user_id': user_id, 
         'post_id': post_id
     }
+    logged_in_user = session['id']
     post_owner = User.get_user_by_id(data)
     post_owner_profile = Profile.get_profile_by_id(data)
     post_owner_picture = Picture.get_user_with_picture_by_id(data)
     selected_post = Post.get_one_post(data)
-    return render_template('view_post.html', post_owner = post_owner, post_owner_profile = post_owner_profile, post_owner_picture = post_owner_picture, selected_post = selected_post)
+    return render_template('view_post.html', logged_in_user = logged_in_user, post_owner = post_owner, post_owner_profile = post_owner_profile, post_owner_picture = post_owner_picture, selected_post = selected_post)
 
 @app.route('/posts/<int:user_id>/<int:post_id>/edit')
 def edit_post(user_id, post_id):
