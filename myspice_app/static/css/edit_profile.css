@@ -249,12 +249,11 @@
 }
 
 #image_upload_div input {
-    padding: 14px 0px;
     border: none;
     width: auto;
-    margin-right: 41px;
+    margin-top: 14px;
+    margin-right: 24px;
 }
-
 
 #main_body_right_div form {
     gap: 20px;
