@@ -106,12 +106,15 @@
             <div id="main_body_right_div">
                 <!-- main body - right side (posts) -->
                 <div class="flex flex_down" id="right_side_content_div">
-                    <h1 class="right_side_header">Manage Comments</h1>
+                    <div class="flex just_between">
+                        <h1 class="right_side_header">Manage Comments</h1>
+                        <a href="/dashboard"><button class="btn btn-clear btn-sm">Back</button></a>
+                    </div>
                     <!-- Comments display -->
                     <div class="flex flex_down font_medium" id="comments_display_div">
                         {% if comments %}
                             {% for comment in comments %}
-                        <div id="individual_comment_div" onmouseover="display()">
+                        <div class="individual_comment_div" id="{{comment.id}}" onmouseover="display({{comment.id}})" onmouseleave="hide({{comment.id}})">
                             <div class="flex just_between" id="comment_header_div">
                                 <div class="flex" id="comment_header_div_left_side">
                                     {% if comment.name %}
@@ -124,8 +127,10 @@
                                         <a href="/profile/{{comment.id}}"><h4>{{comment.first_name}} {{comment.last_name}}</h4></a>
                                     </div>
                                 </div>
-                                <form action="#" id="delete_button_form">
-                                    <button>DELETE</button>
+                                <form action="/manage_comments/{{session.id}}/{{comment.id}}" id="delete_button_form" method='post'>
+                                    <button class="delete_button" id="delete_button_{{comment.id}}">
+                                        <img src="{{url_for('static', filename='/assets/delete.png')}}" alt="">
+                                    </button>
                                 </form>
                             </div>
                             <p id="comment_content">{{comment.content}}</p>
