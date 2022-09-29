@@ -174,10 +174,6 @@
     font-size: 16px;
 }
 
-#registration_form {
-    gap: 15px;
-}
-
 #main_body_div_right input {
     height: 30px;
     border: 1px solid #E0E0E0;
@@ -187,6 +183,16 @@
 
 #name_input input {
     width: 155px;
+}
+
+.validation {
+    color: red;
+    height: 10px;
+    font-size: 10px;
+    margin-left: 5px;
+    line-height: 15px;
+    margin-bottom: 8px;
+    font-weight: 500;
 }
 
 /* footer */

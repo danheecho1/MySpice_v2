@@ -49,10 +49,10 @@
                             {% with messages = get_flashed_messages(category_filter=['email']) %}
                                 {% if messages %}
                                     {% for message in messages %}
-                            <p>{{message}}</p>
+                            <p class="validation">*{{message}}</p>
                                     {% endfor %}
                                 {% else %}
-                            <p></p>
+                            <p class="validation"></p>
                                 {% endif %}
                             {% endwith %}
                         </div>
@@ -61,10 +61,10 @@
                             {% with messages = get_flashed_messages(category_filter=['password']) %}
                                 {% if messages %}
                                     {% for message in messages %}
-                            <p>{{message}}</p>
+                            <p class="validation">*{{message}}</p>
                                     {% endfor %}
                                 {% else %}
-                            <p></p>
+                            <p class="validation"></p>
                                 {% endif %}
                             {% endwith %}
                         </div>

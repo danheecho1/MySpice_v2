@@ -107,6 +107,14 @@ def manage_comments(user_id):
         comments = Comment.get_all_comments(data)
     return render_template('manage_comments.html', current_user = current_user, current_profile = current_profile, current_picture = current_picture, comments = comments)
 
+@app.route('/manage_comments/<int:user_id>/<int:comment_id>', methods=['POST'])
+def delete_comment(user_id, comment_id): 
+    data = {
+        'comment_id': comment_id
+    }
+    Comment.delete_comment(data)
+    return redirect(f'/manage_comments/{user_id}')
+
 @app.route('/profile/<int:user_id>')
 def profile(user_id):
     if User.validate_session(session):
@@ -394,12 +402,8 @@ def search_friends_post(user_id):
         'keyword': request.form['search_keyword'], 
         'user_id': user_id
     }
-    search_result = Friendship.find_user_name_containing(data)
-    return render_template('search_friends_result.html', search_result = search_result)
-
-
-
-
+    friends = Friendship.find_friend_name_containing(data)
+    return render_template('search_friends_result.html', friends = friends)
 
 @app.route('/profile/<int:user_id>/friends/accept', methods=['POST'])
 def accept_request_post(user_id): 

@@ -50,10 +50,10 @@
                                 {% with messages = get_flashed_messages(category_filter=['registration_first_name']) %}
                                     {% if messages %}
                                         {% for message in messages %}
-                                <p>{{message}}</p>
+                                <p class="validation">*{{message}}</p>
                                         {% endfor %}
                                     {% else %}
-                                <p></p>
+                                <p class="validation"></p>
                                     {% endif %}
                             {% endwith %}
                             </div>
@@ -62,10 +62,10 @@
                                 {% with messages = get_flashed_messages(category_filter=['registration_last_name']) %}
                                     {% if messages %}
                                         {% for message in messages %}
-                                <p>{{message}}</p>
+                                <p class="validation">*{{message}}</p>
                                         {% endfor %}
                                     {% else %}
-                                <p></p>
+                                <p class="validation"></p>
                                     {% endif %}
                             {% endwith %}
                             </div>
@@ -74,30 +74,30 @@
                         {% with messages = get_flashed_messages(category_filter=['registration_email']) %}
                         {% if messages %}
                             {% for message in messages %}
-                    <p>{{message}}</p>
+                    <p class="validation">*{{message}}</p>
                             {% endfor %}
                         {% else %}
-                    <p></p>
+                    <p class="validation"></p>
                         {% endif %}
                 {% endwith %}
                         <input type="password" placeholder="Password" id="registration_password" name="registration_password">
                         {% with messages = get_flashed_messages(category_filter=['registration_password']) %}
                         {% if messages %}
                             {% for message in messages %}
-                    <p>{{message}}</p>
+                    <p class="validation">*{{message}}</p>
                             {% endfor %}
                         {% else %}
-                    <p></p>
+                    <p class="validation"></p>
                         {% endif %}
                 {% endwith %}
                         <input type="password" placeholder="Confirm Password" id="registration_password_confirm" name="registration_password_confirm">
                         {% with messages = get_flashed_messages(category_filter=['registration_password_confirm']) %}
                         {% if messages %}
                             {% for message in messages %}
-                    <p>{{message}}</p>
+                    <p class="validation">*{{message}}</p>
                             {% endfor %}
                         {% else %}
-                    <p></p>
+                    <p class="validation"></p>
                         {% endif %}
                 {% endwith %}
                     </div>

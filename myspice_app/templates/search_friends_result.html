@@ -33,7 +33,7 @@
         <!-- cover photo -> empty div for now -->
         <img src="{{url_for('static', filename='/assets/cover2.png')}}" alt="" id="cover_photo">
         <!-- search bar -->
-        <form action="/search" method="post" class="flex just_center" id="search_bar">
+        <form action="/profile/{{session.id}}/friends" method="post" class="flex just_center" id="search_bar">
             <input type="text" name="search_keyword" placeholder="Search by name">
             <button><img src="{{url_for('static', filename='/assets/search.png')}}" alt=""></button>
         </form>
@@ -41,7 +41,10 @@
         <div class="flex flex_down align_self_center" id="main_body_div">
             <!-- main body - existing friends -->
             <div class="flex flex_down" id="existing_friends_div">
-                <h1 class="right_side_header">Friends</h1>
+                <div class="flex just_between">
+                    <h1 class="right_side_header">Friends</h1>
+                    <a href="/dashboard"><button class="btn btn-clear btn-sm">Back</button></a>
+                </div>
                 <div class="flex" id="results_div">
                     {% if friends %}
                         {% for friend in friends %}
@@ -58,6 +61,8 @@
                         </form>
                     </div>
                         {% endfor %}
+                    {% else %}
+                    <p>No friends found</p>
                     {% endif %}
                 </div>
             </div>
