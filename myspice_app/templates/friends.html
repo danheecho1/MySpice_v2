@@ -43,7 +43,7 @@
             {% if pending_requests %}
             <div class="flex flex_down" id="pending_requests_div">
                 <div class="flex just_between">
-                    <h1 class="right_side_header">Friends</h1>
+                    <h1 class="right_side_header">Pending Requests</h1>
                     <a href="/dashboard"><button class="btn btn-clear btn-sm">Back</button></a>
                 </div>
                 <div class="flex" id="request_cards_div">
@@ -76,7 +76,10 @@
             <div class="flex flex_down" id="existing_friends_div">
                 <div class="flex just_between">
                     <h1 class="right_side_header">Friends</h1>
+                    {% if pending_requests %}
+                    {% else %}
                     <a href="/dashboard"><button class="btn btn-clear btn-sm">Back</button></a>
+                    {% endif %}
                 </div>
                 <div class="flex" id="results_div">
                     {% if friends %}

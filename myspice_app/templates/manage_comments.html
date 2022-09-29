@@ -127,7 +127,7 @@
                                         <a href="/profile/{{comment.id}}"><h4>{{comment.first_name}} {{comment.last_name}}</h4></a>
                                     </div>
                                 </div>
-                                <form action="/manage_comments/{{session.id}}/{{comment.id}}" id="delete_button_form" method='post'>
+                                <form action="/manage_comments/{{session.id}}/{{comment.id}}" id="delete_button_form" method='post' onSubmit="return confirm('Are you sure you want to delete? This cannot be undone.');">
                                     <button class="delete_button" id="delete_button_{{comment.id}}">
                                         <img src="{{url_for('static', filename='/assets/delete.png')}}" alt="">
                                     </button>
