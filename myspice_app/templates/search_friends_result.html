@@ -17,7 +17,7 @@
         <div class="flex just_between align_items_center" id="nav_bar_div">
             <!-- nav bar - left side links -->
             <div class="flex align_items_center">
-                <img src="{{url_for('static', filename='/assets/logo.png')}}" id="logo">
+                <a href="/"><img src="{{url_for('static', filename='/assets/logo.png')}}" id="logo"></a>
                 <div class="flex" id="nav_bar_links_div">
                     <a href="/dashboard">Home</a>
                     <a href="/profile/{{session.id}}">Profile</a>
@@ -62,7 +62,7 @@
                     </div>
                         {% endfor %}
                     {% else %}
-                    <p>No friends found</p>
+                    <p>You have no friends whose names contain '{{data.keyword}}'</p>
                     {% endif %}
                 </div>
             </div>

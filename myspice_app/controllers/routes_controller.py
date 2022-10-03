@@ -14,8 +14,6 @@ bcrypt = Bcrypt(app)
 
 @app.route('/')
 def main():
-    if User.validate_session(session): 
-        return redirect('/dashboard')
     return redirect('/login')
 
 @app.route('/register')
@@ -117,22 +115,17 @@ def manage_comments(user_id):
 
 @app.route('/manage_comments/<int:user_id>/<int:comment_id>', methods=['POST'])
 def delete_comment(user_id, comment_id): 
-    if User.validate_session(session):
-        if user_id == session['id']:
-            data = {
-                'comment_id': comment_id
-            }
-            Comment.delete_comment(data)
-            return redirect(f'/manage_comments/{user_id}')
-        return redirect('/')
-    return redirect('/')
+    data = {
+        'comment_id': comment_id
+    }
+    Comment.delete_comment(data)
+    return redirect(f'/manage_comments/{user_id}')
 
 @app.route('/profile/<int:user_id>')
 def profile(user_id):
     if User.validate_session(session):
         data = {
             'user_id': user_id,
-            'receiver_id': user_id, 
             'sender_id': session['id']
         }
         current_user = User.get_user_by_id(data)
@@ -144,18 +137,16 @@ def profile(user_id):
         random_friends = Friendship.random_three_friends(data)
         all_friends = Friendship.get_all_friends(data)
         are_we_friends = Friendship.get_friendship_status(data)
-    else: 
-        return redirect('/')
-    return render_template('profile.html', current_profile = current_profile, current_user = current_user, five_posts = five_posts, all_posts = all_posts, displayed_comments = displayed_comments, current_picture = current_picture, random_friends = random_friends, are_we_friends = are_we_friends, all_friends = all_friends)
+        return render_template('profile.html', current_profile = current_profile, current_user = current_user, five_posts = five_posts, all_posts = all_posts, displayed_comments = displayed_comments, current_picture = current_picture, random_friends = random_friends, are_we_friends = are_we_friends, all_friends = all_friends)
+    return redirect('/')
 
 @app.route('/profile/edit')
 def edit_profile(): 
     if User.validate_session(session):
         profile = Profile.get_profile_by_id({'user_id': session['id']})
         current_picture = Picture.get_user_with_picture_by_id({'user_id': session['id']})
-    else: 
-        return redirect('/')
-    return render_template('edit_profile.html', profile = profile, current_picture = current_picture)
+        return render_template('edit_profile.html', profile = profile, current_picture = current_picture)
+    return redirect('/')
 
 @app.route('/profile/edit', methods=['POST'])
 def edit_profile_post(): 
@@ -187,9 +178,45 @@ def save_comment(user_id):
 @app.route('/posts/<int:user_id>', defaults={'page': 1})
 @app.route('/posts/<int:user_id>/page/<int:page>')
 def manage_posts(user_id, page): 
-    # validation first
-    if user_id == session['id']:
-        # Some pagination variables (how many rows per page)
+    if User.validate_session(session):
+        # validation first
+        if user_id == session['id']:
+            # Some pagination variables (how many rows per page)
+            limit= 8
+            offset = page * limit - limit
+            data = {
+                'user_id': user_id, 
+                'limit': limit, 
+                'offset': offset
+            }
+
+            # how to get paginated posts using limit and offset from this page? 
+            paginated_posts = Post.get_paginated_posts(data)
+
+            # count how many resulting rows came out
+            number_of_posts = Post.posts_count(data)
+
+            # calculate how many pages we would need
+            total_page = math.ceil(number_of_posts / limit)
+
+            # navigating through pages (next and previous)
+            next = page + 1
+            prev = page - 1
+
+            current_user = User.get_user_by_id(data)
+            current_profile = Profile.get_profile_by_id(data)
+            current_picture = Picture.get_user_with_picture_by_id(data)
+            all_posts = Post.get_all_posts(data)
+            return render_template('manage_posts.html', paginated_posts = paginated_posts, pages = total_page, next = next, prev = prev, current_user = current_user, current_profile = current_profile, current_picture = current_picture, all_posts = all_posts)
+        return redirect('/dashboard')
+    return redirect('/')
+
+# This route is for others to view all posts from other profiles (from profile page)
+@app.route('/posts/<int:user_id>/view_all', defaults={'page': 1})
+@app.route('/posts/<int:user_id>/view_all/page/<int:page>')
+def view_all_posts_paginated(user_id, page): 
+    if User.validate_session(session):
+        # pagination variables (how many rows per page)
         limit= 8
         offset = page * limit - limit
         data = {
@@ -215,52 +242,20 @@ def manage_posts(user_id, page):
         current_profile = Profile.get_profile_by_id(data)
         current_picture = Picture.get_user_with_picture_by_id(data)
         all_posts = Post.get_all_posts(data)
-        return render_template('manage_posts.html', paginated_posts = paginated_posts, pages = total_page, next = next, prev = prev, current_user = current_user, current_profile = current_profile, current_picture = current_picture, all_posts = all_posts)
-    else: 
-        return redirect('/dashboard')
 
-# This route is for others to view all posts from other profiles (from profile page)
-@app.route('/posts/<int:user_id>/view_all', defaults={'page': 1})
-@app.route('/posts/<int:user_id>/view_all/page/<int:page>')
-def view_all_posts_paginated(user_id, page): 
-
-    # pagination variables (how many rows per page)
-    limit= 8
-    offset = page * limit - limit
-    data = {
-        'user_id': user_id, 
-        'limit': limit, 
-        'offset': offset
-    }
-
-    # how to get paginated posts using limit and offset from this page? 
-    paginated_posts = Post.get_paginated_posts(data)
-
-    # count how many resulting rows came out
-    number_of_posts = Post.posts_count(data)
-
-    # calculate how many pages we would need
-    total_page = math.ceil(number_of_posts / limit)
-
-    # navigating through pages (next and previous)
-    next = page + 1
-    prev = page - 1
-
-    current_user = User.get_user_by_id(data)
-    current_profile = Profile.get_profile_by_id(data)
-    current_picture = Picture.get_user_with_picture_by_id(data)
-    all_posts = Post.get_all_posts(data)
-
-    return render_template('view_all_posts.html', paginated_posts = paginated_posts, pages = total_page, next = next, prev = prev, current_user = current_user, current_profile = current_profile, current_picture = current_picture, all_posts = all_posts)
+        return render_template('view_all_posts.html', paginated_posts = paginated_posts, pages = total_page, next = next, prev = prev, current_user = current_user, current_profile = current_profile, current_picture = current_picture, all_posts = all_posts)
+    return redirect('/')
 
 @app.route('/posts/<int:user_id>/new')
 def new_posts(user_id): 
-    data = {
-        'user_id': session['id']
-    }
-    current_profile = Profile.get_profile_by_id(data)
-    current_picture = Picture.get_user_with_picture_by_id(data)
-    return render_template('new_post.html', current_profile = current_profile, current_picture = current_picture)
+    if User.validate_session(session):
+        data = {
+            'user_id': session['id']
+        }
+        current_profile = Profile.get_profile_by_id(data)
+        current_picture = Picture.get_user_with_picture_by_id(data)
+        return render_template('new_post.html', current_profile = current_profile, current_picture = current_picture)
+    return redirect('/')
 
 @app.route('/posts/<int:user_id>/new', methods=['POST'])
 def new_posts_post(user_id): 
@@ -274,27 +269,33 @@ def new_posts_post(user_id):
 
 @app.route('/posts/<int:user_id>/<int:post_id>')
 def view_post(user_id, post_id):
-    data = {
-        'user_id': user_id, 
-        'post_id': post_id
-    }
-    logged_in_user = session['id']
-    post_owner = User.get_user_by_id(data)
-    post_owner_profile = Profile.get_profile_by_id(data)
-    post_owner_picture = Picture.get_user_with_picture_by_id(data)
-    selected_post = Post.get_one_post(data)
-    return render_template('view_post.html', logged_in_user = logged_in_user, post_owner = post_owner, post_owner_profile = post_owner_profile, post_owner_picture = post_owner_picture, selected_post = selected_post)
+    if User.validate_session(session):
+        data = {
+            'user_id': user_id, 
+            'post_id': post_id
+        }
+        logged_in_user = session['id']
+        post_owner = User.get_user_by_id(data)
+        post_owner_profile = Profile.get_profile_by_id(data)
+        post_owner_picture = Picture.get_user_with_picture_by_id(data)
+        selected_post = Post.get_one_post(data)
+        return render_template('view_post.html', logged_in_user = logged_in_user, post_owner = post_owner, post_owner_profile = post_owner_profile, post_owner_picture = post_owner_picture, selected_post = selected_post)
+    return redirect('/')
 
 @app.route('/posts/<int:user_id>/<int:post_id>/edit')
 def edit_post(user_id, post_id):
-    data = {
-        'user_id': user_id, 
-        'post_id': post_id
-    }
-    current_profile = Profile.get_profile_by_id(data)
-    current_picture = Picture.get_user_with_picture_by_id(data)
-    selected_post = Post.get_one_post(data)
-    return render_template('edit_post.html', current_profile = current_profile, current_picture = current_picture, selected_post = selected_post)
+    if User.validate_session(session):
+        if user_id == session['id']: 
+            data = {
+                'user_id': user_id, 
+                'post_id': post_id
+            }
+            current_profile = Profile.get_profile_by_id(data)
+            current_picture = Picture.get_user_with_picture_by_id(data)
+            selected_post = Post.get_one_post(data)
+            return render_template('edit_post.html', current_profile = current_profile, current_picture = current_picture, selected_post = selected_post)
+        return redirect('/dashboard')
+    return redirect('/')
 
 @app.route('/posts/<int:user_id>/<int:post_id>/edit', methods=['POST'])
 def edit_post_post(user_id, post_id): 
@@ -316,7 +317,9 @@ def delete_post(user_id, post_id):
 
 @app.route('/search')
 def search(): 
-    return render_template('search.html')
+    if User.validate_session(session):
+        return render_template('search.html')
+    return redirect('/')
 
 @app.route('/search', methods=['POST'])
 def search_post(): 
@@ -325,7 +328,7 @@ def search_post():
     }
     search_result = User.find_user_name_containing(data)
     number_of_result = User.get_search_result_count(data)
-    return render_template('search_result.html', search_result = search_result, number_of_result = number_of_result)
+    return render_template('search_result.html', search_result = search_result, number_of_result = number_of_result, data = data)
 
 @app.route('/logout')
 def logout(): 
@@ -334,10 +337,14 @@ def logout():
 
 @app.route('/account_setting/<int:user_id>')
 def account_setting(user_id): 
-    user = User.get_user_by_id({'user_id': user_id})
-    current_profile = Profile.get_profile_by_id({'user_id': user_id})
-    current_picture = Picture.get_user_with_picture_by_id({'user_id': user_id})
-    return render_template('account_settings.html', user = user, current_profile = current_profile, current_picture = current_picture)
+    if User.validate_session(session):
+        if user_id == session['id']: 
+            user = User.get_user_by_id({'user_id': user_id})
+            current_profile = Profile.get_profile_by_id({'user_id': user_id})
+            current_picture = Picture.get_user_with_picture_by_id({'user_id': user_id})
+            return render_template('account_settings.html', user = user, current_profile = current_profile, current_picture = current_picture)
+        return redirect('/dashboard')
+    return redirect('/')
 
 @app.route('/account_setting/<int:user_id>/update_account', methods=['POST'])
 def update_account(user_id): 
@@ -404,12 +411,14 @@ def send_friend_request_post(user_id):
 
 @app.route('/profile/<int:user_id>/friends')
 def friends(user_id): 
-    current_user = User.get_user_by_id({'user_id': session['id']})
-    current_profile = Profile.get_profile_by_id({'user_id': session['id']})
-    current_picture = Picture.get_user_with_picture_by_id({'user_id': session['id']})
-    friends = Friendship.get_all_friends({'user_id': session['id']})
-    pending_requests = Friendship.get_pending_requests({'user_id': session['id']})
-    return render_template('friends.html', current_user = current_user, pending_requests = pending_requests, current_profile = current_profile, current_picture = current_picture, friends = friends)
+    if User.validate_session(session):
+        current_user = User.get_user_by_id({'user_id': session['id']})
+        current_profile = Profile.get_profile_by_id({'user_id': session['id']})
+        current_picture = Picture.get_user_with_picture_by_id({'user_id': session['id']})
+        friends = Friendship.get_all_friends({'user_id': session['id']})
+        pending_requests = Friendship.get_pending_requests({'user_id': session['id']})
+        return render_template('friends.html', current_user = current_user, pending_requests = pending_requests, current_profile = current_profile, current_picture = current_picture, friends = friends)
+    return redirect('/')
 
 @app.route('/profile/<int:user_id>/friends', methods=['POST'])
 def search_friends_post(user_id): 
@@ -418,7 +427,7 @@ def search_friends_post(user_id):
         'user_id': user_id
     }
     friends = Friendship.find_friend_name_containing(data)
-    return render_template('search_friends_result.html', friends = friends)
+    return render_template('search_friends_result.html', friends = friends, data = data)
 
 @app.route('/profile/<int:user_id>/friends/accept', methods=['POST'])
 def accept_request_post(user_id): 
