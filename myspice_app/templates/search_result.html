@@ -17,7 +17,7 @@
         <div class="flex just_between align_items_center" id="nav_bar_div">
             <!-- nav bar - left side links -->
             <div class="flex align_items_center">
-                <img src="{{url_for('static', filename='/assets/logo.png')}}" id="logo">
+                <a href="/"><img src="{{url_for('static', filename='/assets/logo.png')}}" id="logo"></a>
                 <div class="flex" id="nav_bar_links_div">
                     <a href="/dashboard">Home</a>
                     <a href="/profile/{{session.id}}">Profile</a>
@@ -34,7 +34,7 @@
         <img src="../static/assets/cover2.png" alt="" id="cover_photo">
         <!-- search bar -->
         <form action="/search" method="post" class="flex just_center" id="search_bar">
-            <input type="text" name="search_keyword" placeholder="Search by name">
+            <input type="text" name="search_keyword" placeholder="Search by name" value="{{data.keyword}}">
             <button><img src="../static/assets/search.png" alt=""></button>
         </form>
         <!-- main body -->
@@ -52,6 +52,8 @@
                             <a href="/profile/{{user.id}}"><h4 class="font_medium text_center">{{user.first_name}} {{user.last_name}}</h4></a>
                         </div>
                     {% endfor %}
+                {% else %}
+                <p>We didn't find anyone whose names contain '{{data.keyword}}'</p>
                 {% endif %}
             </div>
         </div>

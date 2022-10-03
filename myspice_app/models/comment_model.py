@@ -16,7 +16,7 @@ class Comment:
 
     @classmethod
     def get_displayed_comments(cls, data): 
-        query = "SELECT sender.first_name, sender.last_name, sender.id, content, comments.created_at, name FROM users AS receiver LEFT JOIN comments ON comments.user_id = receiver.id JOIN users AS sender ON sender.id = comments.sender_id LEFT JOIN pictures ON pictures.user_id = sender.id WHERE comments.user_id = %(receiver_id)s ORDER BY comments.created_at DESC;"
+        query = "SELECT sender.first_name, sender.last_name, sender.id, content, comments.created_at, name FROM users AS receiver LEFT JOIN comments ON comments.user_id = receiver.id JOIN users AS sender ON sender.id = comments.sender_id LEFT JOIN pictures ON pictures.user_id = sender.id WHERE comments.user_id = %(user_id)s ORDER BY comments.created_at DESC;"
         return connectToMySQL('myspice2_schema').query_db(query, data)
 
     @classmethod

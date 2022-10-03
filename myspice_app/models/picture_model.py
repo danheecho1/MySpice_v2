@@ -9,7 +9,7 @@ class Picture:
 
     @classmethod 
     def get_user_with_picture_by_id(cls, data): 
-        query = "SELECT * FROM users LEFT JOIN pictures ON users.id = pictures.user_id WHERE users.id = %(user_id)s"
+        query = "SELECT * FROM users LEFT JOIN pictures ON users.id = pictures.user_id WHERE users.id = %(user_id)s;"
         result = connectToMySQL('myspice2_schema').query_db(query, data)
         if result: 
             return cls(result[0])
