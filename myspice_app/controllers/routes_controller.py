@@ -14,10 +14,14 @@ bcrypt = Bcrypt(app)
 
 @app.route('/')
 def main():
+    if User.validate_session(session): 
+        return redirect('/dashboard')
     return redirect('/login')
 
 @app.route('/register')
 def register(): 
+    if User.validate_session(session): 
+        return redirect('/dashboard')
     return render_template('registration.html')
 
 @app.route('/register', methods=['POST'])
@@ -49,6 +53,8 @@ def register_post():
 
 @app.route('/login')
 def login(): 
+    if User.validate_session(session): 
+        return redirect('/dashboard')
     return render_template('index.html')
 
 @app.route('/login', methods=['POST'])
@@ -90,30 +96,36 @@ def dashboard():
         current_user = User.get_user_by_id(data)
         current_profile = Profile.get_profile_by_id(data)
         current_picture = Picture.get_user_with_picture_by_id(data)
-    else: 
-        return redirect('/')
-    return render_template('dashboard.html', current_user = current_user, current_profile = current_profile, current_picture = current_picture)
+        return render_template('dashboard.html', current_user = current_user, current_profile = current_profile, current_picture = current_picture)
+    return redirect('/')
 
 
 @app.route('/manage_comments/<int:user_id>')
 def manage_comments(user_id): 
     if User.validate_session(session):
-        data = {
-            'user_id': session['id']
-        }
-        current_user = User.get_user_by_id(data)
-        current_profile = Profile.get_profile_by_id(data)
-        current_picture = Picture.get_user_with_picture_by_id(data)
-        comments = Comment.get_all_comments(data)
-    return render_template('manage_comments.html', current_user = current_user, current_profile = current_profile, current_picture = current_picture, comments = comments)
+        if user_id == session['id']:
+            data = {
+                'user_id': session['id']
+            }
+            current_user = User.get_user_by_id(data)
+            current_profile = Profile.get_profile_by_id(data)
+            current_picture = Picture.get_user_with_picture_by_id(data)
+            comments = Comment.get_all_comments(data)
+            return render_template('manage_comments.html', current_user = current_user, current_profile = current_profile, current_picture = current_picture, comments = comments)
+        return redirect('/')
+    return redirect('/')
 
 @app.route('/manage_comments/<int:user_id>/<int:comment_id>', methods=['POST'])
 def delete_comment(user_id, comment_id): 
-    data = {
-        'comment_id': comment_id
-    }
-    Comment.delete_comment(data)
-    return redirect(f'/manage_comments/{user_id}')
+    if User.validate_session(session):
+        if user_id == session['id']:
+            data = {
+                'comment_id': comment_id
+            }
+            Comment.delete_comment(data)
+            return redirect(f'/manage_comments/{user_id}')
+        return redirect('/')
+    return redirect('/')
 
 @app.route('/profile/<int:user_id>')
 def profile(user_id):
@@ -138,8 +150,11 @@ def profile(user_id):
 
 @app.route('/profile/edit')
 def edit_profile(): 
-    profile = Profile.get_profile_by_id({'user_id': session['id']})
-    current_picture = Picture.get_user_with_picture_by_id({'user_id': session['id']})
+    if User.validate_session(session):
+        profile = Profile.get_profile_by_id({'user_id': session['id']})
+        current_picture = Picture.get_user_with_picture_by_id({'user_id': session['id']})
+    else: 
+        return redirect('/')
     return render_template('edit_profile.html', profile = profile, current_picture = current_picture)
 
 @app.route('/profile/edit', methods=['POST'])
