@@ -445,3 +445,7 @@ def reject_request_post(user_id):
     }
     Friendship.reject_request(data)
     return redirect(f"/profile/{user_id}/friends")
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
