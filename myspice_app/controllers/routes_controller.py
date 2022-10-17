@@ -448,4 +448,5 @@ def reject_request_post(user_id):
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    logged_in = User.validate_session(session)
+    return render_template('about.html', logged_in = logged_in)
