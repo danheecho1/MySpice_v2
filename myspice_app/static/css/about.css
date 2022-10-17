@@ -69,6 +69,14 @@
     align-self: flex-end;
 }
 
+.text_align_center {
+    text-align: center;
+}
+
+.text_align_right {
+    text-align: right;
+}
+
 .font_medium {
     font-weight: 500;
 }
@@ -150,44 +158,27 @@
 #main_body_div {
     width: 1000px;
     gap: 40px;
+    margin-bottom: 100px;
 }
 
-#main_body_div p {
-    font-size: 13px;
+#old_myspace {
+    width: 450px;
+}
+
+#tech {
+    width: 450px;
+}
+
+.about_content {
+    font-size: 15px;
+    line-height: 30px;
+    letter-spacing: 0.5px;
+    width: 520px;
 }
 
 .right_side_header {
     margin-top: 30px;
     font-size: 23px;
-}
-
-#search_bar {
-    gap: 20px;
-    position: relative;
-    bottom: 64px;
-}
-
-#search_bar input {
-    height: 30px; 
-    width: 375px;
-    background-color: transparent;
-    border: solid 1px white;
-    color: white;
-    padding: 0px 10px;
-}
-
-#search_bar input::placeholder {
-    color: white;
-}
-
-#search_bar button {
-    cursor: pointer;
-    border: none;
-    background-color: transparent;
-}
-
-#search_bar img {
-    width: 20px;
 }
 
 /* footer */
