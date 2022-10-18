@@ -176,6 +176,10 @@
     width: 520px;
 }
 
+#third_row .about_content {
+    width: 100%;
+}
+
 .right_side_header {
     margin-top: 30px;
     font-size: 23px;

@@ -168,7 +168,7 @@ def edit_profile_post():
 def save_comment(user_id):
     data = { 
         'content': request.form['content'],
-        'receiver_id': user_id,
+        'user_id': user_id,
         'sender_id': session['id']
     }
     Comment.save_comment(data)
