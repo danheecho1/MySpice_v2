@@ -59,22 +59,42 @@
                     </div>
                     <h4 class="text_center" id="display_name">{{current_user.first_name}} {{current_user.last_name}}</h4>
                     <div class="flex flex_down align_items_center font_medium" id="favorite_list_div">
+                        {% if current_profile.greeting %}
                         <p id="display_greeting">{{current_profile.greeting}}</p>
+                        {% else %}
+                        <p id="display_greeting">One day, I will add my greetings here..</p>
+                        {% endif %}
                         <div class="flex flex_down align_items_center">
                             <p class="favorite_category">Favorite Music</p>
+                            {% if current_profile.favorite_music %}
                             <p class="favorite_response">{{current_profile.favorite_music}}</p>
+                            {% else%}
+                            <p class="favorite_response">No favorite music yet</p>
+                            {% endif %}
                         </div>
                         <div class="flex flex_down align_items_center">
                             <p class="favorite_category">Favorite Movies</p>
+                            {% if current_profile.favorite_movies %}
                             <p class="favorite_response">{{current_profile.favorite_movies}}</p>
+                            {% else %}
+                            <p class="favorite_response">No favorite movies yet</p>
+                            {% endif %}
                         </div>
                         <div class="flex flex_down align_items_center">
                             <p class="favorite_category">Favorite Books</p>
+                            {% if current_profile.favorite_books %}
                             <p class="favorite_response">{{current_profile.favorite_books}}</p>
+                            {% else %}
+                            <p class="favorite_response">No favorite books yet</p>
+                            {% endif %}
                         </div>
                         <div class="flex flex_down align_items_center">
                             <p class="favorite_category">Favorite Heroes</p>
+                            {% if current_profile.favorite_heroes %}
                             <p class="favorite_response">{{current_profile.favorite_heroes}}</p>
+                            {% else %}
+                            <p class="favorite_response">No favorite heroes yet</p>
+                            {% endif %}
                         </div>
                     </div>
                     <!-- SNS links -->
@@ -148,7 +168,7 @@
                             </li>
                         {% endfor %}
                         </ul>
-                        {% if all_posts | length > 10 %}
+                        {% if all_posts | length > 8 %}
                             <span>
                                 <a href="/posts/{{current_user.id}}/view_all" class="font_medium see_more">See more</a>
                             </span>
