@@ -47,7 +47,7 @@
                     <div id="request_status_div">
                         {% if session.id != current_user.id %}
                         {% if are_we_friends and are_we_friends[0]['status'] == 1 %}
-                        <p class="flex align_items_center just_around request_status font_medium">Friends</p>
+                        <p class="flex align_items_center just_around request_status font_medium" id="friends">Friends</p>
                         {% elif are_we_friends and are_we_friends[0]['status'] == 0 %}
                         <p class="flex align_items_center just_around request_status font_medium">Pending</p>
                         {% else %}
@@ -158,7 +158,7 @@
                     {% endif %}
                     </div>
                     <!-- Comments textarea -->
-                    <form action="/profile/{{current_user.id}}/comment" method="post" class="flex flex_down" id="comments_div">
+                    <form action="/profile/{{current_user.id}}/comment" onsubmit="return submitComments()" method="post" class="flex flex_down" id="comments_div">
                         <h1 class="right_side_header">To {{current_user.first_name}}</h1>
                         <textarea name="content" placeholder="Say hello!"></textarea>
                         <button type="submit" class="btn btn-colored btn-lg align_self_end">Leave a comment</button>
@@ -194,5 +194,6 @@
             <p>No Copyright © 2022 Danny Cho. All rights reserved</p>
         </div>
     </div>
+    <script src="../static/scripts/profile.js"></script>
 </body>
 </html>
