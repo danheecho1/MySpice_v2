@@ -21,7 +21,7 @@ class User:
 
     @classmethod
     def register_user_part_2(cls, data): 
-        query = "INSERT INTO profiles (greeting, favorite_music, favorite_movies, favorite_books, favorite_heroes, facebook, instagram, twitter, created_at, updated_at, user_id) VALUES ('No greeting yet', 'No favorite music yet', 'No favorite movies yet', 'No favorite books yet', 'No favorite heroes yet', '', '', '', NOW(), NOW(), %(id)s);"
+        query = "INSERT INTO profiles (greeting, favorite_music, favorite_movies, favorite_books, favorite_heroes, facebook, instagram, twitter, created_at, updated_at, user_id) VALUES ('', '', '', '', '', '', '', '', NOW(), NOW(), %(id)s);"
         return connectToMySQL('myspice2_schema').query_db(query, data)
 
     @classmethod 
