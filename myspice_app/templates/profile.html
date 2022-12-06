@@ -148,7 +148,7 @@
                     <p>{{current_user.first_name}} has no friends yet!</p>
                     {% endif %}
                     {% if all_friends | length > 3 %}
-                    <a class="font_medium see_more" href="#">See more</a>
+                    <a class="font_medium see_more" href="/profile/{{current_user.id}}/friends">See more</a>
                     {% else %}
                     <p></p>
                     {% endif %}
