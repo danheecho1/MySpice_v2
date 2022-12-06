@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Myspice</title>
-    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='/assets/logo2.png')}}">
+    <link rel="icon" type="image/x-icon" href="https://myspice.dev/static/assets/logo2.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='/css/manage_comments.css')}}">
+    <link rel="stylesheet" type="text/css" href="https://myspice.dev/static/css/manage_comments.css">
 </head>
 <body class="flex just_around">
     <!-- container -->
@@ -139,7 +139,7 @@
                     <div class="flex flex_down font_medium" id="comments_display_div">
                         {% if comments %}
                             {% for comment in comments %}
-                        <div class="individual_comment_div" id="{{comment.id}}" onmouseover="display({{comment.id}})" onmouseleave="hide({{comment.id}})">
+                        <div class="individual_comment_div" id="{{comment['comments.id']}}" onmouseover="display({{comment['comments.id']}})" onmouseleave="hide({{comment['comments.id']}})">
                             <div class="flex just_between" id="comment_header_div">
                                 <div class="flex" id="comment_header_div_left_side">
                                     {% if comment.name %}
@@ -152,8 +152,8 @@
                                         <a href="/profile/{{comment.id}}"><h4>{{comment.first_name}} {{comment.last_name}}</h4></a>
                                     </div>
                                 </div>
-                                <form action="/manage_comments/{{session.id}}/{{comment.id}}" id="delete_button_form" method='post' onSubmit="return confirm('Are you sure you want to delete? This cannot be undone.');">
-                                    <button class="delete_button" id="delete_button_{{comment.id}}">
+                                <form action="/manage_comments/{{session.id}}/{{comment['comments.id']}}" id="delete_button_form" method='post' onSubmit="return confirm('Are you sure you want to delete? This cannot be undone.');">
+                                    <button class="delete_button" id="delete_button_{{comment['comments.id']}}">
                                         <img src="{{url_for('static', filename='/assets/delete.png')}}" alt="">
                                     </button>
                                 </form>
@@ -173,6 +173,6 @@
             <p>No Copyright © 2022 Danny Cho. All rights reserved</p>
         </div>
     </div>
-    <script src="../static/scripts/manage_comments.js"></script>
+    <script src="https://myspice.dev/static/scripts/manage_comments.js"></script>
 </body>
 </html>

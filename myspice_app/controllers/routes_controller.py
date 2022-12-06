@@ -97,7 +97,6 @@ def dashboard():
         return render_template('dashboard.html', current_user = current_user, current_profile = current_profile, current_picture = current_picture)
     return redirect('/')
 
-
 @app.route('/manage_comments/<int:user_id>')
 def manage_comments(user_id): 
     if User.validate_session(session):
@@ -133,7 +132,7 @@ def profile(user_id):
         current_picture = Picture.get_user_with_picture_by_id(data)
         five_posts = Post.get_five_posts(data)
         all_posts = Post.get_all_posts(data)
-        displayed_comments = Comment.get_displayed_comments(data)
+        displayed_comments = Comment.get_all_comments(data)
         random_friends = Friendship.random_three_friends(data)
         all_friends = Friendship.get_all_friends(data)
         are_we_friends = Friendship.get_friendship_status(data)
@@ -409,14 +408,6 @@ def send_friend_request_post(user_id):
     Friendship.send_request(data)
     return redirect(f"/profile/{user_id}")
 
-
-
-
-
-
-
-
-
 @app.route('/profile/friends')
 def friends(): 
     if User.validate_session(session):
@@ -438,16 +429,6 @@ def my_friends_search():
         current_user = User.get_user_by_id(data)
         friends = Friendship.find_friend_name_containing(data)
         return render_template('search_friends_result.html', current_user = current_user, friends = friends)
-
-
-
-
-
-
-
-
-
-
 
 @app.route('/profile/<int:user_id>/friends')
 def friends_of_friends(user_id): 
