@@ -409,8 +409,16 @@ def send_friend_request_post(user_id):
     Friendship.send_request(data)
     return redirect(f"/profile/{user_id}")
 
-@app.route('/profile/<int:user_id>/friends')
-def friends(user_id): 
+
+
+
+
+
+
+
+
+@app.route('/profile/friends')
+def friends(): 
     if User.validate_session(session):
         current_user = User.get_user_by_id({'user_id': session['id']})
         current_profile = Profile.get_profile_by_id({'user_id': session['id']})
@@ -420,14 +428,49 @@ def friends(user_id):
         return render_template('friends.html', current_user = current_user, pending_requests = pending_requests, current_profile = current_profile, current_picture = current_picture, friends = friends)
     return redirect('/')
 
-@app.route('/profile/<int:user_id>/friends', methods=['POST'])
-def search_friends_post(user_id): 
+@app.route('/profile/friends/search', methods=['POST'])
+def my_friends_search(): 
+    if User.validate_session(session):
+        data = {
+            'keyword': request.form['search_keyword'], 
+            'user_id': session['id']
+        }
+        current_user = User.get_user_by_id(data)
+        friends = Friendship.find_friend_name_containing(data)
+        return render_template('search_friends_result.html', current_user = current_user, friends = friends)
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/profile/<int:user_id>/friends')
+def friends_of_friends(user_id): 
+    if User.validate_session(session):
+        data = {
+            'user_id': user_id
+        }
+        current_user = User.get_user_by_id(data)
+        friends = Friendship.get_all_friends(data)
+        return render_template('friends_friends.html', current_user = current_user, friends = friends)
+    return redirect('/')
+
+@app.route('/profile/<int:user_id>/friends/search', methods=['POST'])
+def friends_of_friends_search(user_id): 
     data = {
         'keyword': request.form['search_keyword'], 
         'user_id': user_id
     }
+    current_user = User.get_user_by_id(data)
     friends = Friendship.find_friend_name_containing(data)
-    return render_template('search_friends_result.html', friends = friends, data = data)
+    return render_template('search_friends_friends_result.html', current_user = current_user, friends = friends)
+
+
 
 @app.route('/profile/<int:user_id>/friends/accept', methods=['POST'])
 def accept_request_post(user_id): 
