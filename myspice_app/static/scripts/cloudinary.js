@@ -1,14 +1,14 @@
-var CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/danheecho/upload';
-var CLOUDINARY_UPLOAD_PRESET = 'yxzjmvur'
+let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/danheecho/upload';
+let CLOUDINARY_UPLOAD_PRESET = 'yxzjmvur';
 
-var hiddenInput = document.getElementById('hiddenInput');
-var fileUpload = document.getElementById('file-upload');
+let hiddenInput = document.getElementById('hiddenInput');
+let fileUpload = document.getElementById('file-upload');
 
 fileUpload.addEventListener('change', function(e) {
-    var file = e.target.files[0];
-    var formData = new FormData();
+    let file = e.target.files[0];
+    let formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
 
     axios({
         url: CLOUDINARY_URL, 
@@ -18,10 +18,10 @@ fileUpload.addEventListener('change', function(e) {
         }, 
         data: formData
     }).then(function(res) {
-        let imageUrl = res.data.secure_url
-        console.log(imageUrl)
+        let imageUrl = res.data.secure_url;
+        console.log(imageUrl);
         hiddenInput.setAttribute('value', imageUrl);
     }).catch(function(err) {
-        console.log(err)
+        console.log(err);
     })
 })
